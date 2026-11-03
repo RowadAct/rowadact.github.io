@@ -10,24 +10,65 @@
 <meta property="og:image" content="https://rowadact.github.io/tasjil/og.jpg">
 <meta property="og:type" content="website">
 <meta name="theme-color" content="#094496">
-<link rel="icon" href="/assets/logo.png">
+<link rel="icon" href="/murafaqa/icon-192.png">
+<link rel="manifest" href="/murafaqa/manifest.webmanifest">
+<link rel="apple-touch-icon" href="/murafaqa/apple-touch-icon.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="رواد المرافقة">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <style>
   html,body{margin:0;height:100%;background:#F3F8FE;overflow:hidden}
   iframe{position:fixed;inset:0;width:100%;height:100%;border:0}
-  .ld{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .4s}
-  .ld img{width:130px;animation:p 1.4s ease-in-out infinite}
-  @keyframes p{50%{transform:scale(1.06);opacity:.8}}
+  .ld{position:fixed;inset:0;z-index:3;display:flex;flex-direction:column;align-items:center;justify-content:center;background:radial-gradient(120% 80% at 50% 30%,#FFFFFF 0,#F3F8FE 60%,#EAF2FC 100%);overflow:hidden;transition:opacity .45s;font-family:Tahoma,sans-serif}
+  .ld .sh{position:absolute;border-radius:50%;opacity:.16;animation:bsf 9s ease-in-out infinite}
+  .ld .s1{width:240px;height:240px;background:#127AD8;top:-60px;right:-70px}.ld .s2{width:170px;height:170px;background:#EB6608;bottom:8%;left:-50px;animation-duration:11s;animation-delay:-3s}
+  .ld .s3{width:90px;height:90px;background:#F5AC00;top:22%;left:12%;border-radius:28px;animation-duration:7s;animation-delay:-1s}.ld .s4{width:120px;height:120px;background:#00873B;bottom:-40px;right:18%;animation-duration:10s;animation-delay:-5s}
+  .ld .s5{width:56px;height:56px;background:#094496;top:16%;right:22%;border-radius:18px;animation-duration:8s;animation-delay:-2s}
+  @keyframes bsf{0%,100%{transform:translate(0,0) rotate(0)}33%{transform:translate(18px,-22px) rotate(25deg)}66%{transform:translate(-14px,16px) rotate(-18deg)}}
+  .ld .lg{width:min(46vw,190px);position:relative;animation:blg 2.4s ease-in-out infinite;filter:drop-shadow(0 14px 26px rgba(9,68,150,.18))}
+  @keyframes blg{0%,100%{transform:scale(1)}50%{transform:scale(1.05)}}
+  .ld .bt{margin-top:18px;font-weight:900;font-size:20px;color:#0B3C8C;position:relative}
+  .ld .bp{margin-top:14px;width:min(60vw,240px);height:7px;border-radius:7px;background:#DCE7F6;overflow:hidden;position:relative}
+  .ld .bp i{display:block;height:100%;width:0;border-radius:7px;background:linear-gradient(90deg,#F5AC00,#EB6608,#127AD8,#094496);transition:width .25s}
+  .ld .bn{margin-top:8px;font-weight:800;font-size:14px;color:#5B6B85;direction:ltr;position:relative}
+  .ins{position:fixed;left:12px;right:12px;bottom:14px;z-index:5;display:none;align-items:center;gap:12px;background:#fff;border-radius:18px;padding:12px 14px;box-shadow:0 10px 30px rgba(9,68,150,.25);font-family:Tahoma,sans-serif;color:#0F2547;max-width:460px;margin:0 auto}
+  .ins.on{display:flex;animation:u .4s ease}
+  @keyframes u{from{transform:translateY(30px);opacity:0}}
+  .ins img{width:44px;height:44px;border-radius:12px;box-shadow:0 0 0 1px #E2EAF4}
+  .ins div{flex:1;font-size:13px;line-height:1.6}.ins b{display:block;font-size:14.5px}
+  .ins button{font:inherit;font-weight:bold;border:0;border-radius:12px;padding:9px 14px;background:#094496;color:#fff;cursor:pointer}
+  .ins .x{background:transparent;color:#8A9AB3;padding:6px;font-size:18px}
 </style>
 </head>
 <body>
-<div class="ld" id="ld"><img src="/assets/logo.png" alt="الرواد"></div>
+<div class="ld" id="ld"><i class="sh s1"></i><i class="sh s2"></i><i class="sh s3"></i><i class="sh s4"></i><i class="sh s5"></i><img class="lg" src="https://rowadact.github.io/assets/logo.png" alt="الرواد"><div class="bt">منصة المرافقة</div><div class="bp"><i id="ldb"></i></div><div class="bn" id="ldn">0%</div></div>
+<div class="ins" id="ins"><img src="/murafaqa/icon-192.png" alt=""><div><b>ثبّت تطبيق «رواد المرافقة»</b><span id="insT">افتح المنصة من أيقونة على هاتفك مباشرة.</span></div><button type="button" id="insB">تثبيت</button><button type="button" class="x" id="insX" aria-label="إغلاق">✕</button></div>
 <iframe id="f" title="منصة المرافقة" allow="clipboard-write; web-share"></iframe>
 <script>
 (function(){
   var APP='https://script.google.com/macros/s/AKfycbzYNA0yZgc7xvPIDeYIIoBvXcrfAg_papc76Zwy4FtowVoSX49OArSzdwe1iy77D5O7FQ/exec';
   var f=document.getElementById('f');
-  f.addEventListener('load',function(){var l=document.getElementById('ld');if(l){l.style.opacity=0;setTimeout(function(){l.remove();},400);}});
+  var lp=0,lb=document.getElementById('ldb'),ln=document.getElementById('ldn');
+  var lt=setInterval(function(){if(lp<55){lp+=(56-lp)*0.08;lb.style.width=lp+'%';ln.textContent=Math.round(lp)+'%';}},140);
+  f.addEventListener('load',function(){clearInterval(lt);lb.style.width='55%';ln.textContent='55%';var l=document.getElementById('ld');if(l){setTimeout(function(){l.style.opacity=0;setTimeout(function(){l.remove();},450);},150);}});
   f.src=APP+location.search+location.hash;
+  if('serviceWorker' in navigator){navigator.serviceWorker.register('/murafaqa/sw.js',{scope:'/murafaqa/'}).catch(function(){});}
+  // دعوة التثبيت: أندرويد بزر، والآيفون بشرح «مشاركة ← إضافة إلى الشاشة الرئيسية». تظهر بعد 20 ثانية، ولا تعود بعد إغلاقها أسبوعًا.
+  var standalone=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone;
+  var ins=document.getElementById('ins'),evt=null,key='rm_ins_x';
+  function snoozed(){try{return Number(localStorage.getItem(key)||0)>Date.now();}catch(e){return false;}}
+  function hide(){ins.classList.remove('on');try{localStorage.setItem(key,String(Date.now()+7*864e5));}catch(e){}}
+  document.getElementById('insX').onclick=hide;
+  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();evt=e;if(!standalone&&!snoozed()){setTimeout(function(){ins.classList.add('on');},20000);}});
+  document.getElementById('insB').onclick=function(){if(evt){evt.prompt();evt.userChoice.then(function(){ins.classList.remove('on');evt=null;});}else{hide();}};
+  var ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
+  // 3 نوفمبر: جسر الجولة داخل المنصة: تسأل هل التثبيت متاح، وتطلبه بزر «تثبيت التطبيق الآن»
+  window.addEventListener('message',function(e){var d=e.data||{};
+    if(d.rm==='env?'){try{e.source.postMessage({rm:'env',can:!!evt,standalone:!!standalone,ios:ios},'*');}catch(x){}}
+    if(d.rm==='install'){if(evt){var src=e.source;evt.prompt();evt.userChoice.then(function(c){ins.classList.remove('on');evt=null;try{src.postMessage({rm:'installed',ok:c&&c.outcome==='accepted'},'*');}catch(x){}});}}
+  });
+  if(ios&&!standalone&&!snoozed()){document.getElementById('insT').innerHTML='اضغط زر المشاركة <b style="display:inline">⎋</b> ثم «إضافة إلى الشاشة الرئيسية».';document.getElementById('insB').textContent='فهمت';setTimeout(function(){ins.classList.add('on');},20000);}
 })();
 </script>
 </body>

@@ -1,0 +1,19 @@
+{
+  "name": "رواد المرافقة",
+  "short_name": "رواد المرافقة",
+  "description": "منصة برنامج المرافقة · مؤسسة الرواد للتربية والتعليم",
+  "lang": "ar",
+  "dir": "rtl",
+  "id": "/murafaqa/",
+  "start_url": "/murafaqa/?src=app",
+  "scope": "/murafaqa/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FFFFFF",
+  "theme_color": "#094496",
+  "icons": [
+    { "src": "/murafaqa/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/murafaqa/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/murafaqa/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
