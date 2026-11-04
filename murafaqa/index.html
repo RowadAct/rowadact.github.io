@@ -54,13 +54,13 @@
   f.addEventListener('load',function(){clearInterval(lt);lb.style.width='55%';ln.textContent='55%';var l=document.getElementById('ld');if(l){setTimeout(function(){l.style.opacity=0;setTimeout(function(){l.remove();},450);},150);}});
   f.src=APP+location.search+location.hash;
   if('serviceWorker' in navigator){navigator.serviceWorker.register('/murafaqa/sw.js',{scope:'/murafaqa/'}).catch(function(){});}
-  // دعوة التثبيت: أندرويد بزر، والآيفون بشرح «مشاركة ← إضافة إلى الشاشة الرئيسية». تظهر بعد 20 ثانية، ولا تعود بعد إغلاقها أسبوعًا.
+  // دعوة التثبيت: أندرويد بزر، والآيفون بشرح «مشاركة ← إضافة إلى الشاشة الرئيسية». تظهر بعد 4 ثوانٍ، ولا تعود بعد إغلاقها أسبوعًا.
   var standalone=(window.matchMedia&&matchMedia('(display-mode: standalone)').matches)||navigator.standalone;
   var ins=document.getElementById('ins'),evt=null,key='rm_ins_x';
   function snoozed(){try{return Number(localStorage.getItem(key)||0)>Date.now();}catch(e){return false;}}
   function hide(){ins.classList.remove('on');try{localStorage.setItem(key,String(Date.now()+7*864e5));}catch(e){}}
   document.getElementById('insX').onclick=hide;
-  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();evt=e;if(!standalone&&!snoozed()){setTimeout(function(){ins.classList.add('on');},20000);}});
+  window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();evt=e;if(!standalone&&!snoozed()){setTimeout(function(){ins.classList.add('on');},4000);}});
   document.getElementById('insB').onclick=function(){if(evt){evt.prompt();evt.userChoice.then(function(){ins.classList.remove('on');evt=null;});}else{hide();}};
   var ios=/iphone|ipad|ipod/i.test(navigator.userAgent);
   // 3 نوفمبر: جسر الجولة داخل المنصة: تسأل هل التثبيت متاح، وتطلبه بزر «تثبيت التطبيق الآن»
@@ -68,7 +68,7 @@
     if(d.rm==='env?'){try{e.source.postMessage({rm:'env',can:!!evt,standalone:!!standalone,ios:ios},'*');}catch(x){}}
     if(d.rm==='install'){if(evt){var src=e.source;evt.prompt();evt.userChoice.then(function(c){ins.classList.remove('on');evt=null;try{src.postMessage({rm:'installed',ok:c&&c.outcome==='accepted'},'*');}catch(x){}});}}
   });
-  if(ios&&!standalone&&!snoozed()){document.getElementById('insT').innerHTML='اضغط زر المشاركة <b style="display:inline">⎋</b> ثم «إضافة إلى الشاشة الرئيسية».';document.getElementById('insB').textContent='فهمت';setTimeout(function(){ins.classList.add('on');},20000);}
+  if(ios&&!standalone&&!snoozed()){document.getElementById('insT').innerHTML='اضغط زر المشاركة <b style="display:inline">⎋</b> ثم «إضافة إلى الشاشة الرئيسية».';document.getElementById('insB').textContent='فهمت';setTimeout(function(){ins.classList.add('on');},4000);}
 })();
 </script>
 </body>
