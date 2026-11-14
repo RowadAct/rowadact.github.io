@@ -13,7 +13,6 @@
 :root{
   --ink:#0F2547;--ink2:#4A5F7F;--ink3:#8A9AB3;--line:#E3EBF5;--bg2:#F3F8FE;
   --navy:#094496;--blue:#127AD8;--cyan:#119ED9;--sky:#36D4FF;--yellow:#F5AC00;--orange:#EB6608;--green:#00873B;--lime:#79B729;--red:#C93636;--purple:#7A4FB5;
-  --sand:#D9A15B;--sand2:#B9813E;
   --shadow:0 2px 6px rgba(9,68,150,.06),0 24px 60px rgba(9,68,150,.13);
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -38,7 +37,7 @@ html,body{height:100%;overflow:hidden;background:#fff;font-family:G,'Segoe UI',T
 .slide.on{opacity:1;pointer-events:auto}
 .kicker{font-size:30px;font-weight:700;color:var(--orange);display:flex;align-items:center;gap:16px}
 .kicker:before{content:'';width:56px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--yellow),var(--orange))}
-h1.t{font-size:84px;font-weight:900;line-height:1.4;padding-bottom:6px;color:var(--navy);margin-top:10px}
+h1.t{font-size:80px;font-weight:900;line-height:1.4;padding-bottom:6px;color:var(--navy);margin-top:6px}
 h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;background:linear-gradient(90deg,var(--orange),var(--yellow));-webkit-background-clip:text;background-clip:text;color:transparent}
 .lead{font-size:38px;color:var(--ink2);font-weight:500;margin-top:14px;line-height:1.6}.lead b{color:var(--navy);font-weight:900}
 .rv{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
@@ -47,41 +46,65 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
 .pop{opacity:0;transform:scale(.6);transition:opacity .6s,transform .9s cubic-bezier(.34,1.56,.64,1)}
 .slide.in .pop{opacity:1;transform:none}
 .card{background:#fff;border-radius:36px;box-shadow:var(--shadow);border:1px solid var(--line)}
-.chip{border-radius:999px;padding:12px 30px;font-size:28px;font-weight:700;background:var(--bg2);color:var(--navy);border:1px solid var(--line);display:inline-block}
-.chip.o{background:linear-gradient(90deg,var(--orange),var(--yellow));color:#fff;border:0}
 .st{opacity:0;transform:translateY(30px) scale(.97);transition:opacity .6s,transform .7s cubic-bezier(.34,1.4,.64,1)}
 .st.on{opacity:1;transform:none}
-.cue{position:absolute;left:140px;bottom:150px;font-size:24px;font-weight:700;color:var(--ink3);display:flex;align-items:center;gap:10px}
-.cue i{width:12px;height:12px;border-radius:50%;background:var(--orange);animation:pulse 1.4s ease-in-out infinite}
-@keyframes pulse{50%{transform:scale(1.6);opacity:.4}}
-.btnz{display:flex;gap:14px;flex-wrap:wrap}
-.bz{font:inherit;font-size:26px;font-weight:900;border:2px solid var(--line);background:#fff;color:var(--navy);border-radius:20px;padding:14px 26px;cursor:pointer;box-shadow:0 6px 16px rgba(9,68,150,.08);transition:all .25s}
-.bz.on{background:var(--navy);color:#fff;border-color:var(--navy)}
-.bz:active{transform:scale(.96)}
-/* خريطة الخطوات */
-.map{display:flex;gap:10px;align-items:center;margin-top:18px}
-.map i{font-style:normal;width:46px;height:46px;border-radius:50%;background:var(--bg2);border:2px solid var(--line);color:var(--ink3);font-weight:900;font-size:22px;display:flex;align-items:center;justify-content:center;transition:all .5s}
-.map i.done{background:#E9F6EC;border-color:#BFE3C9;color:var(--green)}
-.map i.cur{background:linear-gradient(135deg,var(--orange),var(--yellow));border-color:#fff;color:#fff;transform:scale(1.3);box-shadow:0 10px 24px rgba(235,102,8,.35)}
-.map b{width:28px;height:4px;border-radius:2px;background:var(--line)}
 
-/* ===== المشهد الافتتاحي: الجمل ===== */
-.hook{background:#0B1830;padding:0;align-items:center;justify-content:center;transition:opacity .7s,background 1.5s}
+/* ===== مسار الخطوات ===== */
+.path{display:flex;align-items:flex-start;justify-content:space-between;position:relative;padding:0 10px}
+.path:before{content:'';position:absolute;top:44px;right:110px;left:110px;height:8px;border-radius:4px;background:var(--line)}
+.path .fill{position:absolute;top:44px;right:110px;height:8px;border-radius:4px;background:linear-gradient(270deg,var(--green),var(--lime),var(--yellow),var(--orange));transition:width 1s cubic-bezier(.2,.7,.2,1);width:0}
+.path .nd{position:relative;z-index:1;width:200px;display:flex;flex-direction:column;align-items:center;gap:12px}
+.path .nd i{font-style:normal;width:96px;height:96px;border-radius:50%;background:#fff;border:4px solid var(--line);color:var(--ink3);font-weight:900;font-size:40px;display:flex;align-items:center;justify-content:center;transition:all .6s cubic-bezier(.34,1.56,.64,1)}
+.path .nd b{font-size:30px;font-weight:900;color:var(--ink3);text-align:center;line-height:1.3;min-height:38px;transition:all .5s;white-space:nowrap}
+.path .nd.done i{background:#E9F6EC;border-color:#9ED3AE;color:var(--green)}
+.path .nd.done b{color:var(--green)}
+.path .nd.cur i{background:linear-gradient(135deg,var(--orange),var(--yellow));border-color:#fff;color:#fff;transform:scale(1.18);box-shadow:0 16px 36px rgba(235,102,8,.38)}
+.path .nd.cur b{color:var(--navy);font-size:40px}
+.path .nd.lock b{opacity:0}
+.path.sm .nd i{width:76px;height:76px;font-size:32px}.path.sm:before,.path.sm .fill{top:34px}
+.path.sm .nd b{font-size:26px}.path.sm .nd.cur b{font-size:32px}
+.path.click .nd{cursor:pointer}
+
+/* مسار ثابت للخطوات: لا تتحرك الصفحة بين خطوة وأخرى، يتغيّر الشريط فقط */
+#gpath{position:absolute;top:96px;left:140px;right:140px;z-index:4;opacity:0;transition:opacity .5s;pointer-events:none}
+#gpath.on{opacity:1}
+.slide[data-step] .pathspace{height:150px;flex:none}
+.slide.inst{transition:none!important}
+.slide.inst .rv,.slide.inst .pop{transform:none!important;transition:opacity .35s ease!important;transition-delay:0s!important}
+/* شرائح الأجزاء */
+.part{font-size:34px;font-weight:900;color:#fff;background:linear-gradient(90deg,var(--orange),var(--yellow));border-radius:999px;padding:10px 34px;display:inline-block;margin-bottom:20px}
+.agenda{display:grid;grid-template-columns:repeat(3,1fr);gap:36px;margin-top:50px}
+.ag{padding:44px 36px;text-align:center;position:relative}
+.ag .n{width:110px;height:110px;margin:0 auto;border-radius:34px;background:var(--c);color:#fff;font-size:60px;font-weight:900;display:flex;align-items:center;justify-content:center;box-shadow:0 16px 36px rgba(0,0,0,.15)}
+.ag b{display:block;font-size:50px;font-weight:900;color:var(--navy);margin-top:24px}
+.ag span{display:block;font-size:30px;color:var(--ink2);font-weight:700;margin-top:10px;line-height:1.5}
+/* ===== الترحيب ===== */
+.welcome{align-items:center;justify-content:center;text-align:center;padding-top:40px}
+.wl{position:relative;width:540px;height:540px}
+.wl svg{position:absolute;inset:0;width:100%;height:100%;transform:rotate(-90deg)}
+.wl circle{fill:none;stroke-width:16}.wl .tb{stroke:var(--line)}.wl .fg{stroke:url(#wg);stroke-linecap:round;transition:stroke-dashoffset 1s linear}
+.wl .dot{position:absolute;inset:0}
+.wl.run .dot{animation:spin 60s linear forwards}
+.wl .dot:after{content:'';position:absolute;top:1px;left:50%;width:34px;height:34px;margin-left:-17px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 8px rgba(235,102,8,.18),0 6px 16px rgba(235,102,8,.5)}
+@keyframes spin{to{transform:rotate(360deg)}}
+.wl img{position:absolute;top:50%;left:50%;width:290px;transform:translate(-50%,-52%)}
+.wl.red .fg{stroke:var(--red)}.wl.red .dot:after{background:var(--red);box-shadow:0 0 0 8px rgba(201,54,54,.2),0 6px 16px rgba(201,54,54,.5)}
+.wl.red .n{color:#fff;background:var(--red);animation:beat 1s ease-in-out infinite}
+@keyframes beat{50%{transform:translateX(-50%) scale(1.15)}}
+.wl .n{position:absolute;bottom:-30px;left:50%;transform:translateX(-50%);min-width:110px;padding:4px 18px;border-radius:999px;background:#fff;box-shadow:0 10px 24px rgba(235,102,8,.25);font-size:44px;font-weight:900;color:var(--orange)}
+.welcome h2{font-size:84px;font-weight:900;color:var(--navy);margin-top:56px;line-height:1.35}
+.welcome p{font-size:40px;font-weight:700;color:var(--ink2);margin-top:6px}
+
+/* ===== المشهد الافتتاحي ===== */
+.hook{background:#0B1830;padding:0;align-items:center;justify-content:center}
 .hook .sky{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 120%,#3A2A12 0%,#1A2238 45%,#0B1830 80%)}
 .hook .stars{position:absolute;inset:0;background-image:radial-gradient(#fff 1.5px,transparent 2px),radial-gradient(rgba(255,255,255,.6) 1px,transparent 1.5px);background-size:220px 180px,130px 110px;background-position:0 0,60px 40px;opacity:.5;animation:tw 4s ease-in-out infinite}
 @keyframes tw{50%{opacity:.25}}
 .hook .moon{position:absolute;left:220px;top:90px;width:150px;height:150px;border-radius:50%;box-shadow:-34px 10px 0 0 #FFE7A8;transform:rotate(-20deg)}
 .hook .dune{position:absolute;left:-10%;right:-10%;bottom:-200px;height:520px;border-radius:50%;background:linear-gradient(#C98E45,#8E5E26)}
-.hook .start{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px;z-index:3;color:#fff;transition:opacity .6s}
-.hook .start b{width:180px;height:180px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--yellow));display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 0 rgba(245,172,0,.6);animation:ring 1.8s infinite}
-.hook .start b svg{width:80px;height:80px;margin-right:-10px}
-@keyframes ring{70%{box-shadow:0 0 0 50px rgba(245,172,0,0)}100%{box-shadow:0 0 0 0 rgba(245,172,0,0)}}
-.hook .start span{font-size:34px;font-weight:700;opacity:.8}
-.hook.go .start{opacity:0;pointer-events:none}
 .camel{position:absolute;left:330px;bottom:100px;width:1120px;height:560px;opacity:0;transition:opacity 1.2s}
 .hook.go .camel{opacity:1}
 .camel svg{width:100%;height:100%;overflow:visible}
-.camel .body{transform-origin:900px 420px}
 .camel .lg{transform-box:fill-box;transform-origin:50% 0}
 .camel.pull .body{animation:tug 1.1s ease-in-out infinite}
 .camel.pull .lg1,.camel.pull .lg3{animation:legA 1.1s ease-in-out infinite}
@@ -100,35 +123,39 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
 .hook.ask .mys{transform:scale(1) rotate(-8deg);animation:wob 2.4s ease-in-out 1s infinite}
 @keyframes wob{50%{transform:scale(1.05) rotate(6deg)}}
 
+/* ===== بطاقة المصحف (تصميم حديث) ===== */
+@property --a{syntax:'<angle>';inherits:false;initial-value:0deg}
+.mus{position:relative;border-radius:44px;padding:6px;background:conic-gradient(from var(--a),#36D4FF,#127AD8,#00873B,#79B729,#F5AC00,#EB6608,#36D4FF);animation:rot 8s linear infinite;box-shadow:0 30px 80px rgba(9,68,150,.18)}
+@keyframes rot{to{--a:360deg}}
+.mus .in{position:relative;border-radius:40px;background:radial-gradient(ellipse at 50% 0%,#F4F9FF,#fff 60%);overflow:hidden;padding:44px 46px 34px}
+.mus .in:before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(18,122,216,.09) 2px,transparent 2.4px);background-size:28px 28px;mask-image:linear-gradient(transparent,#000 40%,transparent);-webkit-mask-image:linear-gradient(transparent,#000 40%,transparent)}
+.mus .tag{position:absolute;top:-24px;right:60px;z-index:6;background:linear-gradient(90deg,var(--navy),var(--blue));color:#fff;font-size:26px;font-weight:900;border-radius:999px;padding:10px 28px;box-shadow:0 10px 24px rgba(9,68,150,.3)}
+.pg{position:relative}
+.pg img{display:block;width:100%;height:auto;position:relative;z-index:2}
+.pg .hl,.pg .dim,.pg .cv{position:absolute;transition:opacity .45s}
+.pg .hl{z-index:1;border-radius:18px;background:linear-gradient(180deg,rgba(245,172,0,.30),rgba(245,172,0,.12));box-shadow:0 0 0 3px rgba(245,172,0,.5);opacity:0}
+.pg .dim{z-index:3;background:rgba(255,255,255,.84);opacity:0}
+.pg .cv{z-index:3;border-radius:12px;background:linear-gradient(180deg,#F3F8FE,#E2EBF7);box-shadow:inset 0 0 0 2px #fff,0 4px 10px rgba(9,68,150,.08);opacity:0}
+.pg .hide11{position:absolute;z-index:3;background:#fff}
+.pg .shut{position:absolute;inset:-30px;z-index:5;border-radius:30px;background:linear-gradient(135deg,#0B3A82,#094496 40%,#0B5CB8);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#fff;transform-origin:right center;transform:perspective(2200px) rotateY(100deg);opacity:0;transition:transform 1s cubic-bezier(.4,.2,.2,1),opacity .6s}
+.pg .shut.on{transform:none;opacity:1}
+.pg .shut:before{content:'';position:absolute;inset:22px;border-radius:20px;border:3px solid rgba(245,172,0,.7)}
+.pg .shut svg{width:120px;height:120px}
+.pg .shut b{font-size:56px;font-weight:900}
+.pg .shut span{font-size:30px;font-weight:700;opacity:.9}
+
 /* الغلاف */
-.cover{flex-direction:row;align-items:center;gap:70px;padding:0 140px}
-.cover .txt{flex:1}.cover .lg{height:120px}
-.cover h1{font-size:132px;font-weight:900;line-height:1.3;color:var(--navy);margin-top:14px}
-.cover h1 small{display:block;font-size:50px;color:var(--ink2);font-weight:700}
-.cover .sub{font-size:42px;font-weight:700;color:var(--ink2);margin-top:20px;line-height:1.55}.cover .sub b{color:var(--green)}
-/* اللوح */
-.lawh{position:relative;width:640px;flex:none}
-.lawh .board{position:relative;border-radius:60px 60px 46px 46px;background:linear-gradient(160deg,#E8C48A,#D3A35E 45%,#B9813E);padding:70px 56px 60px;box-shadow:0 30px 70px rgba(122,74,20,.35),inset 0 0 0 10px rgba(255,255,255,.18),inset 0 0 60px rgba(90,50,10,.25)}
-.lawh .board:before{content:'';position:absolute;top:-70px;left:50%;transform:translateX(-50%);width:150px;height:110px;border-radius:70px 70px 10px 10px;background:linear-gradient(#D9B171,#C08A45);z-index:-1;box-shadow:0 10px 30px rgba(122,74,20,.3)}
-.lawh .board:after{content:'';position:absolute;top:-40px;left:50%;transform:translateX(-50%);width:44px;height:44px;border-radius:50%;background:#fff;box-shadow:inset 0 4px 10px rgba(0,0,0,.25)}
-.lawh .ln{font-family:Q,'Amiri Quran',serif;color:#2B1A08;text-align:center;font-size:44px;line-height:1.75;position:relative;transition:all .5s}
-.cover .lawh .ln{font-size:48px;line-height:1.95}
-.app .lawh .board{padding:46px 50px 40px}
+.cover{flex-direction:row;align-items:center;gap:80px;padding:0 140px}
+.cover .txt{flex:1}.cover .lg{height:140px}
+.cover h1{font-size:140px;font-weight:900;line-height:1.3;color:var(--navy);margin-top:14px}
+.cover h1 small{display:block;font-size:52px;color:var(--ink2);font-weight:700}
+.cover .mus{width:880px;flex:none}
+.cover .mus .in{padding:70px 50px 60px}
 /* القسم */
 .sec{align-items:center;justify-content:center;text-align:center}
-.sec .no{font-size:280px;font-weight:900;line-height:1;background:linear-gradient(135deg,var(--navy),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:20px}
+.sec .no{font-size:240px;font-weight:900;line-height:1;background:linear-gradient(135deg,var(--navy),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:20px}
 .sec h2{font-size:100px;font-weight:900;color:var(--navy);margin-top:10px}.sec p{font-size:42px;color:var(--ink2);font-weight:700;margin-top:16px}
-/* دورة اللوح */
-.cycle{display:flex;align-items:center;justify-content:center;gap:40px;margin-top:60px}
-.cy{width:380px;padding:46px 30px;text-align:center;position:relative}
-.cy .ic{width:150px;height:150px;margin:0 auto;border-radius:50%;background:var(--c);display:flex;align-items:center;justify-content:center;box-shadow:0 18px 40px rgba(0,0,0,.15)}
-.cy .ic svg{width:80px;height:80px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.cy b{display:block;font-size:52px;font-weight:900;color:var(--navy);margin-top:22px}
-.cy span{display:block;font-size:28px;color:var(--ink2);font-weight:700;margin-top:8px;line-height:1.5}
-.cy.hl{animation:hl 3.6s ease-in-out infinite;animation-delay:var(--dl)}
-@keyframes hl{0%,100%{transform:none}15%{transform:translateY(-24px) scale(1.04);box-shadow:0 40px 80px rgba(9,68,150,.22)}30%{transform:none}}
-.arrow{font-size:80px;color:var(--ink3);font-weight:900}
-.you{margin-top:60px;text-align:center;font-size:50px;font-weight:900;color:var(--navy)}
+.sec .path{width:1560px;margin-top:70px}
 /* السلّم */
 .stairs{display:grid;grid-template-columns:1fr 760px;gap:60px;align-items:center;flex:1}
 .hd{padding:36px 44px;font-size:42px;line-height:1.7;font-weight:900;color:var(--navy);margin-top:22px}
@@ -139,81 +166,103 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
 .stair .kid svg{width:70px;height:70px}
 .stair .lbl{position:absolute;font-size:28px;font-weight:900;color:#fff;bottom:20px;width:120px;text-align:center}
 /* النية */
-.niy{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:40px}
-.gc{height:250px;perspective:1600px;cursor:pointer}
+.niy{display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-top:20px}
+.gc{height:215px;perspective:1600px;cursor:pointer}
 .gc .in2{position:relative;width:100%;height:100%;transition:transform .8s cubic-bezier(.34,1.3,.64,1);transform-style:preserve-3d}
 .gc.flip .in2{transform:rotateY(180deg)}
 .gc .fc,.gc .bk{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden;border-radius:32px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px 30px}
 .gc .fc{background:#fff;border:1px solid var(--line);box-shadow:var(--shadow);font-size:38px;font-weight:900;color:var(--navy);line-height:1.45}
 .gc .fc small{font-size:22px;color:var(--ink3);font-weight:700;margin-top:10px}
 .gc .bk{transform:rotateY(180deg);background:var(--c);color:#fff}
-.gc .bk b{font-size:70px;font-weight:900;line-height:1}.gc .bk span{font-size:27px;font-weight:700;margin-top:12px;line-height:1.45}
+.gc .bk b{font-size:66px;font-weight:900;line-height:1}.gc .bk span{font-size:27px;font-weight:700;margin-top:12px;line-height:1.45}
 /* تحدي الذاكرة */
-.mem{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:40px}
-.mem .box{min-width:1300px;min-height:260px;padding:40px 60px;display:flex;align-items:center;justify-content:center;gap:34px;flex-wrap:wrap;font-size:96px;font-weight:900;color:var(--navy);position:relative}
+.mem{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:30px}
+.mem .box{min-width:1300px;min-height:230px;padding:40px 60px;display:flex;align-items:center;justify-content:center;gap:34px;flex-wrap:wrap;font-size:96px;font-weight:900;color:var(--navy);position:relative}
 .mem .box .hide{position:absolute;inset:0;border-radius:36px;background:repeating-linear-gradient(45deg,#E3EBF5 0 24px,#F3F8FE 24px 48px);display:flex;align-items:center;justify-content:center;font-size:60px;color:var(--ink2);opacity:0;transition:opacity .5s}
 .mem .box.cov .hide{opacity:1}
-.mem .tm{font-size:44px;font-weight:900;color:var(--orange);height:60px}
+.mem .tm{font-size:44px;font-weight:900;color:var(--orange);height:56px}
 .mem .res{font-size:52px;font-weight:900;color:var(--green);text-align:center;line-height:1.5}
 /* السلسلة */
-.chain{display:flex;flex-direction:column;gap:18px;margin-top:34px;align-items:flex-start}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:60px;flex:1;align-items:start;margin-top:14px}
+.chain{display:flex;flex-direction:column;gap:14px;align-items:flex-start}
 .chain .r{display:flex;gap:16px;align-items:center;font-size:36px;font-weight:900}
-.chain .a{padding:18px 30px;border-radius:24px;color:#fff;background:var(--c);box-shadow:0 10px 24px rgba(0,0,0,.12)}
-.chain .x{font-size:34px;color:var(--ink2);font-weight:900;background:var(--bg2);border-radius:18px;padding:14px 22px;border:1px solid var(--line)}
+.chain .a{padding:14px 28px;border-radius:24px;color:#fff;background:var(--c);box-shadow:0 10px 24px rgba(0,0,0,.12)}
+.chain .x{font-size:34px;color:var(--ink2);font-weight:900;background:var(--bg2);border-radius:18px;padding:12px 22px;border:1px solid var(--line)}
 .chain .lk{font-size:40px;color:var(--ink3)}
-.split{display:grid;grid-template-columns:1fr 1fr;gap:60px;flex:1;align-items:start}
-.link{margin-top:34px;padding:34px;text-align:center}
+.link{padding:34px;text-align:center}
 .link .w{display:inline-block;font-family:Q,'Amiri Quran',serif;font-size:58px;padding:6px 26px;border-radius:20px;background:var(--bg2)}
 .link .w.a{background:#FDE6D6}.link .w.b{background:#E9F6EC}
 .link svg{width:110px;height:60px;vertical-align:middle;margin:0 10px}
 .link p{font-size:30px;font-weight:700;color:var(--ink2);margin-top:20px;line-height:1.6}
 /* التجويد */
-.doors{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:40px}
-.door{padding:40px 30px;text-align:center}
-.door .ic{width:140px;height:140px;margin:0 auto;border-radius:50%;background:var(--c);display:flex;align-items:center;justify-content:center}
-.door .ic svg{width:76px;height:76px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
-.door b{display:block;font-size:44px;font-weight:900;color:var(--navy);margin-top:18px}
+.taj{display:grid;grid-template-columns:1fr 1fr;gap:50px;flex:1;align-items:start;margin-top:6px}
+.ayah{padding:34px;text-align:center;border-radius:40px;background:linear-gradient(135deg,#094496,#127AD8);color:#fff;box-shadow:0 30px 70px rgba(9,68,150,.3);position:relative;overflow:hidden}
+.ayah:after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 20% 0%,rgba(255,255,255,.25),transparent 50%)}
+.ayah .q{font-size:92px;line-height:1.6;display:block}
+.ayah small{font-size:26px;opacity:.85;font-weight:700}
+.sanad{display:flex;flex-direction:column;align-items:center}
+.sanad .sn{opacity:0;transform:scale(.7);transition:all .6s cubic-bezier(.34,1.56,.64,1)}
+.sanad .sn.on{opacity:1;transform:none}
+.sanad .lk{width:90px;height:42px;opacity:0;transition:opacity .3s}
+.sanad .lk.on{opacity:1}
+.sanad .lk svg{width:90px;height:42px;overflow:visible}
+.sanad .lk path{stroke-dasharray:60;stroke-dashoffset:60;transition:stroke-dashoffset .5s ease}
+.sanad .lk.on path{stroke-dashoffset:0}
+.sanad .lk.dash{height:52px}.sanad .lk.dash svg{height:52px}
+.sanad .lk.dash path{stroke-dasharray:6 9;stroke-dashoffset:0}
+.sanad .gen{font-size:22px;font-weight:900;color:var(--ink3);margin:2px 0 6px;opacity:0;transition:opacity .5s}.sanad .gen.on{opacity:1}
+.sanad .sn.god{background:linear-gradient(135deg,#0B3A82,#094496);color:#FFE7A8;border:0;font-size:36px}
+.sanad .sn.god i{background:linear-gradient(135deg,var(--yellow),var(--orange))}
+.sanad .sn{display:flex;align-items:center;gap:16px;min-width:520px;justify-content:center;font-size:29px;font-weight:900;color:var(--navy);padding:3px 24px;border-radius:24px;background:#fff;border:1px solid var(--line);box-shadow:0 8px 20px rgba(9,68,150,.06)}
+.sanad .sn i{font-style:normal;width:46px;height:46px;border-radius:50%;background:var(--c);color:#fff;display:flex;align-items:center;justify-content:center;font-size:26px;flex:none}
+.sanad .sn.me{background:linear-gradient(90deg,var(--orange),var(--yellow));color:#fff;border:0}
+.warn{margin-top:24px;padding:26px 34px;font-size:36px;font-weight:900;color:var(--red);line-height:1.55;border-right:12px solid var(--red)!important}
+.warn small{display:block;font-size:28px;color:var(--ink2);font-weight:700}
+.doors{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:26px}
+.door{padding:32px 30px;text-align:center}
+.door .ic{width:126px;height:126px;margin:0 auto;border-radius:50%;background:var(--c);display:flex;align-items:center;justify-content:center}
+.door .ic svg{width:68px;height:68px;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.door b{display:block;font-size:42px;font-weight:900;color:var(--navy);margin-top:16px}
 .door span{display:block;font-size:28px;color:var(--ink2);font-weight:700;margin-top:6px}
-.eq{margin-top:34px;display:flex;align-items:center;justify-content:center;gap:30px}
+.eq{margin-top:26px;display:flex;align-items:center;justify-content:center;gap:30px}
 .wave{display:flex;gap:10px;align-items:center;height:120px}
 .wave i{width:16px;border-radius:8px;background:linear-gradient(var(--orange),var(--yellow));height:30px;animation:wv 1.1s ease-in-out infinite}
 @keyframes wv{50%{height:110px}}
-.tip{padding:30px 40px;font-size:36px;font-weight:900;color:var(--navy);line-height:1.6;flex:1}
+.tip{padding:28px 40px;font-size:36px;font-weight:900;color:var(--navy);line-height:1.6;flex:1}
 .tip small{display:block;font-size:26px;color:var(--ink2);font-weight:700}
 /* العدّاد */
 .ctr{flex:1;display:grid;grid-template-columns:1fr 820px;gap:60px;align-items:center}
 .dots10{display:grid;grid-template-columns:repeat(5,1fr);gap:28px}
 .dots10 i{width:130px;height:130px;border-radius:50%;border:6px dashed var(--line);display:flex;align-items:center;justify-content:center;font-style:normal;font-size:56px;font-weight:900;color:var(--ink3);transition:all .5s cubic-bezier(.34,1.56,.64,1)}
 .dots10 i.on{border:0;background:linear-gradient(135deg,var(--green),var(--lime));color:#fff;transform:scale(1.08);box-shadow:0 14px 30px rgba(0,135,59,.3)}
-.ctrl{display:flex;gap:16px;margin-top:34px;justify-content:center}
-.big10{font-size:220px;font-weight:900;line-height:1;background:linear-gradient(135deg,var(--green),var(--lime));-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:20px}
-.rule{display:flex;flex-direction:column;gap:16px;margin-top:20px}
+.big10{font-size:180px;font-weight:900;line-height:1;background:linear-gradient(135deg,var(--green),var(--lime));-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:16px}
+.rule{display:flex;flex-direction:column;gap:14px;margin-top:16px}
 .rule div{font-size:36px;font-weight:900;color:var(--ink);display:flex;gap:16px;align-items:center}
 .rule svg{width:46px;height:46px;flex:none}
 .ready{margin-top:24px;font-size:40px;font-weight:900;color:var(--green);opacity:0;transform:scale(.8);transition:all .6s cubic-bezier(.34,1.56,.64,1)}
 .ready.on{opacity:1;transform:none}
 /* الاختبار */
-.tests{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:24px}
-.tst{padding:28px 30px;text-align:center}
-.tst h3{font-size:44px;font-weight:900;color:var(--navy);margin-bottom:20px}
-.tst p{font-size:28px;font-weight:700;color:var(--ink2);line-height:1.6;margin-top:16px}
-.mini{width:400px;height:220px;margin:0 auto;border-radius:30px;background:linear-gradient(160deg,#E8C48A,#C08A45);position:relative;overflow:hidden;padding:30px 26px}
-.mini .ml{height:16px;border-radius:8px;background:rgba(43,26,8,.55);margin:14px 0;position:relative}
-.mini .ml:before{content:'';position:absolute;right:0;top:-6px;width:70px;height:32px;border-radius:10px;background:#2B1A08}
-.mini .paper{position:absolute;top:0;bottom:0;left:0;width:78%;background:repeating-linear-gradient(0deg,#fff 0 36px,#EEF3FA 36px 38px);box-shadow:-10px 0 30px rgba(0,0,0,.2);animation:paper 4s ease-in-out infinite}
-@keyframes paper{0%,20%{transform:translateX(-100%)}45%,80%{transform:none}100%{transform:translateX(-100%)}}
-.flip3{perspective:1200px;width:400px;height:220px;margin:0 auto}
-.flip3 .in2{width:100%;height:100%;position:relative;transform-style:preserve-3d;animation:fl 4.5s ease-in-out infinite}
-@keyframes fl{0%,25%{transform:none}45%,80%{transform:rotateY(180deg)}100%{transform:none}}
-.flip3 .mini{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.flip3 .back{transform:rotateY(180deg);display:flex;align-items:center;justify-content:center;font-size:40px;font-weight:900;color:#5A3A12;background:linear-gradient(160deg,#C9965A,#A9723A)}
-.light{display:flex;align-items:center;gap:26px;margin-top:30px;padding:24px 34px}
+.tests{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:10px}
+.tst{padding:26px 30px;text-align:center}
+.tst h3{font-size:44px;font-weight:900;color:var(--navy);margin-bottom:16px}
+.tst p{font-size:28px;font-weight:700;color:var(--ink2);line-height:1.6;margin-top:14px}
+.mini{width:400px;height:200px;margin:0 auto;border-radius:24px;background:#fff;border:3px solid var(--line);position:relative;overflow:hidden;padding:20px 26px;box-shadow:var(--shadow)}
+.mini .ml{height:14px;border-radius:7px;background:#B9C6D8;margin:13px 0;position:relative}
+.mini .ml:before{content:'';position:absolute;right:0;top:-6px;width:70px;height:26px;border-radius:8px;background:var(--navy)}
+.mini .paper{position:absolute;top:10px;bottom:10px;left:10px;width:74%;border-radius:12px;background:linear-gradient(180deg,#F3F8FE,#E2EBF7);box-shadow:-10px 0 30px rgba(9,68,150,.15);animation:paper 4s ease-in-out infinite}
+@keyframes paper{0%,20%{transform:translateX(-110%)}45%,80%{transform:none}100%{transform:translateX(-110%)}}
+.book{width:400px;height:200px;margin:0 auto;position:relative;perspective:1200px}
+.book .pgx{position:absolute;inset:0}
+.book .cvr{position:absolute;inset:0;border-radius:24px;background:linear-gradient(135deg,#0B3A82,#127AD8);transform-origin:right center;animation:shut 4.5s ease-in-out infinite;display:flex;align-items:center;justify-content:center;color:#fff;font-size:38px;font-weight:900;box-shadow:0 14px 30px rgba(9,68,150,.3)}
+.book .cvr:before{content:'';position:absolute;inset:14px;border-radius:16px;border:3px solid rgba(245,172,0,.7)}
+@keyframes shut{0%,20%{transform:rotateY(110deg)}45%,80%{transform:none}100%{transform:rotateY(110deg)}}
+.light{display:flex;align-items:center;gap:26px;margin-top:22px;padding:20px 34px}
 .light .tl{display:flex;flex-direction:column;gap:8px;background:#1C2B44;border-radius:30px;padding:12px}
-.light .tl i{width:44px;height:44px;border-radius:50%;opacity:.25}
+.light .tl i{width:36px;height:36px;border-radius:50%;opacity:.25}
 .light .tl i:nth-child(1){background:var(--red)}.light .tl i:nth-child(2){background:var(--yellow)}.light .tl i:nth-child(3){background:#22C55E;opacity:1;box-shadow:0 0 24px #22C55E}
-.light b{font-size:36px;font-weight:900;color:var(--navy);line-height:1.5}
+.light b{font-size:34px;font-weight:900;color:var(--navy);line-height:1.5}
 /* المراجعة */
-.rev{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:30px}
+.rev{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:24px}
 .rv2{padding:30px 24px;text-align:center;border-top:12px solid var(--c)!important}
 .rv2 .ic{font-size:30px;font-weight:900;color:#fff;background:var(--c);border-radius:20px;padding:10px 0;margin-bottom:14px}
 .rv2 b{display:block;font-size:34px;font-weight:900;color:var(--navy)}
@@ -221,56 +270,52 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
 .reveal{display:grid;grid-template-columns:1fr 760px;gap:40px;align-items:center;flex:1}
 .reveal .camel{position:relative;left:auto;bottom:auto;width:760px;height:420px;opacity:1;overflow:hidden;border-radius:36px}
 /* التطبيق */
-.app{display:grid;grid-template-columns:720px 1fr;gap:60px;flex:1;align-items:center;margin-top:80px}
-.app .lawh .ln{cursor:default}
-.app .lawh .ln .wd{border-radius:14px;padding:0 6px;transition:background .3s}
-.app.m-mean .lawh .ln .wd.g{cursor:pointer;color:#B54A00;border-bottom:5px dotted #EB6608}
-.app.m-chain .lawh .ln{opacity:.22}
-.app.m-chain .lawh .ln.cur{opacity:1;transform:scale(1.06)}
-.app.m-chain .lawh .ln.prev{opacity:.85}
-.app.m-first .lawh .ln{text-align:right;white-space:nowrap}
-.app.m-first .lawh .ln .rest{color:transparent;background:#FFFDF6;border-radius:8px;display:inline-block;width:330px;overflow:hidden;white-space:nowrap;vertical-align:middle;height:1.3em;box-shadow:0 3px 8px rgba(90,50,10,.15)}
-.app.m-first .lawh .ln .rest .wd{background:none!important}
-.app .lawh .flipper{perspective:2000px}
-.app .lawh .inner{transition:transform 1s cubic-bezier(.4,.2,.2,1);transform-style:preserve-3d;position:relative}
-.app.m-flip .lawh .inner{transform:rotateY(180deg)}
-.app .lawh .face,.app .lawh .rear{backface-visibility:hidden;-webkit-backface-visibility:hidden}
-.app .lawh .rear{position:absolute;inset:0;transform:rotateY(180deg);border-radius:60px 60px 46px 46px;background:linear-gradient(160deg,#C9965A,#A9723A);display:flex;flex-direction:column;align-items:center;justify-content:center;color:#FFF3DD;font-size:52px;font-weight:900;text-align:center;gap:14px;box-shadow:0 30px 70px rgba(122,74,20,.35)}
-.app .lawh .rear small{font-size:30px;font-weight:700;opacity:.9}
-.side{display:flex;flex-direction:column;gap:24px}
-.side .card{padding:30px 34px}
-.side h3{font-size:40px;font-weight:900;color:var(--navy)}
-.side p{font-size:30px;font-weight:700;color:var(--ink2);line-height:1.6;margin-top:10px}
-.gl{position:absolute;z-index:9;background:var(--navy);color:#fff;font-size:30px;font-weight:700;line-height:1.5;border-radius:22px;padding:18px 26px;max-width:560px;box-shadow:0 20px 50px rgba(9,68,150,.35);opacity:0;transform:translateY(10px);transition:all .3s;pointer-events:none}
-.gl.on{opacity:1;transform:none}
-.gl b{color:var(--yellow);font-family:Q,serif;font-size:36px;font-weight:400}
-.c10{display:flex;gap:12px;flex-wrap:wrap;margin-top:16px}
-.c10 i{width:66px;height:66px;border-radius:50%;border:4px dashed var(--line);font-style:normal;font-size:28px;font-weight:900;color:var(--ink3);display:flex;align-items:center;justify-content:center;transition:all .4s cubic-bezier(.34,1.56,.64,1)}
+#s-app{padding-top:70px}
+.app{display:grid;grid-template-columns:1fr 1040px;gap:46px;flex:1;align-items:center;margin-top:10px}
+.app .mus{width:1040px}
+.panel{padding:32px 36px;min-height:480px;display:flex;flex-direction:column}
+.panel h3{font-size:46px;font-weight:900;color:var(--navy);display:flex;align-items:center;gap:16px}
+.panel h3 i{font-style:normal;width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,var(--orange),var(--yellow));color:#fff;font-size:32px;display:flex;align-items:center;justify-content:center;flex:none}
+.panel .bd{flex:1;margin-top:18px;font-size:32px;font-weight:700;color:var(--ink2);line-height:1.6}
+.panel .bd b{color:var(--navy);font-weight:900}
+.panel .big{font-size:40px;font-weight:900;color:var(--green);line-height:1.6}
+.gls{display:flex;flex-direction:column;gap:6px}
+.gls div{display:flex;gap:14px;align-items:baseline;font-size:26px;line-height:1.35}
+.gls .w{font-family:Q,serif;font-size:34px;color:var(--orange);min-width:140px;flex:none}
+.nav2{display:flex;gap:14px;margin-top:18px;align-items:center}
+.nav2 button{font:inherit;font-size:28px;font-weight:900;border:2px solid var(--line);background:#fff;color:var(--navy);border-radius:18px;padding:12px 24px;cursor:pointer}
+.nav2 button.pr{background:var(--navy);color:#fff;border-color:var(--navy)}
+.nav2 button:disabled{opacity:.35;cursor:default}
+.nav2 .cnt{font-size:26px;font-weight:900;color:var(--ink3);margin-inline-start:auto}
+.chs{font-size:46px;font-weight:900;color:var(--navy);line-height:1.5}
+.chs em{font-style:normal;display:inline-block;background:linear-gradient(90deg,var(--orange),var(--yellow));color:#fff;border-radius:16px;padding:4px 18px;margin-inline-start:12px}
+.c10{display:flex;gap:12px;flex-wrap:wrap;margin-top:10px}
+.c10 i{width:72px;height:72px;border-radius:50%;border:4px dashed var(--line);font-style:normal;font-size:30px;font-weight:900;color:var(--ink3);display:flex;align-items:center;justify-content:center;transition:all .4s cubic-bezier(.34,1.56,.64,1);cursor:pointer}
 .c10 i.on{border:0;background:linear-gradient(135deg,var(--green),var(--lime));color:#fff;transform:scale(1.08)}
-.steps2{display:flex;flex-direction:column;gap:12px;margin-top:14px}
-.steps2 div{font-size:30px;font-weight:900;color:var(--ink3);padding:14px 22px;border-radius:18px;background:var(--bg2);transition:all .4s}
-.steps2 div.on{background:linear-gradient(90deg,var(--orange),var(--yellow));color:#fff;transform:translateX(-10px)}
-.steps2 div.done{color:var(--green);background:#E9F6EC}
+.seg{display:flex;gap:12px}
+.seg button{flex:1;font:inherit;font-size:30px;font-weight:900;border:2px solid var(--line);background:#fff;color:var(--navy);border-radius:18px;padding:16px 10px;cursor:pointer}
+.seg button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
 /* الخلاصة */
 .recap{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:40px}
-.rc{padding:30px 24px;text-align:center}
+.rc{padding:30px 24px;text-align:center;cursor:pointer}
+.rc b,.rc span{transition:filter .6s,opacity .6s}
+.rc.hid b,.rc.hid span{filter:blur(14px);opacity:.55}
+.rc.hid .n{background:var(--line)!important;color:var(--ink3)}
+.rc .n{transition:background .5s}
 .rc .n{width:84px;height:84px;margin:0 auto;border-radius:26px;background:var(--c);color:#fff;font-size:44px;font-weight:900;display:flex;align-items:center;justify-content:center}
 .rc b{display:block;font-size:34px;font-weight:900;color:var(--navy);margin-top:14px}
 .rc span{display:block;font-size:24px;color:var(--ink2);font-weight:700;margin-top:6px;line-height:1.5}
 .end{align-items:center;justify-content:center;text-align:center;padding:0 160px}
 .end h2{font-size:100px;font-weight:900;color:var(--navy);line-height:1.35}
-.end .dua{margin-top:34px;padding:36px 60px;font-size:50px;font-weight:900;color:var(--green);line-height:1.6}
-.end p{font-size:40px;color:var(--ink2);font-weight:700;margin-top:24px;line-height:1.6}
+.end .dua{margin-top:40px;padding:36px 60px;font-size:50px;font-weight:900;color:var(--green);line-height:1.6}
 /* ثابت */
 #prog{position:absolute;left:0;bottom:0;height:8px;width:0;background:linear-gradient(90deg,var(--navy),var(--cyan),var(--yellow),var(--orange));transition:width .6s ease;z-index:5}
-#brand{position:absolute;left:60px;top:40px;display:flex;align-items:center;gap:14px;z-index:5;transition:opacity .5s}
-#brand img{height:64px;width:auto;background:#fff;border-radius:14px;padding:4px 8px}
+#brand{position:absolute;left:60px;top:34px;display:flex;align-items:center;gap:14px;z-index:5;transition:opacity .5s}
+#brand img{height:60px;width:auto;background:#fff;border-radius:14px;padding:4px 8px}
 #brand span{font-size:22px;font-weight:700;color:var(--ink3)}
 #snd{position:absolute;left:60px;bottom:30px;z-index:6;width:56px;height:56px;border-radius:50%;border:0;background:rgba(9,68,150,.08);display:flex;align-items:center;justify-content:center;cursor:pointer}
 #snd svg{width:30px;height:30px;stroke:var(--navy);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 #snd.off svg .w{display:none}
-#help{position:fixed;left:16px;top:16px;font:500 13px G,sans-serif;color:#8A9AB3;background:rgba(255,255,255,.9);border-radius:10px;padding:8px 12px;opacity:0;transition:opacity .4s;pointer-events:none;direction:rtl;z-index:99}
-#help.show{opacity:1}
 #conf{position:absolute;inset:0;pointer-events:none;z-index:20}
 </style>
 </head>
@@ -279,12 +324,12 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
   <div class="bg"><div class="dots"></div><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
     <div class="waves"><svg viewBox="0 0 3840 120" preserveAspectRatio="none"><g fill="none" stroke-width="14" stroke-linecap="round" id="wv"></g></svg></div>
   </div>
+  <svg width="0" height="0" style="position:absolute"><defs><linearGradient id="wg" x1="0" x2="1"><stop offset="0" stop-color="#F5AC00"/><stop offset="1" stop-color="#EB6608"/></linearGradient></defs></svg>
 
-  <!-- رسم الجمل (يُنسخ في المشهدين) -->
   <template id="camelTpl">
     <svg viewBox="0 0 1400 700">
       <ellipse cx="760" cy="640" rx="420" ry="26" fill="rgba(0,0,0,.25)"/>
-      <g class="stake"><rect x="96" y="470" width="26" height="170" rx="8" fill="#6B4420"/><rect x="84" y="460" width="50" height="22" rx="8" fill="#5A3818"/></g>
+      <g><rect x="96" y="470" width="26" height="170" rx="8" fill="#6B4420"/><rect x="84" y="460" width="50" height="22" rx="8" fill="#5A3818"/></g>
       <path class="rope" d="" fill="none" stroke="#E9D3A6" stroke-width="9" stroke-linecap="round"/>
       <g class="body">
         <g class="lg lg2"><rect x="610" y="420" width="34" height="210" rx="16" fill="#B9813E"/><rect x="602" y="610" width="50" height="22" rx="10" fill="#7A5226"/></g>
@@ -298,66 +343,72 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
         <path d="M1150 128 Q1170 132 1185 124" fill="none" stroke="#7A5226" stroke-width="5" stroke-linecap="round"/>
         <g class="lg lg1"><rect x="640" y="410" width="38" height="220" rx="17" fill="#D9A15B"/><rect x="632" y="610" width="54" height="22" rx="10" fill="#8E5E26"/></g>
         <g class="lg lg3"><rect x="940" y="410" width="38" height="220" rx="17" fill="#D9A15B"/><rect x="932" y="610" width="54" height="22" rx="10" fill="#8E5E26"/></g>
-        <circle class="knot" cx="659" cy="560" r="12" fill="#E9D3A6"/>
+        <circle cx="659" cy="560" r="12" fill="#E9D3A6"/>
       </g>
     </svg>
   </template>
 
-  <!-- 0 المشهد الافتتاحي -->
+  <!-- 1 الترحيب -->
+  <section class="slide welcome" id="s-welcome">
+    <div class="wl pop">
+      <svg viewBox="0 0 540 540"><circle class="tb" cx="270" cy="270" r="252"/><circle class="fg" id="wfg" cx="270" cy="270" r="252" stroke-dasharray="1584" stroke-dashoffset="0"/></svg>
+      <div class="dot" id="wdot"></div>
+      <img src="../assets/logo.png" alt="الرواد">
+      <div class="n num" id="wn">60</div>
+    </div>
+    <h2 class="rv d2">أهلًا وسهلًا… <span class="grad">بحَمَلة القرآن</span></h2>
+  </section>
+
+  <!-- 2 المشهد الافتتاحي -->
   <section class="slide hook" id="s-hook">
     <div class="sky"></div><div class="stars"></div><div class="moon"></div><div class="dune"></div>
     <div class="camel" id="camel1"></div>
     <div class="qq"><h2>هناك شيء يهرب منك <span>أسرع</span> من هذا الجمل…</h2><p>ما هو؟ خمّنوا!</p></div>
     <div class="mys">؟</div>
-    <div class="start" id="startBtn"><b><svg viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg></b><span>اضغط للبدء</span></div>
   </section>
 
-  <!-- 1 الغلاف -->
+  <!-- 3 الغلاف -->
   <section class="slide cover" id="s-cover">
     <div class="txt">
       <img class="lg pop" src="../assets/logo.png" alt="الرواد">
       <h1 class="rv d2"><small>ورشة تفاعلية</small><span class="grad">كيف أحفظ كتاب الله؟</span></h1>
-      <div class="sub rv d3">من اليوم… <b>أنت تحفظ لوحك بنفسك</b></div>
-      <div class="rv d4" style="margin-top:34px;display:flex;gap:16px;flex-wrap:wrap"><span class="chip o">الرابعة والخامسة ابتدائي</span><span class="chip">ساعة واحدة</span></div>
     </div>
-    <div class="lawh pop"><div class="board">
-      <div class="ln">وَلَقَدْ يَسَّرْنَا الْقُرْآنَ لِلذِّكْرِ</div>
-      <div class="ln">فَهَلْ مِن مُّدَّكِرٍ</div>
-      <div style="text-align:center;font-size:24px;font-weight:700;color:#5A3A12;margin-top:10px">سورة القمر</div>
-    </div></div>
+    <div class="mus pop"><div class="tag">سورة القمر</div><div class="in"><img src="../assets/qamar-17.png" alt="ولقد يسرنا القرآن للذكر فهل من مدكر" style="width:100%;display:block;position:relative;z-index:2"></div></div>
   </section>
 
-  <!-- 2 الدورة -->
-  <section class="slide" id="s-cycle">
-    <div class="kicker rv">شيء جديد هذا العام</div>
-    <h1 class="t rv d1">لوحك… <span>مسؤوليتك أنت</span></h1>
-    <div class="cycle">
-      <div class="card cy rv d2 hl" style="--c:var(--blue);--dl:0s"><div class="ic"><svg viewBox="0 0 24 24"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2zM22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg></div><b>أسرد اللوح</b><span>أقرأه على الأستاذ قراءة صحيحة</span></div>
-      <div class="arrow rv d3">←</div>
-      <div class="card cy rv d4 hl" style="--c:var(--orange);--dl:1.2s"><div class="ic"><svg viewBox="0 0 24 24"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24A2.5 2.5 0 0 1 9.5 2zM14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24A2.5 2.5 0 0 0 14.5 2z"/></svg></div><b>أحفظه وحدي</b><span>بطريقة صحيحة… سنتعلّمها اليوم</span></div>
-      <div class="arrow rv d5">←</div>
-      <div class="card cy rv d6 hl" style="--c:var(--green);--dl:2.4s"><div class="ic"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div><b>أستظهره</b><span>أقرؤه غيبًا على الأستاذ</span></div>
+  <!-- خريطة الورشة -->
+  <section class="slide" id="s-agenda">
+    <div class="kicker rv">رحلتنا اليوم</div>
+    <h1 class="t rv d1">ثلاث محطات… <span>ونخرج حافظين</span></h1>
+    <div class="agenda">
+      <div class="card ag rv d2" style="--c:var(--green)"><div class="n num">1</div><b>لماذا نحفظ؟</b><span>فضل القرآن وأجر صاحبه</span></div>
+      <div class="card ag rv d3" style="--c:var(--blue)"><div class="n num">2</div><b>كيف نحفظ؟</b><span>7 خطوات فعّالة للحفظ</span></div>
+      <div class="card ag rv d4" style="--c:var(--orange)"><div class="n num">3</div><b>نحفظ معًا</b><span>نطبّق الخطوات على آيات من سورة الطور</span></div>
     </div>
-    <div class="you rv d7">السؤال المهم: <span class="grad">كيف أحفظ وحدي… ولا أنسى؟</span></div>
   </section>
 
-  <!-- 3 فضل -->
+  <!-- الجزء 1 -->
+  <section class="slide sec" id="s-part1">
+    <div class="part rv">المحطة 1</div>
+    <h2 class="rv d1" style="font-size:120px">لماذا نحفظ القرآن؟</h2><p class="rv d2">ماذا ينتظر صاحب القرآن؟</p>
+  </section>
+
+  <!-- 4 فضل -->
   <section class="slide" id="s-fadl">
-    <div class="kicker rv">لماذا نحفظ القرآن؟</div>
+    <div class="kicker rv">المحطة 1 · لماذا نحفظ القرآن؟</div>
     <h1 class="t rv d1">اقرأ… <span>وارتقِ!</span></h1>
     <div class="stairs">
       <div>
         <div class="card hd rv d2">«يُقال لصاحب القرآن: اقرأ وارتقِ ورتّل كما كنت ترتّل في الدنيا، فإنّ منزلتك عند آخر آية تقرؤها»<small>رواه أبو داود والترمذي</small></div>
         <div class="lead rv d3">كل آية تحفظها… <b>درجة</b> ترتفع بها في الجنة.</div>
-        <div class="cue" style="position:static;margin-top:24px"><i></i>اضغط ليصعد درجة</div>
       </div>
       <div class="stair pop" id="stair"></div>
     </div>
   </section>
 
-  <!-- 4 فضل 2 -->
+  <!-- 5 فضل 2 -->
   <section class="slide" id="s-fadl2">
-    <div class="kicker rv">وأيضًا</div>
+    <div class="kicker rv">المحطة 1 · لماذا نحفظ القرآن؟</div>
     <h1 class="t rv d1">القرآن <span>صديقك</span> يوم القيامة</h1>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:34px;margin-top:20px">
       <div class="card hd rv d2" style="border-top:12px solid var(--green)">«اقرؤوا القرآن، فإنه يأتي يوم القيامة شفيعًا لأصحابه»<small>رواه مسلم</small></div>
@@ -366,46 +417,42 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
     <div class="card hd rv d4" style="margin-top:30px;text-align:center;border-top:12px solid var(--orange)"><span class="q" style="font-size:56px;font-weight:400">كِتَابٌ أَنزَلْنَاهُ إِلَيْكَ مُبَارَكٌ لِّيَدَّبَّرُوا آيَاتِهِ</span><small>سورة ص · نحفظه لنفهمه ونعمل به… لا لنحفظه فقط</small></div>
   </section>
 
-  <!-- 5 خريطة -->
+  <!-- 6 فاصل الخطوات -->
   <section class="slide sec" id="s-mapsec">
-    <div class="no pop">7</div><h2 class="rv d2">خطوات سرّية للحفظ</h2><p class="rv d3">من يتقنها… يحفظ لوحه بنفسه</p>
-    <div class="map rv d4" style="justify-content:center;margin-top:40px" data-step="0"></div>
+    <div class="part rv">المحطة 2 · كيف نحفظ؟</div>
+    <div class="no pop">7</div><h2 class="rv d2">خطوات فعّالة للحفظ</h2>
+    <div class="path rv d3" data-step="0"></div>
   </section>
 
-  <!-- 6 الخطوة 1 النية -->
-  <section class="slide" id="s-niyya">
-    <div class="kicker rv">الخطوة 1 · أُخلص النية</div>
+  <!-- 7 الخطوة 1 -->
+  <section class="slide" id="s-niyya" data-step="1">
+    <div class="pathspace"></div>
     <h1 class="t rv d1">لماذا <span>أحفظ؟</span></h1>
-    <div class="map rv d1" data-step="1"></div>
     <div class="niy" id="niy">
       <div class="gc rv d2" data-ok="1" style="--c:var(--green)"><div class="in2"><div class="fc">«ليرضى الله عني»<small>صحيحة أم لا؟</small></div><div class="bk"><b>✓</b><span>أجمل نيّة… ومعها يأتي التيسير</span></div></div></div>
       <div class="gc rv d2" data-ok="0" style="--c:var(--red)"><div class="in2"><div class="fc">«ليقول الناس: فلان حافظ»<small>صحيحة أم لا؟</small></div><div class="bk"><b>✗</b><span>الناس لا يعطونك شيئًا… الله هو الذي يعطي</span></div></div></div>
       <div class="gc rv d3" data-ok="0" style="--c:var(--orange)"><div class="in2"><div class="fc">«لأن أبي أجبرني»<small>صحيحة أم لا؟</small></div><div class="bk"><b>↻</b><span>غيّرها إلى: «أُطيع أبي… وأُرضي ربي»</span></div></div></div>
       <div class="gc rv d3" data-ok="1" style="--c:var(--green)"><div class="in2"><div class="fc">«لأعمل به وأتخلّق بأخلاقه»<small>صحيحة أم لا؟</small></div><div class="bk"><b>✓</b><span>هكذا كان الصحابة يحفظون</span></div></div></div>
-      <div class="gc rv d4" data-ok="0" style="--c:var(--red)"><div class="in2"><div class="fc">«لأفوز على زميلي فقط»<small>صحيحة أم لا؟</small></div><div class="bk"><b>✗</b><span>تنافس في الخير جميل… لكن ليس هو الهدف</span></div></div></div>
+      <div class="gc rv d4" data-ok="0" style="--c:var(--red)"><div class="in2"><div class="fc">«لأفوز على زميلي فقط»<small>صحيحة أم لا؟</small></div><div class="bk"><b>✗</b><span>التنافس في الخير جميل… لكنه ليس الهدف</span></div></div></div>
       <div class="gc rv d4" data-ok="1" style="--c:var(--green)"><div class="in2"><div class="fc">«ليكون شفيعًا لي يوم القيامة»<small>صحيحة أم لا؟</small></div><div class="bk"><b>✓</b><span>القرآن يدافع عن صاحبه</span></div></div></div>
     </div>
-    <div class="cue rv d5"><i></i>اسمع إجاباتهم… ثم اضغط لقلب البطاقة</div>
   </section>
 
-  <!-- 7 الخطوة 2 تحدي الذاكرة -->
-  <section class="slide" id="s-mem">
-    <div class="kicker rv">الخطوة 2 · أفهم المعنى</div>
+  <!-- 8 الخطوة 2 -->
+  <section class="slide" id="s-mem" data-step="2">
+    <div class="pathspace"></div>
     <h1 class="t rv d1">تحدّي <span>الذاكرة</span></h1>
-    <div class="map rv d1" data-step="2"></div>
     <div class="mem">
       <div class="card box rv d2" id="memBox"><span id="memTxt">جاهزون؟</span><div class="hide">ماذا تذكّرتم؟</div></div>
       <div class="tm num" id="memTm"></div>
-      <div class="res st" id="memRes">ما نفهمه… نحفظه بسرعة ولا ننساه!<br><span style="color:var(--navy);font-size:40px">فاسأل أستاذك عن معنى الكلمات الصعبة قبل أن تحفظ</span></div>
+      <div class="res st" id="memRes">ما نفهمه… نحفظه بسرعة ولا ننساه!<br><span style="color:var(--navy);font-size:40px">قبل أن أحفظ: أسأل عن معنى الكلمات الصعبة</span></div>
     </div>
-    <div class="cue rv d3"><i></i>ضغطة: حروف (10 ثوانٍ) · ضغطة: جملة (10 ثوانٍ) · ضغطة: النتيجة</div>
   </section>
 
-  <!-- 8 الخطوة 3 السلسلة -->
-  <section class="slide" id="s-chain">
-    <div class="kicker rv">الخطوة 3 · أُقسّم وأَربط</div>
+  <!-- 9 الخطوة 3 -->
+  <section class="slide" id="s-chain" data-step="3">
+    <div class="pathspace"></div>
     <h1 class="t rv d1">طريقة <span>السلسلة</span></h1>
-    <div class="map rv d1" data-step="3"></div>
     <div class="split">
       <div class="chain" id="chain">
         <div class="r st"><span class="a" style="--c:var(--blue)">الآية 1</span><span class="x">× 5</span></div>
@@ -413,37 +460,61 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
         <div class="r st"><span class="a" style="--c:var(--blue)">1</span><span class="lk">+</span><span class="a" style="--c:var(--orange)">2</span><span class="x">معًا × 3</span></div>
         <div class="r st"><span class="a" style="--c:var(--green)">الآية 3</span><span class="x">× 5</span></div>
         <div class="r st"><span class="a" style="--c:var(--blue)">1</span><span class="lk">+</span><span class="a" style="--c:var(--orange)">2</span><span class="lk">+</span><span class="a" style="--c:var(--green)">3</span><span class="x">معًا × 3</span></div>
-        <div class="r st"><span class="x" style="background:none;border:0">… وهكذا حتى آخر اللوح</span></div>
+        <div class="r st"><span class="x" style="background:none;border:0">… وهكذا حتى آخر المقطع</span></div>
       </div>
       <div class="card link rv d3">
-        <div style="font-size:36px;font-weight:900;color:var(--navy);margin-bottom:24px">اربط الآية بالتي بعدها</div>
+        <div style="font-size:36px;font-weight:900;color:var(--navy);margin-bottom:24px">أربط الآية بالتي بعدها</div>
         <span class="w a">مَّسْطُورٍ</span><svg viewBox="0 0 110 60"><path d="M10 30 h90" stroke="#EB6608" stroke-width="8" stroke-dasharray="14 10" stroke-linecap="round"/><circle cx="55" cy="30" r="14" fill="#F5AC00"/></svg><span class="w b">فِي رَقٍّ</span>
-        <p>آخر كلمة في الآية + أول كلمة في التي بعدها<br>كرّرها معًا… فلا تتوقف بين الآيات</p>
+        <p>آخر كلمة في الآية + أول كلمة في التي بعدها<br>أكرّرهما معًا… فلا أتوقف بين الآيات</p>
       </div>
     </div>
   </section>
 
-  <!-- 9 الخطوة 4 التجويد واللحن -->
-  <section class="slide" id="s-tajweed">
-    <div class="kicker rv">الخطوة 4 · أقرأ بصوت… بالتجويد واللحن</div>
-    <h1 class="t rv d1">القرآن <span>بصوت جميل</span> يبقى في القلب</h1>
-    <div class="map rv d1" data-step="4"></div>
+  <!-- 10 الخطوة 4 (أ) التجويد -->
+  <section class="slide" id="s-tajweed" data-step="4">
+    <div class="pathspace"></div>
+    <h1 class="t rv d1">أقرأ القرآن <span>كما أُنزل</span></h1>
+    <div class="taj">
+      <div>
+        <div class="ayah rv d2"><span class="q">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</span><small>سورة المزمّل</small></div>
+        <div class="card warn rv d4">الخطأ الذي أحفظه… يبقى معي!<small>فأحفظ بالتجويد الصحيح من أول مرة</small></div>
+      </div>
+      <div class="sanad" id="sanad">
+        <div class="sn god" style="--c:#F5AC00"><i>★</i>الله عزّ وجلّ</div>
+        <div class="lk"><svg viewBox="0 0 60 46" preserveAspectRatio="xMidYMid meet"><path d="M30 2 V40 M16 26 L30 42 L44 26" fill="none" stroke="#EB6608" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="sn" style="--c:var(--purple)"><i>1</i>جبريل عليه السلام</div>
+        <div class="lk"><svg viewBox="0 0 60 46" preserveAspectRatio="xMidYMid meet"><path d="M30 2 V40 M16 26 L30 42 L44 26" fill="none" stroke="#EB6608" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="sn" style="--c:var(--green)"><i>2</i>النبي ﷺ</div>
+        <div class="lk"><svg viewBox="0 0 60 46" preserveAspectRatio="xMidYMid meet"><path d="M30 2 V40 M16 26 L30 42 L44 26" fill="none" stroke="#EB6608" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="sn" style="--c:var(--blue)"><i>3</i>الصحابة رضي الله عنهم</div>
+        <div class="lk"><svg viewBox="0 0 60 46" preserveAspectRatio="xMidYMid meet"><path d="M30 2 V40 M16 26 L30 42 L44 26" fill="none" stroke="#EB6608" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        <div class="sn" style="--c:var(--cyan)"><i>4</i>العلماء والقرّاء</div>
+        <div class="lk dash"><svg viewBox="0 0 60 70"><path d="M30 2 V64" fill="none" stroke="#8A9AB3" stroke-width="7" stroke-linecap="round"/><path d="M18 52 L30 66 L42 52" fill="none" stroke="#8A9AB3" stroke-width="7" stroke-linecap="round" stroke-linejoin="round" style="stroke-dasharray:none"/></svg></div>
+        <div class="gen">من شخص إلى شخص… جيلًا بعد جيل</div>
+        <div class="sn" style="--c:var(--navy)"><i>5</i>أستاذي</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 11 الخطوة 4 (ب) الصوت واللحن -->
+  <section class="slide" id="s-voice" data-step="4">
+    <div class="pathspace"></div>
+    <h1 class="t rv d1">بصوت مسموع… <span>وبلحن جميل</span></h1>
     <div class="doors">
-      <div class="card door rv d2" style="--c:var(--blue)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><b>العين ترى</b><span>شكل الكلمات في اللوح</span></div>
-      <div class="card door rv d3" style="--c:var(--orange)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></svg></div><b>اللسان ينطق</b><span>بأحكام التلاوة: مدّ، غنّة…</span></div>
-      <div class="card door rv d4" style="--c:var(--green)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></svg></div><b>الأذن تسمع</b><span>صوتك وأنت تقرأ</span></div>
+      <div class="card door rv d2" style="--c:var(--blue)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div><b>العين ترى</b><span>الكلمات في المصحف</span></div>
+      <div class="card door rv d3" style="--c:var(--orange)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3"/></svg></div><b>اللسان ينطق</b><span>بأحكام التلاوة</span></div>
+      <div class="card door rv d4" style="--c:var(--green)"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1v-6h3zM3 19a2 2 0 0 0 2 2h1v-6H3z"/></svg></div><b>الأذن تسمع</b><span>صوتي وأنا أقرأ</span></div>
     </div>
     <div class="eq">
       <div class="wave rv d5"><i style="animation-delay:0s"></i><i style="animation-delay:.1s"></i><i style="animation-delay:.2s"></i><i style="animation-delay:.3s"></i><i style="animation-delay:.4s"></i><i style="animation-delay:.5s"></i><i style="animation-delay:.6s"></i></div>
-      <div class="card tip rv d6">اقرأ بنفس اللحن في كل مرة… فتصبح الآيات مثل نشيد يبقى في ذاكرتك<small>«زيّنوا القرآن بأصواتكم» · رواه أبو داود والنسائي</small></div>
+      <div class="card tip rv d6">أقرأ بنفس اللحن في كل مرة… فتصبح الآيات مثل نشيد يبقى في ذاكرتي<small>«زيّنوا القرآن بأصواتكم» · رواه أبو داود والنسائي</small></div>
     </div>
   </section>
 
-  <!-- 10 الخطوة 5 التكرار -->
-  <section class="slide" id="s-rep">
-    <div class="kicker rv">الخطوة 5 · أُكرّر حتى يرسخ</div>
-    <h1 class="t rv d1">لا أكرّر حتى أحفظ… <span>بل حتى لا أنسى</span></h1>
-    <div class="map rv d1" data-step="5"></div>
+  <!-- 12 الخطوة 5 -->
+  <section class="slide" id="s-rep" data-step="5">
+    <div class="pathspace"></div>
+    <h1 class="t rv d1" style="font-size:64px">لا أكرّر حتى أحفظ… <span>بل حتى يرسخ حفظي ولا أنسى</span></h1>
     <div class="ctr">
       <div>
         <div class="big10 num rv d2">10</div>
@@ -458,28 +529,25 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
       <div class="pop">
         <div class="dots10" id="d10"></div>
         <div class="ready" id="rdy" style="text-align:center">✔ رسخ الحفظ… جاهز للاختبار!</div>
-        <div style="text-align:center;font-size:22px;color:var(--ink3);font-weight:700;margin-top:16px">اضغط لإضافة قراءة سليمة · ← للرجوع</div>
       </div>
     </div>
   </section>
 
-  <!-- 11 الخطوة 6 الاختبار -->
-  <section class="slide" id="s-test">
-    <div class="kicker rv">الخطوة 6 · أختبر نفسي</div>
+  <!-- 13 الخطوة 6 -->
+  <section class="slide" id="s-test" data-step="6">
+    <div class="pathspace"></div>
     <h1 class="t rv d1">هل أنا <span>جاهز للاستظهار؟</span></h1>
-    <div class="map rv d1" data-step="6"></div>
     <div class="tests">
-      <div class="card tst rv d2"><h3>① أول كلمة فقط</h3><div class="mini"><div class="ml"></div><div class="ml"></div><div class="ml"></div><div class="ml"></div><div class="ml"></div><div class="paper"></div></div><p>غطِّ اللوح بورقة لا يظهر منها إلا أول كلمة في كل سطر… وأكمل غيبًا</p></div>
-      <div class="card tst rv d3"><h3>② اقلب اللوح</h3><div class="flip3"><div class="in2"><div class="mini"><div class="ml"></div><div class="ml"></div><div class="ml"></div><div class="ml"></div><div class="ml"></div></div><div class="mini back">اقرأ غيبًا!</div></div></div><p>اقرأه كاملًا دون أن تنظر… ثم اقلبه وتحقّق</p></div>
+      <div class="card tst rv d2"><h3>① أول كلمة فقط</h3><div class="mini"><div class="ml"></div><div class="ml"></div><div class="ml"></div><div class="ml"></div><div class="ml"></div><div class="paper"></div></div><p>أغطّي الصفحة بورقة، ولا يظهر إلا أول كلمة من كل آية… وأكمل غيبًا</p></div>
+      <div class="card tst rv d3"><h3>② أغلق المصحف</h3><div class="book"><div class="mini pgx"><div class="ml"></div><div class="ml"></div><div class="ml"></div><div class="ml"></div><div class="ml"></div></div><div class="cvr">أقرأ غيبًا!</div></div><p>أقرأ المقطع كاملًا والمصحف مغلق… ثم أفتحه وأتحقّق</p></div>
     </div>
-    <div class="card light rv d4"><div class="tl"><i></i><i></i><i></i></div><b>10 قراءات سليمة + أول كلمة + قلب اللوح بلا خطأ<br>= الضوء الأخضر… اذهب إلى أستاذك!</b></div>
+    <div class="card light rv d4"><div class="tl"><i></i><i></i><i></i></div><b>10 قراءات سليمة + أول كلمة + أغلق المصحف… بلا خطأ<br>= الضوء الأخضر: أذهب إلى أستاذي!</b></div>
   </section>
 
-  <!-- 12 الخطوة 7 المراجعة: كشف اللغز -->
-  <section class="slide" id="s-review">
-    <div class="kicker rv">الخطوة 7 · أراجع كل يوم</div>
+  <!-- 14 الخطوة 7 -->
+  <section class="slide" id="s-review" data-step="7">
+    <div class="pathspace"></div>
     <h1 class="t rv d1">تذكرون <span>الجمل الهارب؟</span></h1>
-    <div class="map rv d1" data-step="7"></div>
     <div class="reveal">
       <div>
         <div class="card hd st" id="hadith">«تعاهدوا هذا القرآن، فوالذي نفس محمد بيده لَهو أشدّ تفلّتًا من الإبل في عُقُلها»<small>متفق عليه، واللفظ لمسلم · العُقُل: الحبال التي تُربط بها الإبل</small></div>
@@ -487,94 +555,77 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
       </div>
       <div class="camel" id="camel2"></div>
     </div>
-    <div class="cue rv d3"><i></i>ضغطة: يهرب الجمل · ضغطة: الحديث · ضغطة: الجواب</div>
   </section>
 
-  <!-- 13 خطة المراجعة -->
-  <section class="slide" id="s-plan">
-    <div class="kicker rv">الحبل الذي يربط حفظك</div>
+  <!-- 15 خطة المراجعة -->
+  <section class="slide" id="s-plan" data-step="7">
+    <div class="pathspace"></div>
     <h1 class="t rv d1">مراجعتي <span>كل يوم</span></h1>
     <div class="rev">
-      <div class="card rv2 rv d2" style="--c:var(--orange)"><div class="ic">اليوم</div><b>لوحي الجديد</b><span>أحفظه بالخطوات وأستظهره</span></div>
-      <div class="card rv2 rv d3" style="--c:var(--blue)"><div class="ic">أمس</div><b>لوح الأمس</b><span>أقرؤه غيبًا مرة أو مرتين</span></div>
-      <div class="card rv2 rv d4" style="--c:var(--green)"><div class="ic">قديم</div><b>لوح قديم</b><span>أختار واحدًا مما حفظت قبل</span></div>
-      <div class="card rv2 rv d5" style="--c:var(--purple)"><div class="ic">في البيت</div><b>أستمع</b><span>لمقرئ يقرأ لوحي: قبل النوم، في السيارة، في الصباح</span></div>
+      <div class="card rv2 rv d2" style="--c:var(--orange)"><div class="ic">اليوم</div><b>حفظي الجديد</b><span>أحفظه بالخطوات وأستظهره</span></div>
+      <div class="card rv2 rv d3" style="--c:var(--blue)"><div class="ic">أمس</div><b>حفظ الأمس</b><span>أقرؤه غيبًا مرة أو مرتين</span></div>
+      <div class="card rv2 rv d4" style="--c:var(--green)"><div class="ic">قديم</div><b>حفظ قديم</b><span>أختار مقطعًا مما حفظت قبل</span></div>
+      <div class="card rv2 rv d5" style="--c:var(--purple)"><div class="ic">في البيت</div><b>أستمع</b><span>لمقرئ يقرأ حفظي: قبل النوم، في السيارة، في الصباح</span></div>
     </div>
-    <div class="card hd rv d6" style="margin-top:30px;text-align:center">هناك من حفظ سورًا كاملة <span class="grad">بالاستماع فقط!</span><small>الاستماع لا يُغني عن الحفظ… لكنه يرسّخه</small></div>
+    <div class="card hd rv d6" style="margin-top:28px;text-align:center">هناك من حفظ سورًا كاملة <span class="grad">بالاستماع فقط!</span><small>الاستماع لا يُغني عن الحفظ… لكنه يرسّخه</small></div>
   </section>
 
-  <!-- 14 فاصل التطبيق -->
+  <!-- 16 فاصل التطبيق -->
   <section class="slide sec" id="s-appsec">
-    <div class="no pop" style="font-size:200px">هيا!</div><h2 class="rv d2">نحفظ لوحًا معًا</h2><p class="rv d3">بالخطوات السبع… الآن</p>
+    <div class="part rv">المحطة 3</div>
+    <h2 class="rv d1" style="font-size:120px">هيا… نحفظ معًا!</h2><p class="rv d2">بالخطوات السبع… الآن</p>
   </section>
 
-  <!-- 15 التطبيق -->
+  <!-- 17 التطبيق -->
   <section class="slide" id="s-app">
-    <div class="kicker rv">التطبيق العملي · سورة الطور</div>
-    <div class="app rv d1" id="app">
-      <div class="lawh"><div class="flipper"><div class="inner">
-        <div class="face"><div class="board" id="lawhLines"></div></div>
-        <div class="rear"><span>اقرأ غيبًا…</span><small>ثم نقلب ونتحقّق</small></div>
-      </div></div></div>
-      <div class="side">
-        <div class="btnz" id="modes">
-          <button class="bz on" data-m="read">١ اقرأ</button><button class="bz" data-m="mean">٢ افهم</button><button class="bz" data-m="chain">٣ السلسلة</button><button class="bz" data-m="first">٤ أول كلمة</button><button class="bz" data-m="flip">٥ اقلب</button>
-        </div>
-        <div class="card" id="panel"></div>
-      </div>
-      <div class="gl" id="gloss"></div>
+    <div class="path sm click rv" id="appPath"></div>
+    <div class="app rv d1">
+      <div class="card panel" id="panel"></div>
+      <div class="mus"><div class="tag">سورة الطور · 1–10</div><div class="in">
+        <div class="pg" id="page"><img src="../assets/tur-1-10.png" alt="سورة الطور من الآية 1 إلى 10"><div class="shut" id="shut"><svg viewBox="0 0 24 24" fill="none" stroke="#F5AC00" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2zM22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg><b>المصحف مغلق</b><span>اقرأ غيبًا… ثم نفتحه ونتحقّق</span></div></div>
+      </div></div>
     </div>
   </section>
 
-  <!-- 16 الخلاصة -->
+  <!-- 18 الخلاصة -->
   <section class="slide" id="s-recap">
     <div class="kicker rv">خلاصة الورشة</div>
     <h1 class="t rv d1">خطواتي <span>السبع</span></h1>
     <div class="recap">
-      <div class="card rc rv d1" style="--c:var(--green)"><div class="n num">1</div><b>أُخلص</b><span>أحفظ لله</span></div>
-      <div class="card rc rv d2" style="--c:var(--blue)"><div class="n num">2</div><b>أفهم</b><span>أسأل عن المعنى</span></div>
-      <div class="card rc rv d3" style="--c:var(--orange)"><div class="n num">3</div><b>أُقسّم وأربط</b><span>طريقة السلسلة</span></div>
-      <div class="card rc rv d4" style="--c:var(--purple)"><div class="n num">4</div><b>أقرأ مجوّدًا</b><span>بصوت ولحن</span></div>
-      <div class="card rc rv d5" style="--c:var(--green)"><div class="n num">5</div><b>أُكرّر</b><span>10 قراءات سليمة</span></div>
-      <div class="card rc rv d6" style="--c:var(--red)"><div class="n num">6</div><b>أختبر نفسي</b><span>أول كلمة · اقلب اللوح</span></div>
-      <div class="card rc rv d7" style="--c:var(--navy)"><div class="n num">7</div><b>أراجع</b><span>كل يوم… وأستمع</span></div>
-      <div class="card rc rv d8" style="--c:var(--yellow);background:linear-gradient(135deg,#FFF6E0,#fff)"><div class="n">★</div><b>أستظهر</b><span>بثقة على أستاذي</span></div>
+      <div class="card rc hid rv d1" style="--c:var(--green)"><div class="n num">1</div><b>أُخلص</b><span>أحفظ لله</span></div>
+      <div class="card rc hid rv d2" style="--c:var(--blue)"><div class="n num">2</div><b>أفهم</b><span>أسأل عن المعنى</span></div>
+      <div class="card rc hid rv d3" style="--c:var(--orange)"><div class="n num">3</div><b>أُقسّم وأربط</b><span>طريقة السلسلة</span></div>
+      <div class="card rc hid rv d4" style="--c:var(--purple)"><div class="n num">4</div><b>أقرأ مجوّدًا</b><span>كما أُنزل… بصوت ولحن</span></div>
+      <div class="card rc hid rv d5" style="--c:var(--green)"><div class="n num">5</div><b>أُكرّر</b><span>10 قراءات سليمة</span></div>
+      <div class="card rc hid rv d6" style="--c:var(--red)"><div class="n num">6</div><b>أختبر نفسي</b><span>أول كلمة · أغلق المصحف</span></div>
+      <div class="card rc hid rv d7" style="--c:var(--navy)"><div class="n num">7</div><b>أراجع</b><span>كل يوم… وأستمع</span></div>
+      <div class="card rc hid rv d8" style="--c:var(--yellow);background:linear-gradient(135deg,#FFF6E0,#fff)"><div class="n">★</div><b>أستظهر</b><span>بثقة على أستاذي</span></div>
     </div>
   </section>
 
-  <!-- 17 الختام -->
+  <!-- 19 الختام -->
   <section class="slide end" id="s-end">
-    <img class="pop" src="../assets/logo.png" style="height:110px" alt="">
+    <img class="pop" src="../assets/logo.png" style="height:130px" alt="">
     <h2 class="rv d1">بارك الله فيكم… <span class="grad">يا حَمَلة القرآن!</span></h2>
     <div class="card dua rv d2">«اللهم اجعل القرآن العظيم ربيعَ قلوبنا، ونورَ صدورنا»</div>
-    <p class="rv d3">سؤال لكل واحد: بأيّ خطوة ستبدأ لوحك غدًا؟</p>
   </section>
 
+  <div id="gpath" class="path"></div>
   <canvas id="conf"></canvas>
   <div id="brand"><img src="../assets/logo.png" alt=""><span>كيف أحفظ كتاب الله؟</span></div>
   <button id="snd" title="الصوت (M)"><svg viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4z"/><path class="w" d="M15.5 8.5a5 5 0 0 1 0 7M19 5a10 10 0 0 1 0 14"/></svg></button>
   <div id="prog"></div>
 </div></div>
-<div id="help">التالي: مسافة / → / نقر · السابق: ← · F ملء الشاشة · M الصوت</div>
 <script>
-/* ========= نص التطبيق: سورة الطور (رواية ورش، العدّ المدني) — يُعدَّل من هنا ========= */
-var PASSAGE = {
-  lines: ['وَالطُّورِ وَكِتَابٍ مَّسْطُورٍ', 'فِي رَقٍّ مَّنشُورٍ', 'وَالْبَيْتِ الْمَعْمُورِ', 'وَالسَّقْفِ الْمَرْفُوعِ', 'وَالْبَحْرِ الْمَسْجُورِ', 'إِنَّ عَذَابَ رَبِّكَ لَوَاقِعٌ', 'مَّا لَهُ مِن دَافِعٍ', 'يَوْمَ تَمُورُ السَّمَاءُ مَوْرًا', 'وَتَسِيرُ الْجِبَالُ سَيْرًا'],
-  gloss: {
-    'وَالطُّورِ': 'جبل الطور الذي كلّم الله عليه موسى عليه السلام',
-    'مَّسْطُورٍ': 'مكتوب في أسطر',
-    'رَقٍّ': 'جلد رقيق يُكتب عليه',
-    'مَّنشُورٍ': 'مفتوح غير مطويّ',
-    'الْمَعْمُورِ': 'بيت في السماء تطوف به الملائكة كل يوم',
-    'وَالسَّقْفِ': 'السماء… سقف مرفوع فوقنا',
-    'الْمَسْجُورِ': 'المملوء بالماء، ويُوقَد نارًا يوم القيامة',
-    'لَوَاقِعٌ': 'سيقع حتمًا',
-    'دَافِعٍ': 'لا أحد يستطيع أن يمنعه',
-    'تَمُورُ': 'تتحرّك وتضطرب',
-    'سَيْرًا': 'تتحرّك الجبال من أماكنها'
-  },
-  meaning: 'الله تعالى يُقسِم بأشياء عظيمة: الجبل، والكتاب، والبيت المعمور، والسماء، والبحر… أنّ يوم القيامة آتٍ لا محالة.'
-};
+var STEPS = ['أُخلص', 'أفهم', 'أُقسّم وأربط', 'أقرأ مجوّدًا', 'أُكرّر', 'أختبر نفسي', 'أراجع'];
+/* صورة الطور (890×430): أسطر الصفحة ومواضع الآيات بالبكسل */
+var PG = { w: 890, h: 430, lines: { 1: [62, 150], 2: [150, 245], 3: [245, 338], 4: [338, 428] },
+  ayat: { 1: [[1, 691, 885]], 2: [[1, 396, 691]], 3: [[1, 147, 396]], 4: [[1, 5, 147], [2, 678, 885]], 5: [[2, 362, 678]], 6: [[2, 64, 362]],
+    7: [[2, 5, 64], [3, 538, 885]], 8: [[3, 266, 538]], 9: [[3, 5, 266], [4, 742, 885]], 10: [[4, 354, 742]] },
+  covers: [[1, 457, 598], [1, 207, 350], [2, 738, 885], [2, 422, 550], [2, 125, 250], [3, 599, 885], [3, 326, 480], [3, 5, 212], [4, 802, 885], [4, 414, 632]],
+  hide: [4, 0, 354] };
+var GLOSS = [['الطُّور', 'الجبل الذي كلّم الله عليه موسى'], ['مَسْطُور', 'مكتوب في أسطر'], ['رَقّ', 'جلد رقيق يُكتب عليه'], ['مَنشُور', 'مفتوح غير مطويّ'],
+  ['المَعْمُور', 'بيت في السماء تطوف به الملائكة'], ['المَسْجُور', 'المملوء، ويُوقد نارًا يوم القيامة'], ['لَوَاقِع', 'سيقع حتمًا'], ['دَافِع', 'لا أحد يمنعه'], ['تَمُور', 'تتحرّك وتضطرب']];
 (function () {
   var stage = document.getElementById('stage');
   function fit() { var k = Math.min(innerWidth / 1920, innerHeight / 1080); stage.style.transform = 'scale(' + k + ')'; }
@@ -584,7 +635,7 @@ var PASSAGE = {
   var slides = [].slice.call(document.querySelectorAll('.slide')), cur = -1, timers = [], HOOK = {};
   function T(fn, ms) { timers.push(setTimeout(fn, ms)); }
 
-  /* ===== الأصوات (مولّدة، بلا ملفات) ===== */
+  /* ===== الأصوات ===== */
   var AC = null, MUTE = false;
   function ac() { if (!AC) { try { AC = new (window.AudioContext || window.webkitAudioContext)(); } catch (e) { AC = null; } } if (AC && AC.state === 'suspended') { AC.resume(); } return AC; }
   function tone(f, t0, d, type, vol, f2) {
@@ -602,41 +653,51 @@ var PASSAGE = {
     s.connect(f); f.connect(g); g.connect(a.destination); s.start(t);
   }
   var SFX = {
-    drum: function (t) { tone(120, t || 0, .45, 'sine', .8, 45); noise(t || 0, .12, .25, 600); },
+    drum: function () { tone(120, 0, .45, 'sine', .8, 45); noise(0, .12, .25, 600); },
     step: function (t) { tone(70, t || 0, .18, 'sine', .5, 40); noise(t || 0, .08, .15, 300); },
     ding: function () { tone(988, 0, .3, 'sine', .3); tone(1480, .09, .45, 'sine', .22); },
     win: function () { [523, 659, 784, 1047].forEach(function (f, i) { tone(f, i * .1, .35, 'triangle', .25); }); tone(1047, .4, .8, 'sine', .2); },
     buzz: function () { tone(160, 0, .32, 'sawtooth', .12, 120); },
     tick: function () { tone(1600, 0, .04, 'square', .06); },
     pop: function () { tone(500, 0, .12, 'sine', .25, 1100); },
-    whoosh: function () { noise(0, .35, .08, 2400); },
     up: function (k) { tone(392 * Math.pow(1.122, k), 0, .25, 'triangle', .25); },
     mystery: function () { tone(220, 0, .6, 'sine', .35); tone(233, .6, .6, 'sine', .35); tone(196, 1.2, 1.2, 'sine', .4); },
-    snap: function () { noise(0, .18, .5, 4000); tone(900, 0, .1, 'square', .1, 200); }
+    snap: function () { noise(0, .18, .5, 4000); tone(900, 0, .1, 'square', .1, 200); },
+    clock: function (t) { var hi = t % 2 === 0, last = t > 0 && t <= 10; noise(0, .03, last ? .5 : .35, hi ? 5200 : 3200); tone(hi ? 2100 : 1500, 0, .045, 'square', last ? .09 : .05); },
+    reveal: function () { tone(660, 0, .2, 'triangle', .22); tone(880, .12, .35, 'triangle', .22); }
   };
   function snd(n, a) { try { SFX[n](a); } catch (e) { /* */ } }
   $('snd').addEventListener('click', function (e) { e.stopPropagation(); MUTE = !MUTE; this.classList.toggle('off', MUTE); });
 
-  /* الأمواج */
   (function () {
     var W = [['#36D4FF', 40, 14, 640, 0, .5], ['#127AD8', 70, 12, 640, 2, .5], ['#094496', 100, 10, 640, 4, .45]], h = '';
     W.forEach(function (w) { var d = 'M0 ' + w[1]; for (var x = 0; x <= 3840; x += 20) { d += ' L' + x + ' ' + (w[1] + w[2] * Math.sin(x / w[3] * Math.PI * 2 + w[4])).toFixed(1); } h += '<path stroke="' + w[0] + '" opacity="' + w[5] + '" d="' + d + '"/>'; });
     $('wv').innerHTML = h;
   })();
 
-  /* خرائط الخطوات */
-  each(document.querySelectorAll('.map'), function (m) {
-    var k = Number(m.getAttribute('data-step')), h = '';
-    for (var i = 1; i <= 7; i++) { h += '<i class="' + (i < k ? 'done' : (i === k ? 'cur' : '')) + '">' + (i < k ? '✓' : i) + '</i>' + (i < 7 ? '<b></b>' : ''); }
-    m.innerHTML = h;
-  });
+  /* ===== مسار الخطوات: اسم الخطوة لا يظهر حتى نصل إليها ===== */
+  function drawPath(el, k) {
+    if (!el._built) {
+      var h = '<div class="fill"></div>';
+      STEPS.forEach(function (n, i) { h += '<div class="nd lock" data-k="' + (i + 1) + '"><i>' + (i + 1) + '</i><b>' + n + '</b></div>'; });
+      el.innerHTML = h; el._built = true;
+    }
+    each(el.querySelectorAll('.nd'), function (nd, i) {
+      var j = i + 1; nd.className = 'nd ' + (j < k ? 'done' : (j === k ? 'cur' : 'lock'));
+      nd.querySelector('i').textContent = j < k ? '✓' : j;
+    });
+    var f = el.querySelector('.fill'), p = k <= 1 ? 0 : (k - 1) / 6;
+    el._fill = function () { f.style.width = 'calc(' + p + ' * (100% - 220px))'; };
+  }
+  each(document.querySelectorAll('.path[data-step]'), function (p) { drawPath(p, Number(p.getAttribute('data-step'))); });
+  var GP = $('gpath');
 
   /* ===== الجمل ===== */
   function mkCamel(host) {
     host.innerHTML = $('camelTpl').innerHTML;
-    var svg = host.querySelector('svg'), body = svg.querySelector('.body'), rope = svg.querySelector('.rope'), raf = null, broken = false, endX = 0, endY = 0;
+    var svg = host.querySelector('svg'), body = svg.querySelector('.body'), rope = svg.querySelector('.rope'), raf = null, broken = false;
     function draw() {
-      if (broken) { rope.setAttribute('d', 'M110 480 Q170 560 ' + (150 + endX) + ' ' + (600 + endY)); return; }
+      if (broken) { rope.setAttribute('d', 'M110 480 Q170 560 150 600'); return; }
       var m = new DOMMatrix(getComputedStyle(body).transform), x = 659 + m.e, y = 560 + m.f, sag = Math.max(0, 70 - m.e * 1.5);
       rope.setAttribute('d', 'M110 480 Q' + ((110 + x) / 2) + ' ' + ((480 + y) / 2 + sag) + ' ' + x + ' ' + y);
       raf = requestAnimationFrame(draw);
@@ -646,24 +707,41 @@ var PASSAGE = {
       stop: function () { if (raf) { cancelAnimationFrame(raf); raf = null; } },
       reset: function () { broken = false; host.classList.remove('pull', 'run'); body.style.transform = ''; if (!raf) { draw(); } },
       pull: function () { host.classList.add('pull'); },
-      run: function () { broken = true; endX = 0; endY = 0; draw(); host.classList.remove('pull'); host.classList.add('run'); }
+      run: function () { broken = true; draw(); host.classList.remove('pull'); host.classList.add('run'); }
     };
   }
   var C1 = mkCamel($('camel1')), C2 = mkCamel($('camel2'));
 
-  /* المشهد الافتتاحي */
-  var hk = $('s-hook'), hookStep = 0, pullT = null;
-  function hookGo() {
-    if (hookStep) { return; }
-    hookStep = 1; ac(); hk.classList.add('go'); C1.start();
-    for (var i = 0; i < 10; i++) { (function (i) { T(function () { snd('drum'); }, i * Math.max(120, 520 - i * 45)); })(i); }
-    for (var j = 0; j < 8; j++) { (function (j) { T(function () { snd('step'); }, 600 + j * 380); })(j); }
-    T(function () { C1.pull(); pullT = setInterval(function () { snd('step'); snd('step', .12); }, 1100); }, 2600);
-    T(function () { hk.classList.add('ask'); snd('mystery'); }, 4600);
-  }
-  $('startBtn').addEventListener('click', function (e) { e.stopPropagation(); hookGo(); });
-  HOOK['s-hook'] = { reset: function () { hookStep = 0; hk.classList.remove('go', 'ask'); C1.reset(); if (pullT) { clearInterval(pullT); pullT = null; } },
-    leave: function () { if (pullT) { clearInterval(pullT); pullT = null; } C1.stop(); }, steps: [hookGo], keep: true };
+  /* ===== الترحيب: عدّ تنازلي 60 ثانية ثم يبدأ العرض ===== */
+  (function () {
+    var fg = $('wfg'), n = $('wn'), wl = document.querySelector('.wl'), L = 1584, iv = null, t = 60, started = false;
+    function show() { n.textContent = t; fg.style.strokeDashoffset = -L * (1 - t / 60); wl.classList.toggle('red', started && t <= 10); }
+    function start() {
+      if (started) { return false; }
+      started = true; wl.classList.add('run'); snd('clock', 0);
+      iv = setInterval(function () { t--; show(); if (t > 0) { snd('clock', t); } if (t <= 0) { clearInterval(iv); iv = null; go(cur + 1); } }, 1000);
+      return true;
+    }
+    HOOK['s-welcome'] = {
+      reset: function () { if (iv) { clearInterval(iv); iv = null; } started = false; t = 60; wl.classList.remove('run', 'red'); fg.style.transition = 'none'; show(); void fg.offsetWidth; fg.style.transition = ''; },
+      next: start,
+      leave: function () { if (iv) { clearInterval(iv); iv = null; } }
+    };
+  })();
+
+  /* ===== المشهد الافتتاحي: يبدأ وحده ===== */
+  var hk = $('s-hook'), pullT = null;
+  HOOK['s-hook'] = {
+    reset: function () { hk.classList.remove('go', 'ask'); C1.reset(); if (pullT) { clearInterval(pullT); pullT = null; } },
+    play: function () {
+      hk.classList.add('go'); C1.start();
+      for (var i = 0; i < 10; i++) { (function (i) { T(function () { snd('drum'); }, i * Math.max(120, 520 - i * 45)); })(i); }
+      for (var j = 0; j < 8; j++) { (function (j) { T(function () { snd('step'); }, 600 + j * 380); })(j); }
+      T(function () { C1.pull(); pullT = setInterval(function () { snd('step'); snd('step', .12); }, 1100); }, 2600);
+      T(function () { hk.classList.add('ask'); snd('mystery'); }, 4600);
+    },
+    leave: function () { if (pullT) { clearInterval(pullT); pullT = null; } C1.stop(); }
+  };
 
   /* السلّم */
   (function () {
@@ -707,6 +785,13 @@ var PASSAGE = {
     HOOK['s-chain'] = { reset: function () { each(rows, function (r) { r.classList.remove('on'); }); }, steps: steps };
   })();
 
+  /* السند */
+  (function () {
+    var it = $('sanad').children;
+    HOOK['s-tajweed'] = { reset: function () { each(it, function (x) { x.classList.remove('on'); }); },
+      play: function () { each(it, function (x, i) { T(function () { x.classList.add('on'); if (x.classList.contains('sn')) { snd('pop'); } }, 900 + i * 420); }); } };
+  })();
+
   /* العدّاد 10 */
   (function () {
     var d = $('d10'), n = 0, h = ''; for (var i = 1; i <= 10; i++) { h += '<i>' + i + '</i>'; } d.innerHTML = h;
@@ -726,66 +811,75 @@ var PASSAGE = {
       function () { $('revAns').classList.add('on'); snd('win'); }]
   };
 
-  /* ===== التطبيق ===== */
+  /* ===== التطبيق: نفس المسار، خطوة خطوة، مع حرية التنقل ===== */
   (function () {
-    var app = $('app'), L = $('lawhLines'), panel = $('panel'), gl = $('gloss'), mode = 'read', chainK = 0, cnt = 0;
-    L.innerHTML = PASSAGE.lines.map(function (ln, i) {
-      var ws = ln.split(' ');
-      var wd = function (w) { return '<span class="wd' + (PASSAGE.gloss[w] ? ' g" data-g="' + w : '') + '">' + w + '</span>'; };
-      return '<div class="ln" data-i="' + i + '">' + wd(ws[0]) + (ws.length > 1 ? ' <span class="rest">' + ws.slice(1).map(wd).join(' ') + '</span>' : '') + '</div>';
-    }).join('');
-    var lines = L.querySelectorAll('.ln');
-    each(L.querySelectorAll('.wd.g'), function (w) {
-      w.addEventListener('click', function (e) {
-        if (mode !== 'mean') { return; }
-        e.stopPropagation();
-        var r = w.getBoundingClientRect(), s = stage.getBoundingClientRect(), k = s.width / 1920;
-        gl.innerHTML = '<b>' + w.getAttribute('data-g') + '</b><br>' + PASSAGE.gloss[w.getAttribute('data-g')];
-        gl.style.left = ((r.left - s.left) / k - 40) + 'px'; gl.style.top = ((r.bottom - s.top) / k + 14 - 96) + 'px';
-        gl.classList.add('on'); snd('pop');
-      });
-    });
-    var CH = [];
-    PASSAGE.lines.forEach(function (x, i) { CH.push([i, i, '× 5']); if (i > 0) { CH.push([0, i, 'من البداية × 3']); } });
-    function c10() { var h = ''; for (var i = 1; i <= 10; i++) { h += '<i class="' + (i <= cnt ? 'on' : '') + '">' + i + '</i>'; } return h; }
+    var page = $('page'), panel = $('panel'), pathEl = $('appPath'), shut = $('shut');
+    var px = function (v, tot) { return (v / tot * 100) + '%'; };
+    function rect(cls, l, x0, x1) { var y = PG.lines[l], e = document.createElement('div'); e.className = cls; e.style.left = px(x0, PG.w); e.style.width = px(x1 - x0, PG.w); e.style.top = px(y[0], PG.h); e.style.height = px(y[1] - y[0], PG.h); page.appendChild(e); return e; }
+    rect('hide11', PG.hide[0], PG.hide[1], PG.hide[2]);
+    var HL = {}, DIM = {};
+    for (var a = 1; a <= 10; a++) { HL[a] = PG.ayat[a].map(function (r) { return rect('hl', r[0], r[1], r[2]); }); DIM[a] = PG.ayat[a].map(function (r) { return rect('dim', r[0], r[1], r[2]); }); }
+    var COV = PG.covers.map(function (r) { return rect('cv', r[0], r[1], r[2]); });
+    var CH = []; for (var i = 1; i <= 10; i++) { CH.push([i, i, 5]); if (i > 1) { CH.push([1, i, 3]); } }
+    var S = { k: 1, ch: 0, cnt: 0, test: 'first' };
+    function focus(a0, a1) { for (var a = 1; a <= 10; a++) { var on = a0 && a >= a0 && a <= a1; HL[a].forEach(function (e) { e.style.opacity = on ? 1 : 0; }); DIM[a].forEach(function (e) { e.style.opacity = a0 && !on ? 1 : 0; }); } }
+    function cover(on) { COV.forEach(function (e) { e.style.opacity = on ? 1 : 0; }); }
+    function btn(txt, cls, fn, dis) { var b = document.createElement('button'); b.type = 'button'; b.className = cls || ''; b.innerHTML = txt; b.disabled = !!dis; b.addEventListener('click', function (e) { e.stopPropagation(); fn(); }); return b; }
     function paint() {
-      app.className = 'app m-' + mode; gl.classList.remove('on');
-      each($('modes').querySelectorAll('.bz'), function (b) { b.classList.toggle('on', b.getAttribute('data-m') === mode); });
-      each(lines, function (l) { l.classList.remove('cur', 'prev'); });
-      var P = {
-        read: '<h3>اسمع… ثم اقرأ معي</h3><p>الأستاذ يقرأ بالتجويد واللحن، والأبناء يردّدون آية آية بصوت واحد.</p>',
-        mean: '<h3>ماذا تقول الآيات؟</h3><p>' + PASSAGE.meaning + '</p><p style="color:var(--orange)">اضغط على كلمة ملوّنة لمعرفة معناها.</p>',
-        chain: '', first: '<h3>اختبار أول كلمة</h3><p>الورقة تغطي اللوح… ولا يظهر إلا أول كلمة في كل سطر. أكملوا غيبًا!</p>',
-        flip: '<h3>اقلب اللوح</h3><p>كل اثنين: واحد يقرأ غيبًا، والآخر يتابع ويصحّح. ثم نتبادل.</p><p style="color:var(--green)">نجحتَ؟ أضف قراءة سليمة:</p><div class="c10">' + c10() + '</div><p style="font-size:22px;color:var(--ink3)">مسافة: +1 · Backspace: −1</p>'
-      };
-      if (mode === 'chain') {
-        var s = CH[chainK];
-        each(lines, function (l, i) { if (i >= s[0] && i <= s[1]) { l.classList.add(s[0] === s[1] ? 'cur' : 'prev'); } if (i === s[1]) { l.classList.add('cur'); } });
-        P.chain = '<h3>طريقة السلسلة</h3><div class="steps2">' + CH.slice(Math.max(0, chainK - 2), chainK + 3).map(function (c, j) {
-          var idx = Math.max(0, chainK - 2) + j;
-          return '<div class="' + (idx === chainK ? 'on' : (idx < chainK ? 'done' : '')) + '">' + (c[0] === c[1] ? 'السطر ' + (c[1] + 1) : 'من السطر 1 إلى ' + (c[1] + 1)) + ' · ' + c[2] + '</div>';
-        }).join('') + '</div><p style="font-size:22px;color:var(--ink3)">اضغط للخطوة التالية (' + (chainK + 1) + ' من ' + CH.length + ')</p>';
+      drawPath(pathEl, S.k); requestAnimationFrame(function () { pathEl._fill(); });
+      focus(0); cover(false); shut.classList.remove('on');
+      var k = S.k, h = '<h3><i>' + k + '</i>' + STEPS[k - 1] + '</h3><div class="bd">';
+      if (k === 1) { h += '<div class="big">«اللهم اجعل حفظي خالصًا لوجهك، ويسّره لي»</div><p style="margin-top:16px">قبل أن أبدأ… أجدّد نيّتي: <b>أحفظ لأُرضي ربي</b>.</p>'; }
+      if (k === 2) { h += '<p><b>الله يُقسِم بأشياء عظيمة أنّ يوم القيامة آتٍ لا محالة.</b></p><div class="gls" style="margin-top:12px">' + GLOSS.map(function (g) { return '<div><span class="w">' + g[0] + '</span><span>' + g[1] + '</span></div>'; }).join('') + '</div>'; }
+      if (k === 3) { var c = CH[S.ch]; focus(c[0], c[1]); h += '<div class="chs">' + (c[0] === c[1] ? 'الآية ' + c[1] : 'من الآية 1 إلى ' + c[1]) + '<em>× ' + c[2] + '</em></div><p style="margin-top:12px">' + (c[0] === c[1] ? 'أقرؤها وأكرّرها حتى أقولها دون نظر.' : 'أربط الآيات معًا: آخر كلمة بأول كلمة في التي بعدها.') + '</p>'; }
+      if (k === 4) { h += '<p><b>أقرأ بصوت مسموع… كما أُنزل.</b></p><p style="margin-top:10px">الحروف الملوّنة في المصحف تذكّرني بأحكام التلاوة: المدّ، والغنّة، والإدغام…</p><p style="margin-top:10px">وأقرأ بنفس اللحن في كل مرة.</p>'; }
+      if (k === 5) { h += '<p><b>10 قراءات سليمة متتالية</b>: بلا توقف، بلا تفكير، بلا خطأ.</p><div class="c10" id="c10"></div>'; }
+      if (k === 6) { h += '<div class="seg" id="seg"></div><p style="margin-top:16px">' + (S.test === 'first' ? 'لا تظهر إلا أول كلمة من كل آية… أكمل غيبًا.' : 'المصحف مغلق… أقرأ المقطع كاملًا غيبًا، ثم نفتحه ونتحقّق.') + '</p>'; if (S.test === 'first') { cover(true); } else { shut.classList.add('on'); } }
+      if (k === 7) { h += '<p><b>غدًا:</b> أقرأ هذا المقطع غيبًا قبل أن أحفظ الجديد.</p><p style="margin-top:10px"><b>بعد أسبوع:</b> أعود إليه في مراجعة الحفظ القديم.</p><p style="margin-top:10px"><b>في البيت:</b> أستمع إليه بصوت مقرئ.</p>'; }
+      h += '</div>';
+      panel.innerHTML = h;
+      if (k === 5) {
+        var c10 = $('c10');
+        for (var j = 1; j <= 10; j++) { (function (j) { var x = document.createElement('i'); x.textContent = j; if (j <= S.cnt) { x.className = 'on'; } x.addEventListener('click', function (e) { e.stopPropagation(); S.cnt = (S.cnt === j ? j - 1 : j); paint(); if (S.cnt === 10) { snd('win'); burst(); } else { snd('ding'); } }); c10.appendChild(x); })(j); }
       }
-      panel.innerHTML = P[mode];
+      if (k === 6) {
+        var sg = $('seg');
+        sg.appendChild(btn('أول كلمة', S.test === 'first' ? 'on' : '', function () { S.test = 'first'; snd('pop'); paint(); }));
+        sg.appendChild(btn('أغلق المصحف', S.test === 'shut' ? 'on' : '', function () { S.test = 'shut'; snd('pop'); paint(); }));
+      }
+      var nv = document.createElement('div'); nv.className = 'nav2';
+      nv.appendChild(btn('→ السابق', '', prev, k === 1));
+      nv.appendChild(btn('التالي ←', 'pr', function () { if (!next()) { go(cur + 1); } }));
+      if (k === 3) { var cn = document.createElement('span'); cn.className = 'cnt num'; cn.textContent = (S.ch + 1) + ' / ' + CH.length; nv.appendChild(cn); }
+      panel.appendChild(nv);
     }
-    function setMode(m) { mode = m; if (m === 'chain') { chainK = 0; } snd(m === 'flip' ? 'whoosh' : 'pop'); paint(); }
-    each($('modes').querySelectorAll('.bz'), function (b) { b.addEventListener('click', function (e) { e.stopPropagation(); setMode(b.getAttribute('data-m')); }); });
-    var ORDER = ['read', 'mean', 'chain', 'first', 'flip'];
-    HOOK['s-app'] = {
-      reset: function () { mode = 'read'; chainK = 0; cnt = 0; paint(); },
-      key: function (k) { var i = '12345'.indexOf(k); if (i > -1) { setMode(ORDER[i]); return true; } if (k === 'Backspace' && mode === 'flip') { cnt = Math.max(0, cnt - 1); paint(); return true; } return false; },
-      next: function () {
-        if (mode === 'chain' && chainK < CH.length - 1) { chainK++; snd('up', chainK % 6); paint(); return true; }
-        if (mode === 'flip') { if (cnt < 10) { cnt++; paint(); if (cnt === 10) { snd('win'); burst(); } else { snd('ding'); } return true; } return false; }
-        var i = ORDER.indexOf(mode); if (i < ORDER.length - 1) { setMode(ORDER[i + 1]); return true; }
-        return false;
-      }
-    };
+    function setK(k) { S.k = k; snd('reveal'); paint(); }
+    function next() {
+      if (S.k === 3 && S.ch < CH.length - 1) { S.ch++; snd('up', S.ch % 6); paint(); return true; }
+      if (S.k === 6 && S.test === 'first') { S.test = 'shut'; snd('pop'); paint(); return true; }
+      if (S.k < 7) { setK(S.k + 1); return true; }
+      return false;
+    }
+    function prev() {
+      if (S.k === 3 && S.ch > 0) { S.ch--; snd('pop'); paint(); return true; }
+      if (S.k === 6 && S.test === 'shut') { S.test = 'first'; snd('pop'); paint(); return true; }
+      if (S.k > 1) { S.k--; if (S.k === 3) { S.ch = CH.length - 1; } if (S.k === 6) { S.test = 'shut'; } snd('pop'); paint(); return true; }
+      return false;
+    }
+    pathEl.addEventListener('click', function (e) { var n = e.target.closest('.nd'); if (!n) { return; } e.stopPropagation(); var k = Number(n.getAttribute('data-k')); if (k === 3) { S.ch = 0; } if (k === 6) { S.test = 'first'; } setK(k); });
+    HOOK['s-app'] = { reset: function () { S.k = 1; S.ch = 0; S.cnt = 0; S.test = 'first'; paint(); }, next: next, prev: prev };
+  })();
+
+  (function () {
+    var cards = document.querySelectorAll('#s-recap .rc'), steps = [];
+    function show(c) { if (c.classList.contains('hid')) { c.classList.remove('hid'); snd(c === cards[cards.length - 1] ? 'win' : 'ding'); } }
+    each(cards, function (c) { steps.push(function () { show(c); }); c.addEventListener('click', function (e) { e.stopPropagation(); show(c); }); });
+    HOOK['s-recap'] = { reset: function () { each(cards, function (c) { c.classList.add('hid'); }); }, steps: steps };
   })();
 
   HOOK['s-end'] = { play: function () { T(function () { snd('win'); burst(); }, 900); } };
 
-  /* قصاصات الاحتفال */
+  /* قصاصات */
   var cv = $('conf'), cx = cv.getContext('2d'), parts = [], raf = null; cv.width = 1920; cv.height = 1080;
   function burst() {
     var C = ['#EB6608', '#F5AC00', '#00873B', '#127AD8', '#36D4FF', '#7A4FB5'];
@@ -799,41 +893,43 @@ var PASSAGE = {
     raf = parts.length ? requestAnimationFrame(loop) : null;
   }
 
-  /* ===== التنقل ===== */
+  /* ===== التنقل (بلا أصوات بين الشرائح) ===== */
   function reset(s) { s.classList.remove('in'); s._k = 0; if (HOOK[s.id] && HOOK[s.id].reset) { HOOK[s.id].reset(s); } }
-  function play(s) { s.classList.add('in'); if (HOOK[s.id] && HOOK[s.id].play) { HOOK[s.id].play(s); } }
+  function play(s) { s.classList.add('in'); each(s.querySelectorAll('.path'), function (p) { if (p._fill) { setTimeout(p._fill, 500); } }); if (HOOK[s.id] && HOOK[s.id].play) { HOOK[s.id].play(s); } }
   function go(n) {
     n = Math.max(0, Math.min(slides.length - 1, n)); if (n === cur) { return; }
     timers.forEach(clearTimeout); timers = [];
-    if (cur > -1) { var old = slides[cur]; old.classList.remove('on'); if (HOOK[old.id] && HOOK[old.id].leave) { HOOK[old.id].leave(); } setTimeout(function () { if (!old.classList.contains('on')) { reset(old); } }, 700); snd('whoosh'); }
-    cur = n; var s = slides[n]; reset(s); s.classList.add('on'); void s.offsetWidth; requestAnimationFrame(function () { play(s); });
+    var s = slides[n], o = cur > -1 ? slides[cur] : null;
+    var ks = s.getAttribute('data-step'), same = !!(o && ks && o.getAttribute('data-step'));
+    s.classList.toggle('inst', same); if (o) { o.classList.toggle('inst', same); }
+    if (o) { var old = o; old.classList.remove('on'); if (HOOK[old.id] && HOOK[old.id].leave) { HOOK[old.id].leave(); } setTimeout(function () { if (!old.classList.contains('on')) { reset(old); } }, same ? 50 : 700); }
+    cur = n; reset(s); s.classList.add('on'); void s.offsetWidth; requestAnimationFrame(function () { play(s); });
+    if (ks) { drawPath(GP, Number(ks)); GP.classList.add('on'); setTimeout(GP._fill, same ? 30 : 500); } else { GP.classList.remove('on'); }
     $('prog').style.width = ((n + 1) / slides.length * 100) + '%';
-    var plain = s.classList.contains('cover') || s.classList.contains('end') || s.classList.contains('sec') || s.classList.contains('hook');
+    var plain = s.classList.contains('cover') || s.classList.contains('end') || s.classList.contains('sec') || s.classList.contains('hook') || s.classList.contains('welcome') || !!ks || s.id === 's-app';
     $('brand').style.opacity = plain ? '0' : '1';
-    var b = document.querySelectorAll('.blob'); for (var i = 0; i < b.length; i++) { b[i].style.translate = (Math.sin(n * 1.7 + i) * 180) + 'px ' + (Math.cos(n * 1.3 + i) * 120) + 'px'; }
+    var b = same ? [] : document.querySelectorAll('.blob'); for (var i = 0; i < b.length; i++) { b[i].style.translate = (Math.sin(n * 1.7 + i) * 180) + 'px ' + (Math.cos(n * 1.3 + i) * 120) + 'px'; }
     try { history.replaceState(null, '', '#' + (n + 1)); } catch (e) { /* */ }
   }
   function next() {
     var s = slides[cur], H = HOOK[s.id];
     if (H && H.next && H.next()) { return; }
-    if (H && H.keep) { if (!s._k) { H.steps[0](); s._k = 1; return; } if (hookStep === 1 && !hk.classList.contains('ask')) { return; } }
-    else if (H && H.steps && (s._k || 0) < H.steps.length) { H.steps[s._k || 0](); s._k = (s._k || 0) + 1; return; }
+    if (H && H.steps && (s._k || 0) < H.steps.length) { H.steps[s._k || 0](); s._k = (s._k || 0) + 1; return; }
     go(cur + 1);
   }
+  function prev() { var H = HOOK[slides[cur].id]; if (H && H.prev && H.prev()) { return; } go(cur - 1); }
   addEventListener('keydown', function (e) {
-    var k = e.key, H = HOOK[slides[cur].id];
-    if (H && H.key && H.key(k)) { e.preventDefault(); return; }
+    ac(); var k = e.key;
     if (k === ' ' || k === 'ArrowRight' || k === 'ArrowDown' || k === 'PageDown' || k === 'Enter') { e.preventDefault(); next(); }
-    else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp' || k === 'Backspace') { e.preventDefault(); go(cur - 1); }
+    else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp' || k === 'Backspace') { e.preventDefault(); prev(); }
     else if (k === 'Home') { go(0); } else if (k === 'End') { go(slides.length - 1); }
     else if (k === 'm' || k === 'M' || k === 'ة') { MUTE = !MUTE; $('snd').classList.toggle('off', MUTE); }
     else if (k === 'f' || k === 'F' || k === 'ب') { if (!document.fullscreenElement) { document.documentElement.requestFullscreen().catch(function () {}); } else { document.exitFullscreen(); } }
   });
-  addEventListener('click', function (e) { ac(); if (e.clientX < innerWidth * 0.15) { go(cur - 1); } else { next(); } });
-  addEventListener('contextmenu', function (e) { e.preventDefault(); go(cur - 1); });
-  var sx = null; addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
-  addEventListener('touchend', function (e) { if (sx == null) { return; } var dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 60) { e.preventDefault(); if (dx > 0) { next(); } else { go(cur - 1); } } });
-  var hp = $('help'); hp.classList.add('show'); setTimeout(function () { hp.classList.remove('show'); }, 4000);
+  addEventListener('click', function (e) { ac(); if (e.clientX < innerWidth * 0.15) { prev(); } else { next(); } });
+  addEventListener('contextmenu', function (e) { e.preventDefault(); prev(); });
+  var sx = null; addEventListener('touchstart', function (e) { ac(); sx = e.touches[0].clientX; }, { passive: true });
+  addEventListener('touchend', function (e) { if (sx == null) { return; } var dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 60) { e.preventDefault(); if (dx > 0) { next(); } else { prev(); } } });
   var h0 = parseInt((location.hash || '').slice(1), 10); go(h0 > 0 ? h0 - 1 : 0);
 })();
 </script>
