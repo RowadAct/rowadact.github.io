@@ -1,0 +1,747 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>محبة الله لعبده</title>
+<meta name="theme-color" content="#094496">
+<style>
+@font-face{font-family:G;font-weight:500;src:url(../../assets/graphik-medium.woff2) format('woff2');font-display:swap}
+@font-face{font-family:G;font-weight:700;src:url(../../assets/graphik-bold.woff2) format('woff2');font-display:swap}
+@font-face{font-family:G;font-weight:900;src:url(../../assets/graphik-black.woff2) format('woff2');font-display:swap}
+@font-face{font-family:Q;src:url(../../assets/amiri-quran.woff2) format('woff2');font-display:swap}
+:root{
+  --bg2:#F3F8FE;--ink:#0F2547;--ink2:#4A5F7F;--ink3:#8A9AB3;--line:#E3EBF5;
+  --navy:#094496;--blue:#127AD8;--cyan:#119ED9;--sky:#36D4FF;--yellow:#F5AC00;--orange:#EB6608;--green:#00873B;--lime:#79B729;--red:#C93636;--purple:#7A4FB5;--gold:#D99800;
+  --shadow:0 2px 6px rgba(9,68,150,.06),0 24px 60px rgba(9,68,150,.13);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overflow:hidden;background:#fff;font-family:G,'Segoe UI',Tahoma,sans-serif;color:var(--ink);-webkit-user-select:none;user-select:none}
+#viewport{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#fff}
+#stage{position:relative;width:1920px;height:1080px;flex:none;overflow:hidden;background:#fff}
+.num{direction:ltr;unicode-bidi:isolate;font-variant-numeric:tabular-nums;display:inline-block}
+svg.i{width:1em;height:1em;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.bg{position:absolute;inset:0;pointer-events:none;overflow:hidden;transition:opacity 1s}
+.bg .dots{position:absolute;inset:0;background-image:radial-gradient(rgba(18,122,216,.13) 2px,transparent 2.2px);background-size:34px 34px;mask-image:radial-gradient(ellipse at 70% 30%,#000 10%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at 70% 30%,#000 10%,transparent 70%)}
+.blob{position:absolute;border-radius:50%;filter:blur(30px);transition:translate 1.6s cubic-bezier(.65,0,.35,1)}
+.b1{width:900px;height:900px;background:radial-gradient(circle,rgba(54,212,255,.22),transparent 65%);top:-300px;left:-200px;animation:drift1 18s ease-in-out infinite}
+.b2{width:800px;height:800px;background:radial-gradient(circle,rgba(245,172,0,.17),transparent 65%);bottom:-320px;right:-160px;animation:drift2 22s ease-in-out infinite}
+.b3{width:700px;height:700px;background:radial-gradient(circle,rgba(9,68,150,.09),transparent 65%);top:20%;right:30%;animation:drift3 26s ease-in-out infinite}
+@keyframes drift1{50%{transform:translate(160px,120px) scale(1.1)}}
+@keyframes drift2{50%{transform:translate(-140px,-90px) scale(1.15)}}
+@keyframes drift3{50%{transform:translate(120px,-140px) scale(.9)}}
+.waves{position:absolute;left:0;right:0;bottom:0;height:120px;opacity:.9}
+.waves svg{position:absolute;bottom:0;width:3840px;height:120px;animation:wave 14s linear infinite}
+@keyframes wave{to{transform:translateX(1920px)}}
+/* الليل (شاشة الرسالة) */
+#night{position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,#0E2A5C,#061633 60%,#030B1C);opacity:0;transition:opacity 1.2s;pointer-events:none;z-index:1;overflow:hidden}
+#night.on{opacity:1}
+#night i{position:absolute;width:3px;height:3px;border-radius:50%;background:#fff;animation:tw 3s ease-in-out infinite}
+@keyframes tw{50%{opacity:.2}}
+.slide{position:absolute;inset:0;padding:96px 140px 140px;display:flex;flex-direction:column;opacity:0;pointer-events:none;transition:opacity .7s ease;z-index:2}
+.slide.on{opacity:1;pointer-events:auto}
+.slide.jr{padding-top:96px;padding-bottom:230px}
+.slide.sc{padding-top:190px}
+.slide.cz{padding-top:250px}
+.kicker{font-size:30px;font-weight:700;color:var(--orange);display:flex;align-items:center;gap:16px}
+.kicker:before{content:'';width:56px;height:8px;border-radius:4px;background:linear-gradient(90deg,var(--yellow),var(--orange))}
+h1.t{font-size:76px;font-weight:900;line-height:1.4;padding-bottom:6px;color:var(--navy);margin-top:8px}
+h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;background:linear-gradient(90deg,var(--orange),var(--yellow));-webkit-background-clip:text;background-clip:text;color:transparent}
+.lead{font-size:38px;color:var(--ink2);font-weight:500;margin-top:16px;line-height:1.7}
+.lead b{color:var(--navy);font-weight:900}
+.rv{opacity:0;transform:translateY(40px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.slide.in .rv{opacity:1;transform:none}
+.slide.in .d1{transition-delay:.15s}.slide.in .d2{transition-delay:.35s}.slide.in .d3{transition-delay:.55s}.slide.in .d4{transition-delay:.75s}.slide.in .d5{transition-delay:.95s}.slide.in .d6{transition-delay:1.15s}.slide.in .d7{transition-delay:1.35s}
+.pop{opacity:0;transform:scale(.6);transition:opacity .6s,transform .9s cubic-bezier(.34,1.56,.64,1)}
+.slide.in .pop{opacity:1;transform:none}
+.card{background:#fff;border-radius:36px;box-shadow:var(--shadow);border:1px solid var(--line)}
+.chip{border-radius:999px;padding:12px 30px;font-size:28px;font-weight:700;background:var(--bg2);color:var(--navy);border:1px solid var(--line);display:inline-block}
+.chip.o{background:linear-gradient(90deg,var(--orange),var(--yellow));color:#fff;border:0}
+.st{opacity:0;transform:translateY(30px) scale(.97);transition:opacity .6s,transform .7s cubic-bezier(.34,1.4,.64,1)}
+.st.on{opacity:1;transform:none}
+/* بطاقة الآية (صورة من مصحف ورش) */
+.ayah{position:relative;align-self:center;background:#fff;border-radius:36px;padding:34px 56px;box-shadow:var(--shadow);border:1px solid var(--line);border-top:10px solid var(--green)}
+.ayah img{display:block;height:150px;width:auto}
+.ayah .src{position:absolute;bottom:-46px;left:50%;transform:translateX(-50%);font-size:24px;font-weight:700;color:var(--ink3);white-space:nowrap}
+.ayah .mk{position:absolute;top:34px;height:150px;border-radius:18px;background:linear-gradient(135deg,var(--orange),var(--yellow));display:flex;align-items:center;justify-content:center;color:#fff;font-size:76px;font-weight:900;transition:opacity .8s,transform .8s cubic-bezier(.34,1.56,.64,1);box-shadow:0 10px 24px rgba(235,102,8,.3)}
+.ayah.rev .mk{opacity:0;transform:scale(.6) rotate(-6deg)}
+.ayah.rev .hl{opacity:1}
+.ayah .hl{position:absolute;top:30px;height:158px;border-radius:18px;border:5px solid var(--green);opacity:0;transition:opacity .8s .3s;pointer-events:none}
+/* الغلاف */
+.cover{flex-direction:row;align-items:center;gap:60px;padding:0 140px}
+.cover .txt{flex:1}.cover .lg{height:130px}
+.cover h1{font-size:124px;font-weight:900;line-height:1.3;color:var(--navy);margin-top:20px}
+.cover .sub{font-size:50px;font-weight:900;margin-top:14px;line-height:1.5;color:var(--ink2)}
+.heart{width:700px;height:700px;flex:none;position:relative}
+.heart .ray{position:absolute;left:50%;top:50%;width:6px;height:340px;margin-left:-3px;transform-origin:50% 0;background:linear-gradient(180deg,rgba(245,172,0,.55),transparent);border-radius:3px;animation:rays 12s linear infinite}
+@keyframes rays{to{rotate:360deg}}
+.heart .core{position:absolute;inset:150px;display:flex;align-items:center;justify-content:center;animation:beat 2.4s ease-in-out infinite}
+.heart .core svg{width:100%;height:100%;filter:drop-shadow(0 24px 40px rgba(235,102,8,.35))}
+@keyframes beat{0%,100%{transform:scale(1)}12%{transform:scale(1.07)}24%{transform:scale(.98)}36%{transform:scale(1.04)}}
+/* السؤال */
+.ask{align-items:center;text-align:center;padding:110px 170px 140px}
+.ask .q{font-size:68px;font-weight:900;line-height:1.5;color:var(--navy)}
+.ask .q .w{display:inline-block;opacity:0;transform:translateY(30px);filter:blur(8px);transition:all .6s cubic-bezier(.2,.7,.2,1)}
+.ask .q .w.on{opacity:1;transform:none;filter:none}
+.cloud{position:relative;flex:1;width:100%;margin-top:20px}
+.bub{position:absolute;padding:20px 36px;border-radius:999px;font-size:34px;font-weight:900;color:#fff;background:var(--c);box-shadow:0 14px 30px rgba(9,68,150,.18);white-space:nowrap;animation:bubin .8s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes bubin{from{opacity:0;transform:scale(.3)}}
+.addq{position:absolute;bottom:150px;left:50%;transform:translateX(-50%);display:flex;gap:14px;align-items:center;opacity:.35;transition:opacity .3s;z-index:5}
+.addq:hover,.addq:focus-within{opacity:1}
+.addq input{width:640px;height:76px;border-radius:38px;border:2px solid var(--line);font:700 30px G,sans-serif;padding:0 34px;color:var(--navy);background:#fff;outline:none;direction:rtl}
+.addq input:focus{border-color:var(--orange)}
+.addq button{height:76px;width:76px;border-radius:50%;border:0;background:linear-gradient(135deg,var(--orange),var(--yellow));color:#fff;font-size:40px;cursor:pointer;display:flex;align-items:center;justify-content:center}
+/* الفاصل */
+.sec{align-items:center;justify-content:center;text-align:center}
+.sec .no{font-size:280px;font-weight:900;line-height:1;background:linear-gradient(135deg,var(--navy),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;padding-bottom:20px}
+.sec h2{font-size:100px;font-weight:900;color:var(--navy);margin-top:10px}.sec p{font-size:40px;color:var(--ink2);font-weight:700;margin-top:16px}
+/* مسار الرحلة (القصة) */
+#journey{position:absolute;left:220px;right:220px;bottom:96px;height:110px;z-index:6;opacity:0;transition:opacity .6s;pointer-events:none}
+#journey.on{opacity:1}
+#journey .ln{position:absolute;top:36px;left:0;right:0;height:8px;border-radius:4px;background:repeating-linear-gradient(90deg,var(--line) 0 18px,transparent 18px 30px)}
+#journey .pg{position:absolute;top:36px;right:0;height:8px;border-radius:4px;background:linear-gradient(270deg,var(--yellow),var(--orange));width:0;transition:width 1.4s cubic-bezier(.65,0,.35,1)}
+#journey .stp{position:absolute;top:0;transform:translateX(50%);text-align:center}
+#journey .stp i{display:flex;width:80px;height:80px;border-radius:50%;background:#fff;border:5px solid var(--line);align-items:center;justify-content:center;font-size:38px;color:var(--ink3);margin:0 auto;transition:all .6s}
+#journey .stp b{display:block;font-size:26px;font-weight:900;color:var(--ink3);margin-top:6px;transition:color .5s}
+#journey .stp.on i{border-color:var(--orange);background:var(--orange);color:#fff;box-shadow:0 0 0 10px rgba(235,102,8,.15)}
+#journey .stp.on b{color:var(--navy)}
+#journey .walker{position:absolute;top:10px;width:60px;height:60px;margin-right:-30px;border-radius:50%;background:var(--navy);color:#fff;display:flex;align-items:center;justify-content:center;font-size:30px;transition:right 1.4s cubic-bezier(.65,0,.35,1);box-shadow:0 10px 20px rgba(9,68,150,.3)}
+/* مشاهد القصة */
+.scene{display:grid;grid-template-columns:1fr 640px;gap:60px;align-items:center;flex:1;margin-top:10px}
+.scene .tx{font-size:44px;font-weight:700;line-height:1.75;color:var(--ink)}
+.scene .tx b{color:var(--navy);font-weight:900}
+.scene .tx em{font-style:normal;color:var(--orange);font-weight:900}
+.scene .art{height:540px;position:relative;display:flex;align-items:center;justify-content:center}
+.quote{margin-top:30px;padding:30px 44px;border-radius:32px;background:linear-gradient(135deg,#062F6B,#094496 60%,#127AD8);color:#fff;font-size:52px;font-weight:900;line-height:1.6;box-shadow:0 20px 40px rgba(9,68,150,.25);position:relative}
+.quote small{display:block;font-size:26px;font-weight:700;opacity:.85;margin-bottom:6px}
+/* أشياء المال */
+.goods{display:grid;grid-template-columns:repeat(2,240px);gap:30px}
+.gd{height:220px;border-radius:40px;background:#fff;box-shadow:var(--shadow);border:1px solid var(--line);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;font-size:110px;color:var(--gold);transition:all 1s cubic-bezier(.65,0,.35,1)}
+.gd b{font-size:32px;font-weight:900;color:var(--navy)}
+.gd.gone{opacity:0;transform:translateY(-140px) rotate(-14deg) scale(.6);filter:blur(4px)}
+.gd.keep{background:#F6EEDF;border-color:#D8C3A0;color:#8B6B3E}
+/* البجاد */
+.bj{position:relative;width:520px;height:420px}
+.bj .h{position:absolute;top:40px;width:260px;height:340px;background:repeating-linear-gradient(45deg,#A9865A 0 10px,#9C7A4F 10px 20px);border:6px solid #7A5C36;transition:transform 1.4s cubic-bezier(.65,0,.35,1);box-shadow:0 20px 40px rgba(0,0,0,.18)}
+.bj .h1{right:0;border-radius:30px 6px 6px 30px;border-left:4px dashed #5B4224}
+.bj .h2{left:0;border-radius:6px 30px 30px 6px}
+.bj.split .h1{transform:translate(70px,-10px) rotate(6deg)}
+.bj.split .h2{transform:translate(-70px,10px) rotate(-6deg)}
+.bj .lb{position:absolute;bottom:-70px;left:0;right:0;display:flex;justify-content:space-between;font-size:30px;font-weight:900;color:var(--navy);opacity:0;transition:opacity .6s 1.2s;padding:0 30px}
+.bj.split .lb{opacity:1}
+.big-ic{width:440px;height:440px;border-radius:50%;background:radial-gradient(circle,#FFF4DA,#fff 70%);display:flex;align-items:center;justify-content:center;font-size:240px;color:var(--navy);position:relative}
+.big-ic.gold{color:var(--gold)}
+.big-ic .glow{position:absolute;inset:-30px;border-radius:50%;background:radial-gradient(circle,rgba(245,172,0,.35),transparent 65%);animation:beat 3s ease-in-out infinite}
+/* الأسئلة */
+.qs{display:flex;flex-direction:column;gap:22px;margin-top:30px}
+.qq{padding:26px 40px;font-size:42px;font-weight:900;color:var(--navy);display:flex;gap:24px;align-items:center;border-right:14px solid var(--orange)!important}
+.qq i{width:70px;height:70px;flex:none;border-radius:22px;background:var(--orange);color:#fff;font-style:normal;font-size:38px;display:flex;align-items:center;justify-content:center}
+/* إعلان العنوان */
+.reveal{align-items:center;justify-content:center;text-align:center}
+.reveal .ttl{font-size:150px;font-weight:900;line-height:1.3;opacity:0;transform:scale(.7);filter:blur(16px);transition:all 1.6s cubic-bezier(.2,.7,.2,1) .4s}
+.slide.in.reveal .ttl{opacity:1;transform:none;filter:none}
+.reveal .halo{position:absolute;left:50%;top:50%;width:1200px;height:1200px;margin:-600px 0 0 -600px;border-radius:50%;background:radial-gradient(circle,rgba(245,172,0,.28),transparent 60%);opacity:0;transform:scale(.3);transition:all 2s ease .2s}
+.slide.in.reveal .halo{opacity:1;transform:none}
+/* المفهوم */
+.def{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:36px;align-items:center}
+.dcard{padding:40px 46px;font-size:40px;font-weight:700;line-height:1.75;border-right:16px solid var(--orange)!important}
+.dcard b{color:var(--navy);font-weight:900}
+.two{display:flex;align-items:center;justify-content:center;gap:30px;margin-top:50px}
+.two .p{width:180px;height:180px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:36px;font-weight:900;text-align:center;line-height:1.3;box-shadow:var(--shadow)}
+.two .p svg{font-size:54px;margin-bottom:8px}
+.two .a{background:linear-gradient(135deg,var(--orange),var(--yellow));color:#fff}
+.two .b{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff}
+.two .arr{display:flex;flex-direction:column;gap:20px;align-items:center;font-size:28px;font-weight:900;color:var(--ink2)}
+.two .arr span{display:flex;align-items:center;gap:10px}
+.two .arr svg{font-size:60px}
+/* لوحة النقاط */
+#score{position:absolute;top:40px;left:140px;right:140px;display:flex;gap:22px;justify-content:center;z-index:6;opacity:0;transform:translateY(-20px);transition:opacity .5s,transform .5s;pointer-events:none}
+#score.on{opacity:1;transform:none;pointer-events:auto}
+.tm{display:flex;align-items:center;gap:16px;padding:12px 16px 12px 30px;border-radius:999px;background:#fff;border:3px solid var(--c);box-shadow:0 10px 24px rgba(9,68,150,.12);cursor:pointer;min-width:320px}
+.tm i{width:62px;height:62px;border-radius:50%;background:var(--c);color:#fff;display:flex;align-items:center;justify-content:center;font-size:32px}
+.tm b{font-size:32px;font-weight:900;color:var(--navy);flex:1}
+.tm em{font-style:normal;font-size:46px;font-weight:900;color:var(--c);min-width:50px;text-align:center}
+.tm em.bump,.vt.bump{animation:bump .45s}
+@keyframes bump{50%{transform:scale(1.5)}}
+.teams{display:grid;grid-template-columns:1fr 1fr;gap:40px;margin-top:40px}
+.tc{padding:40px;text-align:center;border-top:16px solid var(--c)!important}
+.tc .ic{width:140px;height:140px;margin:0 auto;border-radius:50%;background:var(--c);color:#fff;display:flex;align-items:center;justify-content:center;font-size:72px}
+.tc b{display:block;font-size:52px;font-weight:900;color:var(--navy);margin-top:20px}
+.tc span{display:block;font-size:28px;color:var(--ink2);font-weight:700;margin-top:6px}
+.rules{margin-top:40px;padding:30px 40px;font-size:34px;font-weight:700;line-height:1.7;color:var(--ink2);text-align:center}
+.rules b{color:var(--navy)}
+/* شريط الأسباب */
+#causes{position:absolute;bottom:96px;left:140px;right:140px;display:flex;gap:16px;z-index:6;opacity:0;transition:opacity .5s;pointer-events:none}
+#causes.on{opacity:1}
+#causes .cz{flex:1;display:flex;align-items:center;gap:12px;padding:12px 16px;border-radius:22px;background:#fff;border:2px solid var(--line);transition:all .6s cubic-bezier(.34,1.4,.64,1)}
+#causes .cz i{width:54px;height:54px;flex:none;border-radius:50%;background:var(--bg2);color:var(--ink3);display:flex;align-items:center;justify-content:center;font-size:28px}
+#causes .cz b{font-size:22px;font-weight:900;color:var(--ink3);line-height:1.3}
+#causes .cz.done{border-color:var(--c)}
+#causes .cz.done i{background:var(--c);color:#fff}
+#causes .cz.done b{color:var(--navy)}
+#causes .cz.cur{transform:translateY(-8px) scale(1.04);box-shadow:0 16px 30px rgba(9,68,150,.16)}
+/* جولة الآية */
+.round{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:34px;padding-bottom:160px}
+
+.round .top{display:flex;align-items:center;gap:30px;width:100%;justify-content:space-between}
+.timer{width:150px;height:150px;position:relative;flex:none;opacity:.35;transition:opacity .4s}
+.timer.on{opacity:1}.timer svg{width:100%;height:100%;transform:rotate(-90deg)}
+.timer circle{fill:none;stroke-width:12}.timer .tb{stroke:var(--line)}.timer .fg{stroke:url(#tg);stroke-linecap:round}
+.timer b{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:52px;font-weight:900;color:var(--navy)}
+.timer.end .fg{stroke:var(--red)}.timer.end b{color:var(--red)}
+.cause{display:flex;align-items:center;gap:30px;padding:26px 44px 26px 30px;border-radius:999px;background:var(--c);color:#fff;opacity:0;transform:translateY(30px) scale(.9);transition:all .8s cubic-bezier(.34,1.56,.64,1) .4s;box-shadow:0 20px 40px rgba(9,68,150,.2)}
+.cause.on{opacity:1;transform:none}
+.cause .ic{width:96px;height:96px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;font-size:52px}
+.cause b{display:block;font-size:46px;font-weight:900}
+.cause span{display:block;font-size:28px;font-weight:700;opacity:.92;margin-top:4px}
+/* النتيجة */
+.podium{display:flex;gap:80px;justify-content:center;align-items:flex-end;flex:1;padding-bottom:20px}
+.pd{width:380px;text-align:center}
+.pd .bar{height:0;border-radius:30px 30px 0 0;background:linear-gradient(180deg,var(--c),color-mix(in srgb,var(--c) 70%,#000));transition:height 1.8s cubic-bezier(.34,1.2,.64,1);display:flex;align-items:flex-start;justify-content:center;padding-top:16px;color:#fff;font-size:60px;font-weight:900;overflow:hidden}
+.pd b{display:block;font-size:44px;font-weight:900;color:var(--navy);margin-top:18px}
+.pd .cr{font-size:90px;color:var(--yellow);height:110px;opacity:0;transform:scale(.3) translateY(40px);transition:all .8s cubic-bezier(.34,1.56,.64,1) 1.8s;display:flex;justify-content:center}
+.pd.win .cr{opacity:1;transform:none}
+/* الثمار */
+.fr-top{margin-top:26px;display:flex;justify-content:center}
+.fr-top .ayah{padding:22px 40px;border-top-width:8px}
+.fr-top .ayah img{height:110px}
+.fruits{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:40px}
+.fr{padding:26px 30px;display:flex;gap:20px;align-items:flex-start;border-top:10px solid var(--c)!important}
+.fr .ic{width:84px;height:84px;flex:none;border-radius:26px;background:var(--c);color:#fff;display:flex;align-items:center;justify-content:center;font-size:46px}
+.fr b{display:block;font-size:32px;font-weight:900;color:var(--navy);line-height:1.35}
+.fr span{display:block;font-size:24px;color:var(--ink2);font-weight:700;margin-top:6px;line-height:1.55}
+/* حديث جبريل */
+.casc{display:flex;flex-direction:column;align-items:center;gap:0;margin-top:20px;flex:1}
+.lv{display:flex;align-items:center;gap:26px;padding:18px 40px;border-radius:999px;background:#fff;box-shadow:var(--shadow);border:2px solid var(--line);font-size:36px;font-weight:900;color:var(--navy);opacity:0;transform:translateY(-30px);transition:all .8s cubic-bezier(.34,1.4,.64,1)}
+.lv.on{opacity:1;transform:none}
+.lv .ic{width:70px;height:70px;border-radius:50%;background:var(--c);color:#fff;display:flex;align-items:center;justify-content:center;font-size:38px}
+.lv small{font-size:26px;font-weight:700;color:var(--ink2)}
+.drop{width:8px;height:50px;background:linear-gradient(180deg,var(--yellow),var(--orange));border-radius:4px;transform:scaleY(0);transform-origin:top;transition:transform .5s}
+.drop.on{transform:none}
+.hadith{margin-top:26px;padding:26px 40px;font-size:30px;font-weight:700;line-height:1.85;color:var(--ink2);text-align:center;max-width:1500px;align-self:center}
+.hadith b{color:var(--navy)}
+.hadith small{display:block;font-size:22px;color:var(--ink3);margin-top:6px}
+/* الحديث القدسي */
+.qudsi{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:40px}
+.qd{padding:28px 34px;display:flex;align-items:center;gap:22px;font-size:36px;font-weight:900;color:var(--navy)}
+.qd .ic{width:84px;height:84px;flex:none;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;display:flex;align-items:center;justify-content:center;font-size:44px}
+.qd.gd2 .ic{background:linear-gradient(135deg,var(--orange),var(--yellow))}
+/* سلم الآخرة */
+.ladder{display:flex;align-items:flex-end;gap:22px;flex:1;margin-top:20px;padding-bottom:10px}
+.rung{flex:1;border-radius:30px 30px 18px 18px;background:#fff;box-shadow:var(--shadow);border:1px solid var(--line);border-top:12px solid var(--c);padding:26px 22px;opacity:0;transform:translateY(60px);transition:all .8s cubic-bezier(.34,1.4,.64,1)}
+.rung.on{opacity:1;transform:none}
+.rung .ic{width:80px;height:80px;border-radius:24px;background:var(--c);color:#fff;display:flex;align-items:center;justify-content:center;font-size:44px;margin-bottom:16px}
+.rung b{display:block;font-size:31px;font-weight:900;color:var(--navy);line-height:1.35}
+.rung span{display:block;font-size:22px;color:var(--ink2);font-weight:700;margin-top:8px;line-height:1.55}
+.rung.top{background:linear-gradient(180deg,#FFF6DD,#fff);border-top-color:var(--yellow)}
+/* الرسالة */
+.msg{align-items:center;justify-content:center;text-align:center;color:#fff;padding:120px 200px}
+.msg .im{font-size:54px;font-weight:700;line-height:1.75;opacity:0;transform:translateY(30px);transition:all 1.2s ease .5s}
+.slide.in.msg .im{opacity:1;transform:none}
+.msg .im b{color:#FFD27A;font-weight:900}
+.medal{margin-top:50px;display:inline-flex;align-items:center;gap:28px;padding:26px 56px;border-radius:999px;background:linear-gradient(135deg,#F5AC00,#EB6608);color:#fff;font-size:56px;font-weight:900;box-shadow:0 0 0 12px rgba(245,172,0,.18),0 30px 60px rgba(235,102,8,.4);opacity:0;transform:scale(.6);transition:all 1s cubic-bezier(.34,1.56,.64,1)}
+.medal.on{opacity:1;transform:none}
+.medal svg{font-size:70px}
+.steps4{display:grid;grid-template-columns:repeat(4,1fr);gap:26px;margin-top:54px}
+.s4{min-height:400px}
+.s4{padding:30px 28px;border-top:12px solid var(--c)!important}
+.s4 .n{width:76px;height:76px;border-radius:24px;background:var(--c);color:#fff;font-size:42px;display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.s4 b{display:block;font-size:38px;font-weight:900;color:var(--navy);line-height:1.35}
+.s4 span{display:block;font-size:29px;color:var(--ink2);font-weight:700;margin-top:10px;line-height:1.6}
+.not{margin-top:22px;font-size:46px;font-weight:900;color:var(--navy)}
+.not s{text-decoration:none;color:#fff;background:var(--red);padding:2px 22px 10px;border-radius:16px;margin:0 6px}
+/* الختام والدعاء */
+.close{align-items:center;text-align:center;padding:110px 160px 140px}
+.close .rem{font-size:40px;font-weight:700;line-height:1.7;color:var(--ink2);max-width:1500px}
+.close .rem b{color:var(--navy);font-weight:900}
+.dua{margin-top:50px;padding:46px 70px;border-radius:44px;background:linear-gradient(135deg,#062F6B,#094496 60%,#127AD8);color:#fff;box-shadow:0 30px 60px rgba(9,68,150,.3);position:relative}
+.dua small{display:block;font:700 28px G,sans-serif;color:#FFD27A;margin-bottom:12px}
+.dua p{font-family:Q,serif;font-size:74px;line-height:1.75}
+.end{align-items:center;justify-content:center;text-align:center;padding:0 160px}
+.end h2{font-size:110px;font-weight:900;color:var(--navy);line-height:1.3}
+.end p{font-size:40px;color:var(--ink2);font-weight:700;margin-top:18px;line-height:1.6}
+/* عناصر ثابتة */
+#prog{position:absolute;left:0;bottom:0;height:8px;width:0;background:linear-gradient(90deg,var(--navy),var(--cyan),var(--yellow),var(--orange));transition:width .6s ease;z-index:7}
+#brand{position:absolute;left:60px;top:40px;display:flex;align-items:center;gap:14px;z-index:5;transition:opacity .5s}
+#brand img{height:64px;width:auto;background:#fff;border-radius:14px;padding:4px 8px}
+#brand span{font-size:22px;font-weight:700;color:var(--ink3)}
+#help{position:fixed;left:16px;top:16px;font:500 13px G,sans-serif;color:#8A9AB3;background:rgba(255,255,255,.9);border-radius:10px;padding:8px 12px;opacity:0;transition:opacity .4s;pointer-events:none;direction:rtl;z-index:99}
+#help.show{opacity:1}
+#conf{position:absolute;inset:0;pointer-events:none;z-index:20}
+</style>
+</head>
+<body>
+<div id="viewport"><div id="stage">
+  <div class="bg" id="bgl"><div class="dots"></div><div class="blob b1"></div><div class="blob b2"></div><div class="blob b3"></div>
+    <div class="waves"><svg viewBox="0 0 3840 120" preserveAspectRatio="none"><g fill="none" stroke-width="14" stroke-linecap="round" id="wv"></g></svg></div>
+  </div>
+  <div id="night"></div>
+  <svg width="0" height="0" style="position:absolute"><defs>
+    <linearGradient id="tg" x1="0" x2="1"><stop offset="0" stop-color="#F5AC00"/><stop offset="1" stop-color="#EB6608"/></linearGradient>
+    <linearGradient id="hg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FFC94D"/><stop offset=".55" stop-color="#F5AC00"/><stop offset="1" stop-color="#EB6608"/></linearGradient>
+  </defs></svg>
+
+  <div id="journey"><div class="ln"></div><div class="pg" id="jpg"></div></div>
+  <div id="score"></div>
+  <div id="causes"></div>
+
+  <!-- الغلاف -->
+  <section class="slide cover" id="s-cover">
+    <div class="txt">
+      <img class="lg pop" src="../../assets/logo.png" alt="الرواد">
+      <h1 class="rv d2">محبة الله <span class="grad">لعبده</span></h1>
+      <div class="sub rv d3">أعظم حبٍّ <span class="grad">في الوجود</span></div>
+      <div class="rv d4" style="margin-top:34px;display:flex;gap:16px;flex-wrap:wrap"><span class="chip o">الجانب الروحي</span><span class="chip">الثالثة متوسط</span><span class="chip">الفصل الأول</span></div>
+    </div>
+    <div class="heart pop" id="hrt"><div class="core"><svg viewBox="0 0 24 24"><path fill="url(#hg)" d="M12 21s-7.5-4.6-9.6-9.3C.9 8.4 2.9 4.5 6.6 4.1c2.1-.2 3.9.9 5.4 2.7 1.5-1.8 3.3-2.9 5.4-2.7 3.7.4 5.7 4.3 4.2 7.6C19.5 16.4 12 21 12 21z"/></svg></div></div>
+  </section>
+
+  <!-- سؤال الافتتاح -->
+  <section class="slide ask" id="s-ask">
+    <div class="kicker rv" style="justify-content:center">سؤال للتفكير</div>
+    <div class="q" id="askq" style="margin-top:24px">لو خُيِّرتَ أن تترك كلَّ ما تملك… حتى ثيابك… مقابل شيء واحد، فما الذي يستحق ذلك؟</div>
+    <div class="cloud" id="cloud1"></div>
+    <form class="addq" data-cloud="cloud1" autocomplete="off"><input placeholder="اكتب إجابة تلميذ ثم Enter…" maxlength="40"><button type="submit"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></form>
+  </section>
+
+  <!-- فاصل القصة -->
+  <section class="slide sec"><div class="no num pop">01</div><h2 class="rv d2">ذو البِجادَين</h2><p class="rv d3">قصة شابٍّ ترك كلَّ شيء… فربح كلَّ شيء</p></section>
+
+  <!-- المشاهد -->
+  <section class="slide jr" id="s-st1" data-j="0">
+    <div class="kicker rv">مكة · أواخر العهد المكي</div>
+    <div class="scene"><div class="tx rv d1">شابٌّ يُدعى <b>عبدَ الله</b>، كفلَه <b>عمُّه الغنيّ</b> وأغدق عليه من خير ما يملك: <em>ثيابٍ</em> و<em>مالٍ</em> و<em>ظَهْرٍ</em> يركبه… حتى أصبح شابًّا ذا مالٍ وجاه.</div>
+      <div class="art"><div class="goods" id="goods1"></div></div></div>
+  </section>
+  <section class="slide jr" id="s-st2" data-j="0">
+    <div class="kicker rv">مكة</div>
+    <div class="scene"><div class="tx rv d1">لكنَّ قلبه كان <b>معلَّقًا بشيءٍ أعظم</b>. منذ سمع بالإسلام ودعوة النبي ﷺ وسرى النور إلى قلبه، <em>أحبَّ اللهَ ورسوله حبًّا شديدًا</em>… وظلَّ يكتم إيمانه خوفًا من عمّه وقومه، حتى حان وقت الهجرة.</div>
+      <div class="art"><div class="big-ic gold pop"><i class="glow"></i><span data-ic="heart"></span></div></div></div>
+  </section>
+  <section class="slide jr" id="s-st3" data-j="0">
+    <div class="kicker rv">مكة · لحظة الإعلان</div>
+    <div class="scene"><div class="tx rv d1">لمّا أعلن إسلامه <b>غضب عمُّه</b>، ورفض أن يتركه لاعتناق الإسلام، بل <em>جرّده من كل ما يملك</em>… حتى الثياب التي كان يلبسها، ولم يترك له سوى <b>«بِجاد»</b>: كساءٍ غليظٍ خشنٍ من الصوف.</div>
+      <div class="art"><div class="goods" id="goods3"></div></div></div>
+  </section>
+  <section class="slide jr" id="s-st4" data-j="1">
+    <div class="kicker rv">في الطريق إلى المدينة</div>
+    <div class="scene"><div class="tx rv d1">ماذا يفعل بكساءٍ واحد؟ <b>شقَّه نصفين</b>: اتَّزر بأحدهما، وارتدى الآخر… ومن هنا جاء لقبه:<br><em>ذو البِجادَين</em> = صاحب الكساءَين.</div>
+      <div class="art"><div class="bj" id="bj"><div class="h h2"></div><div class="h h1"></div><div class="lb"><span>رداء</span><span>إزار</span></div></div></div></div>
+  </section>
+  <section class="slide jr" id="s-st5" data-j="1">
+    <div class="kicker rv">المدينة · المسجد النبوي</div>
+    <div class="scene"><div><div class="tx rv d1">وصل المدينة، فاقترب من مسجد النبي ﷺ وبات فيه. فلمّا رأى النبيُّ ﷺ هيئته سأله عن قصته، <b>فعرف صدقه وإخلاصه</b>، فقال له مبتسمًا مكرِّمًا:</div>
+      <div class="quote st"><small>قال النبي ﷺ</small>«الزمْ بابي، فإنّك ذو البِجادَين»</div></div>
+      <div class="art"><div class="big-ic pop"><span data-ic="mosque"></span></div></div></div>
+  </section>
+  <section class="slide jr" id="s-st6" data-j="1">
+    <div class="kicker rv">المدينة · الصُّفّة</div>
+    <div class="scene"><div class="tx rv d1">ومنذ ذلك الحين صار من <b>أهل الصُّفّة</b> المقرَّبين إلى النبي ﷺ، <em>ينهل من علمه وخُلُقه</em>… لم يعد يملك من الدنيا شيئًا، لكنه صار قريبًا من أحبِّ الناس إلى الله.</div>
+      <div class="art"><div class="big-ic pop"><span data-ic="book"></span></div></div></div>
+  </section>
+  <section class="slide jr" id="s-st7" data-j="2">
+    <div class="kicker rv">غزوة تبوك</div>
+    <div class="scene"><div class="tx rv d1">خرج مجاهدًا مع النبي ﷺ في <b>غزوة تبوك</b>، وتوفّي فيها. فحفر له النبي ﷺ قبره <em>بيده الشريفة</em>، ونزل فيه، وأبو بكر وعمر يُدليانه، والنبي ﷺ يقول:</div>
+      <div class="art" style="flex-direction:column;gap:30px"><div class="big-ic pop" style="width:340px;height:340px;font-size:180px"><span data-ic="moon"></span></div><div class="quote st" style="font-size:44px"><small>قال النبي ﷺ</small>«أدنِيا إليَّ أخاكما»</div></div></div>
+  </section>
+  <section class="slide jr" id="s-st8" data-j="2">
+    <div class="kicker rv">تبوك · المشهد العظيم</div>
+    <div class="tx rv d1" style="font-size:44px;font-weight:700;line-height:1.7;margin-top:10px">فلمّا وضعه في لحده، رفع ﷺ يديه الشريفتين وقال داعيًا:</div>
+    <div class="quote st" style="font-size:66px;text-align:center;margin-top:30px"><small>دعاء النبي ﷺ له</small>«اللهمَّ إني أمسيتُ عنه راضيًا، فارضَ عنه»</div>
+    <div class="card st" style="margin-top:34px;padding:28px 40px;font-size:40px;font-weight:900;color:var(--navy);display:flex;gap:20px;align-items:center;border-right:14px solid var(--orange)"><span style="font-size:26px;color:var(--orange);white-space:nowrap">قال عبد الله بن مسعود</span>«ليتني كنتُ صاحبَ الحفرة!»</div>
+  </section>
+
+  <!-- أسئلة حول القصة -->
+  <section class="slide" id="s-qs">
+    <div class="kicker rv">نتوقف قليلًا</div>
+    <h1 class="t rv d1">أسئلة <span>حول القصة</span></h1>
+    <div class="qs">
+      <div class="card qq st"><i class="num">1</i>ما الذي جعل ذا البجادين ينال هذه المرتبة عند الله ورسوله؟</div>
+      <div class="card qq st"><i class="num">2</i>هل كان يملك ما تملكه أنت اليوم من متاع الدنيا لمّا أعلن إسلامه؟</div>
+      <div class="card qq st"><i class="num">3</i>قارن جهادك وتضحياتك… بجهاده وتضحياته.</div>
+    </div>
+    <div class="cloud" id="cloud2" style="min-height:160px"></div>
+    <form class="addq" data-cloud="cloud2" autocomplete="off" style="bottom:110px"><input placeholder="اكتب إجابة تلميذ ثم Enter…" maxlength="40"><button type="submit"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></form>
+  </section>
+
+  <!-- إعلان العنوان -->
+  <section class="slide reveal" id="s-title"><div class="halo"></div>
+    <div class="kicker rv" style="justify-content:center;position:relative">موضوعنا اليوم</div>
+    <div class="ttl" style="position:relative;color:var(--navy)">محبة الله <span class="grad">لعبده</span></div>
+  </section>
+
+  <!-- المفهوم -->
+  <section class="slide" id="s-def">
+    <div class="kicker rv">المفهوم</div>
+    <h1 class="t rv d1">ما معنى أن <span>يحبَّك الله؟</span></h1>
+    <div class="card dcard rv d2" style="margin-top:30px">هي <b>منزلةٌ رفيعة</b> يمنحها الله لمن أطاعه، ومعناها أنّ الله تعالى <b>يرضى عن عبده</b>، <b>ويقرّبه إليه</b>، <b>ويُفيض عليه من نِعَمه وتوفيقه</b>.</div>
+    <div class="ayah st" data-a="maida" style="margin-top:30px"><span class="src">سورة المائدة</span></div>
+    <div class="two st">
+      <div class="p a"><span data-ic="sun"></span>الله</div>
+      <div class="arr"><span>يُحبُّهم <span data-ic="arL"></span></span><span><span data-ic="arR"></span> ويُحبُّونه</span></div>
+      <div class="p b"><span data-ic="user"></span>العبد</div>
+    </div>
+  </section>
+
+  <!-- فاصل الأسباب -->
+  <section class="slide sec"><div class="no num pop">02</div><h2 class="rv d2">كيف أنال محبة ربي؟</h2><p class="rv d3">نستخرج الأسباب من كتاب الله… في تحدٍّ بين فريقين</p></section>
+
+  <!-- الفريقان -->
+  <section class="slide sc" id="s-teams">
+    <div class="kicker rv">تحدّي «أكمل الآية»</div>
+    <h1 class="t rv d1">فريقان… <span>وستّ آيات</span></h1>
+    <div class="teams" id="teamcards"></div>
+    <div class="card rules rv d4">تظهر الآية وفيها كلمة مخفيّة. <b>أوّل فريق يكملها صحيحة</b> يربح نقطة، ثم نكشف <b>السبب</b> الذي يجلب محبة الله.</div>
+  </section>
+
+  <div id="rounds"></div>
+
+  <!-- النتيجة -->
+  <section class="slide" id="s-podium">
+    <div class="kicker rv" style="justify-content:center">نتيجة التحدّي</div>
+    <h1 class="t rv d1" style="text-align:center">بارك الله <span>فيكم جميعًا!</span></h1>
+    <div class="podium" id="podium"></div>
+  </section>
+
+  <!-- فاصل الثمار -->
+  <section class="slide sec"><div class="no num pop">03</div><h2 class="rv d2">ثمار محبة الله</h2><p class="rv d3">ماذا يربح من أحبّه الله… في الدنيا والآخرة؟</p></section>
+
+  <!-- ثمار الدنيا -->
+  <section class="slide" id="s-dunya">
+    <div class="kicker rv">ثمارها في الدنيا</div>
+    <h1 class="t rv d1" style="font-size:66px">إذا أحبّك الله… <span>تعيش هكذا</span></h1>
+    <div class="fr-top rv d2"><div class="ayah" data-a="nahl"></div></div>
+    <div class="fruits" id="fruits"></div>
+  </section>
+
+  <!-- حديث جبريل -->
+  <section class="slide" id="s-jibril">
+    <div class="kicker rv">محبة أهل السماء… والقبول في الأرض</div>
+    <div class="casc" id="casc"></div>
+    <div class="card hadith st">قال رسول الله ﷺ: «إذا أحبَّ اللهُ عبدًا نادى جبريلَ: <b>إنَّ الله يحبُّ فلانًا فأحبِبْه</b>، فيُحبُّه جبريل، فينادي جبريلُ في أهل السماء: إنَّ الله يحبُّ فلانًا فأحِبّوه، فيُحبُّه أهلُ السماء، <b>ثم يُوضَعُ له القبولُ في الأرض</b>»<small>رواه البخاري ومسلم</small></div>
+  </section>
+
+  <!-- الحديث القدسي -->
+  <section class="slide" id="s-qudsi">
+    <div class="kicker rv">الحفظ والتسديد واستجابة الدعاء</div>
+    <div class="card hadith rv d1" style="margin-top:20px;font-size:34px">في الحديث القدسي: «وما يزال عبدي يتقرّب إليَّ <b>بالنوافل</b> حتى أُحبَّه، فإذا أحببتُه:<small>رواه البخاري</small></div>
+    <div class="qudsi">
+      <div class="card qd st"><span class="ic" data-ic="ear"></span>كنتُ سمعَه الذي يسمع به</div>
+      <div class="card qd st"><span class="ic" data-ic="eye"></span>وبصرَه الذي يُبصر به</div>
+      <div class="card qd st"><span class="ic" data-ic="hand"></span>ويدَه التي يبطش بها</div>
+      <div class="card qd st"><span class="ic" data-ic="foot"></span>ورِجلَه التي يمشي بها</div>
+      <div class="card qd gd2 st"><span class="ic" data-ic="gift"></span>وإن سألني لأُعطينَّه</div>
+      <div class="card qd gd2 st"><span class="ic" data-ic="shield"></span>ولئن استعاذني لأُعيذنَّه»</div>
+    </div>
+  </section>
+
+  <!-- ثمار الآخرة -->
+  <section class="slide" id="s-akhira">
+    <div class="kicker rv">ثمارها في الآخرة</div>
+    <h1 class="t rv d1" style="font-size:66px">سُلَّمٌ <span>إلى أعلى الدرجات</span></h1>
+    <div class="ladder" id="ladder"></div>
+  </section>
+
+  <!-- الرسالة: تخيّل -->
+  <section class="slide msg" id="s-imagine" data-night="1">
+    <div class="im">تخيّل أنّ <b>ملك الملوك</b>، وخالق الكون، ورازقك بكلّ نِعَم الحياة… <b>هو مَن يناديك ويحبّك</b>، ويضع لك القبول في الأرض والسماء.</div>
+    <div class="im" style="margin-top:34px;font-size:44px;transition-delay:1.6s">إنّ أعظم غايةٍ يسعى لها الإنسان في حياته: أن ينال هذا الوسام الإلهي العظيم</div>
+    <div class="medal" id="medal"><span data-ic="medal"></span>«أن يحبَّه الله»</div>
+  </section>
+
+  <!-- الخطوات -->
+  <section class="slide" id="s-steps">
+    <div class="kicker rv">رسالة لك</div>
+    <h1 class="t rv d1" style="font-size:66px">كيف تكسب <span>أعظم حبٍّ في الوجود؟</span></h1>
+    <div class="not rv d2">محبة الله <s>لا تُنال بالتمنّي</s>… بل بالعمل والسعي الصادق</div>
+    <div class="steps4" id="steps4"></div>
+  </section>
+
+  <!-- الختام -->
+  <section class="slide close" id="s-close">
+    <div class="kicker rv" style="justify-content:center">تذكّر دائمًا</div>
+    <div class="rem rv d1" style="margin-top:20px">مَن ظفِر بمحبة الله <b>فقد ظفِر بخيرَي الدنيا والآخرة</b>، وصار مستجابَ الدعاء، محفوظًا برعاية مولاه.</div>
+    <div class="dua rv d3"><small>فاجعل نيّتك اليوم… وكلَّ يوم</small><p>اللّهُمَّ إنّي أسألُكَ حُبَّكَ، وحُبَّ مَن يُحِبُّكَ، وحُبَّ عَمَلٍ يُقَرِّبُني إلى حُبِّكَ</p></div>
+  </section>
+
+  <!-- النهاية -->
+  <section class="slide end" id="s-end">
+    <img class="pop" src="../../assets/logo.png" style="height:120px" alt="">
+    <h2 class="rv d1">جعلنا الله <span class="grad">ممّن يحبّهم ويحبّونه</span></h2>
+    <p class="rv d3">برنامج المرافقة · فرع الأنشطة المكملة</p>
+  </section>
+
+  <canvas id="conf"></canvas>
+  <div id="brand"><img src="../../assets/logo.png" alt=""><span>محبة الله لعبده</span></div>
+  <div id="prog"></div>
+</div></div>
+<div id="help">التالي: مسافة / → / نقر · السابق: ← / نقر يسار الشاشة · F ملء الشاشة</div>
+<script>
+(function () {
+  var $ = function (id) { return document.getElementById(id); };
+  var each = function (l, f) { [].forEach.call(l, f); };
+  var IC = {
+    heart: '<path d="M12 21s-7.5-4.6-9.6-9.3C.9 8.4 2.9 4.5 6.6 4.1c2.1-.2 3.9.9 5.4 2.7 1.5-1.8 3.3-2.9 5.4-2.7 3.7.4 5.7 4.3 4.2 7.6C19.5 16.4 12 21 12 21z"/>',
+    shirt: '<path d="M20.4 6.6 16 4l-1.5 1.5a3.5 3.5 0 0 1-5 0L8 4 3.6 6.6a1 1 0 0 0-.4 1.3l1.6 3.2a1 1 0 0 0 1.2.5L7 11v9a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-9l1 .6a1 1 0 0 0 1.2-.5l1.6-3.2a1 1 0 0 0-.4-1.3z"/>',
+    coins: '<circle cx="9" cy="9" r="6"/><path d="M18.1 10.4A6 6 0 1 1 10.3 18"/><path d="M8 7h2v4"/>',
+    camel: '<path d="M3 15c0-2 1.5-3 3-3 1-3 2.5-5 4-5s2.2 2 2.7 3.5C13.5 8.5 14.5 8 15.5 8s2 1.5 2.2 4V7.5L19.5 5h2.5l-1 2h-1v7c0 1-1 1.5-2 1.5H4.5C3.6 15.5 3 15.5 3 15z"/><path d="M6 15.5V21M9.5 15.5V21M14.5 15.5V21M18 15.5V21"/>',
+    cloth: '<path d="M4 5c3-1.5 13-1.5 16 0v14c-3-1.5-13-1.5-16 0z"/><path d="M8 4.2v14M12 3.9v14M16 4.2v14" stroke-dasharray="1.5 2"/>',
+    mosque: '<path d="M12 2c2 2 5 3 5 6H7c0-3 3-4 5-6z"/><path d="M5 22V10h14v12"/><path d="M10 22v-4a2 2 0 0 1 4 0v4"/><path d="M2 22V8M22 22V8M1 22h22"/>',
+    book: '<path d="M2 4h7a3 3 0 0 1 3 3v14a2 2 0 0 0-2-2H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v14a2 2 0 0 1 2-2h8z"/>',
+    moon: '<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',
+    sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    user: '<circle cx="12" cy="8" r="4"/><path d="M4 21v-1a7 7 0 0 1 14 0v1"/>',
+    arL: '<path d="M19 12H5M12 19l-7-7 7-7"/>',
+    arR: '<path d="M5 12h14M12 5l7 7-7 7"/>',
+    follow: '<path d="M13 4a2 2 0 1 0 0-.01"/><path d="M7 21l3-6 3 2v4M10 15l1-6 3 3 3 1M6 12l2-3 3 0"/>',
+    star: '<path d="M12 2l3 7h7l-5.5 4 2 7L12 16l-6.5 4 2-7L2 9h7z"/>',
+    drop: '<path d="M12 2.7s7 7.3 7 12.3a7 7 0 0 1-14 0c0-5 7-12.3 7-12.3z"/>',
+    mountain: '<path d="M3 20 10 8l4 6 2-3 5 9z"/>',
+    anchor: '<circle cx="12" cy="5" r="3"/><path d="M12 8v13M5 12H2a10 10 0 0 0 20 0h-3"/>',
+    flag: '<path d="M4 22V3"/><path d="M4 4h13l-2 4 2 4H4"/>',
+    shield: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>',
+    users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+    path: '<circle cx="6" cy="19" r="3"/><circle cx="18" cy="5" r="3"/><path d="M9 19h8.5a3.5 3.5 0 0 0 0-7h-11a3.5 3.5 0 0 1 0-7H15"/>',
+    pray: '<path d="M12 3c1.5 2 3 4 3 7 0 2-1 3-3 3s-3-1-3-3c0-3 1.5-5 3-7z"/><path d="M5 21c0-4 3-7 7-7s7 3 7 7"/>',
+    calm: '<path d="M2 12c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/><path d="M2 17c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/><path d="M2 7c2-3 4-3 6 0s4 3 6 0 4-3 6 0"/>',
+    up: '<path d="M12 19V5M5 12l7-7 7 7"/>',
+    smile: '<circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2M9 9h.01M15 9h.01"/>',
+    sunrise: '<path d="M17 18a5 5 0 0 0-10 0M12 2v7M4.2 10.2l1.4 1.4M1 18h2M21 18h2M18.4 11.6l1.4-1.4M23 22H1M8 6l4-4 4 4"/>',
+    erase: '<path d="M20 20H7L3 16a2 2 0 0 1 0-3l9-9a2 2 0 0 1 3 0l5 5a2 2 0 0 1 0 3l-8 8"/><path d="M6 11l7 7"/>',
+    door: '<path d="M3 21h18M5 21V4a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1v17"/><path d="M15 12h.01"/>',
+    crown: '<path d="M2 4l3 12h14l3-12-6 7-4-7-4 7-6-7z"/><path d="M5 20h14"/>',
+    ear: '<path d="M6 8.5a6 6 0 0 1 12 0c0 3.5-3 4.3-3 7.5a3.5 3.5 0 0 1-6.5 1.8"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-1.5 2-1.5 3"/>',
+    eye: '<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
+    hand: '<path d="M18 11V6a2 2 0 0 0-4 0v5"/><path d="M14 10V4a2 2 0 0 0-4 0v6"/><path d="M10 10.5V6a2 2 0 0 0-4 0v8a8 8 0 0 0 16 0v-4a2 2 0 0 0-4 0"/>',
+    foot: '<path d="M4 16v-2.4C4 11.5 3 10.5 3 8c0-2.7 1.5-6 4.5-6C9.4 2 10 3.8 10 5.5c0 3.1-2 5.7-2 8.7V16a2 2 0 1 1-4 0z"/><path d="M20 20v-2.4c0-2.1 1-3.1 1-5.6 0-2.7-1.5-6-4.5-6C14.6 6 14 7.8 14 9.5c0 3.1 2 5.7 2 8.7V20a2 2 0 1 0 4 0z"/>',
+    gift: '<rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8s1-5 4.5-5a2.5 2.5 0 0 1 0 5"/>',
+    medal: '<circle cx="12" cy="15" r="6"/><path d="M8.2 10.2 5 2h4l3 6 3-6h4l-3.2 8.2"/><path d="m12 12 1 2h2l-1.5 1.2.5 2-2-1.2-2 1.2.5-2L9 14h2z"/>',
+    tent: '<path d="M3 20 12 4l9 16z"/><path d="M12 4v16M9 20l3-5 3 5"/>',
+    bolt: '<path d="M13 2 3 14h9l-1 8 10-12h-9z"/>'
+  };
+  function svg(k) { return '<svg class="i" viewBox="0 0 24 24">' + (IC[k] || '') + '</svg>'; }
+  /* أبعاد صور الآيات (من مصحف ورش) ومواضع الكلمات المخفية */
+  var AY = {"ihsan": {"w": 765, "h": 132, "mask": [[13.73, 29.8]]}, "tawba": {"w": 999, "h": 132, "mask": [[56.06, 18.72], [9.51, 31.53]]}, "ittiba": {"w": 934, "h": 132, "mask": [[24.3, 24.63]]}, "sabr": {"w": 543, "h": 132, "mask": [[17.5, 41.07]]}, "tawakkul": {"w": 602, "h": 132, "mask": [[14.12, 38.7]]}, "maida": {"w": 710, "h": 132, "mask": []}, "saff1": {"w": 1284, "h": 132, "mask": [[43.22, 35.2]]}, "saff2": {"w": 465, "h": 132, "mask": []}, "nahl": {"w": 1113, "h": 132, "mask": []}};
+  var CAUSES = [
+    { a: 'ittiba', src: 'سورة آل عمران', n: 'اتّباع سنّة النبي ﷺ', d: 'الاقتداء به أخلاقًا وعملًا', ic: 'follow', c: '#127AD8' },
+    { a: 'ihsan', src: 'سورة البقرة', n: 'الإحسان', d: 'إتقان العمل، برّ الوالدين، مساعدة المحتاجين', ic: 'star', c: '#00873B' },
+    { a: 'tawba', src: 'سورة البقرة', n: 'التوبة والطهارة', d: 'الإكثار من الاستغفار، والرجوع إلى الله عند الخطأ', ic: 'drop', c: '#119ED9' },
+    { a: 'sabr', src: 'سورة آل عمران', n: 'الصبر عند البلاء', d: 'الثبات، والرضا بقضاء الله وقدره', ic: 'mountain', c: '#7A4FB5' },
+    { a: 'tawakkul', src: 'سورة آل عمران', n: 'التوكّل على الله', d: 'في كلّ الأمور', ic: 'anchor', c: '#D99800' },
+    { a: 'saff1', a2: 'saff2', src: 'سورة الصف', n: 'الجهاد والثبات على الحق', d: 'صفًّا واحدًا كالبنيان المرصوص', ic: 'flag', c: '#C93636' }
+  ];
+  var TEAMS = [{ n: 'فريق الصُّفّة', c: '#127AD8', ic: 'book' }, { n: 'فريق تبوك', c: '#EB6608', ic: 'flag' }];
+  var DUNYA = [
+    ['معيّة الله وتوفيقه', 'يكون الله معه بالحفظ والتأييد والتسديد', 'sun', '#127AD8'],
+    ['محبة أهل السماء والقبول في الأرض', 'يجعل الله له المحبة بين عباده الصالحين', 'users', '#00873B'],
+    ['التوفيق للطاعة والبعد عن المعصية', 'يشرح الله صدره للخير، ويعينه على الطاعات وترك المنكرات', 'path', '#7A4FB5'],
+    ['استجابة الدعاء والحفظ والتسديد', 'يحفظ الله جوارحه، ويوفّقه لاستعمالها فيما يرضيه', 'pray', '#D99800'],
+    ['الطمأنينة وراحة القلب', 'يجد حلاوة الإيمان والأنس بالله، فلا تستولي عليه مخاوف الدنيا', 'calm', '#119ED9'],
+    ['ابتلاءٌ يرفع الدرجات', 'قد يبتلي الله عبده المحبوب ليطهّره ويرفع درجته ويزيده قربًا منه', 'up', '#C93636']
+  ];
+  var AKH = [
+    ['تكفير الذنوب ومغفرة السيئات', 'لمن تاب وآمن وعمل صالحًا', 'erase', '#119ED9'],
+    ['الأمن من الخوف والحزن', 'يوم القيامة، بفضل الله ورحمته', 'shield', '#00873B'],
+    ['الفوز بالجنة والنجاة من النار', 'برحمة الله وفضله', 'door', '#7A4FB5'],
+    ['الفوز برضوان الله', 'وهو أعظم ما يناله المؤمن', 'smile', '#EB6608'],
+    ['القرب من الله ونيل كرامته', 'أعظم نعيمٍ يناله أهل الإيمان', 'crown', '#F5AC00']
+  ];
+  var STEPS = [
+    ['لا تكتفِ بالفرائض', 'تنافس في النوافل: صلِّ السنن، وأكثر من ذكر الله، وتصدّق… فالنوافل طريق القرب الخاص', 'pray', '#127AD8'],
+    ['اصبر على ما يُزعجك', 'الابتلاء والصبر عليه علامة على محبة الله لك… ليرفع من قدرك', 'mountain', '#7A4FB5'],
+    ['أحسِن إلى خلق الله', 'برّ والديك، ساعد زميلك، وكن مُصلحًا محبًّا للخير لكلّ من حولك', 'heart', '#00873B'],
+    ['تُب فورًا إذا أخطأت', 'التائب الحبيب إلى الله: من يسرع بالرجوع إليه كلّما زلّت قدمه', 'drop', '#EB6608']
+  ];
+
+  /* بطاقات الآيات */
+  function ayahHTML(name, src, game, H) {
+    H = H || 150; var A = AY[name], W = Math.round(A.w * H / A.h), m = '';
+    if (game) { A.mask.forEach(function (x) { m += '<div class="mk" style="left:' + (56 + x[0] / 100 * W) + 'px;width:' + (x[1] / 100 * W) + 'px;height:' + H + 'px">؟</div><div class="hl" style="left:' + (52 + x[0] / 100 * W) + 'px;width:' + (x[1] / 100 * W + 8) + 'px;height:' + (H + 8) + 'px"></div>'; }); }
+    return '<img src="../../assets/ayat/' + name + '.png" style="width:' + W + 'px;height:' + H + 'px" alt="">' + m + (src ? '<span class="src">' + src + '</span>' : '');
+  }
+  each(document.querySelectorAll('.ayah[data-a]'), function (el) { var s = el.querySelector('.src'); el.innerHTML = ayahHTML(el.getAttribute('data-a'), s ? s.textContent : '', false); });
+
+  /* جولات «أكمل الآية» */
+  (function () {
+    var h = '';
+    CAUSES.forEach(function (c, i) {
+      var body = c.a2
+        ? '<div style="display:flex;flex-direction:column;align-items:flex-start;gap:0;margin-bottom:24px"><div class="ayah" style="padding-bottom:10px;border-radius:36px 36px 0 36px" id="ay' + i + '">' + ayahHTML(c.a, '', true, 120) + '</div><div class="ayah" style="align-self:flex-start;border-top:0;padding-top:0;padding-bottom:22px;border-radius:0 0 36px 36px;box-shadow:0 24px 40px rgba(9,68,150,.1)">' + ayahHTML(c.a2, c.src, false, 120) + '</div></div>'
+        : '<div class="ayah" id="ay' + i + '">' + ayahHTML(c.a, c.src, true) + '</div>';
+      h += '<section class="slide sc" id="s-r' + i + '" data-score="1" data-cause="' + i + '" style="--c:' + c.c + '">' +
+        '<div class="round"><div class="top"><div class="kicker rv">الآية ' + (i + 1) + ' من ' + CAUSES.length + ' · أكمل الكلمة المخفيّة</div>' +
+        '<div class="timer rv d1"><svg viewBox="0 0 150 150"><circle class="tb" cx="75" cy="75" r="62"/><circle class="fg" cx="75" cy="75" r="62" stroke-dasharray="390" stroke-dashoffset="0"/></svg><b class="num">20</b></div></div>' +
+        '<div class="rv d2">' + body + '</div>' +
+        '<div class="cause"><div class="ic">' + svg(c.ic) + '</div><div><b>' + c.n + '</b><span>' + c.d + '</span></div></div></div></section>';
+    });
+    $('rounds').outerHTML = h;
+  })();
+  $('teamcards').innerHTML = TEAMS.map(function (t, i) { return '<div class="card tc rv d' + (i + 2) + '" style="--c:' + t.c + '"><div class="ic">' + svg(t.ic) + '</div><b>' + t.n + '</b><span>6 تلاميذ</span></div>'; }).join('');
+  $('causes').innerHTML = CAUSES.map(function (c, i) { return '<div class="cz" style="--c:' + c.c + '"><i>' + svg('heart') + '</i><b>' + (i + 1) + '. ؟</b></div>'; }).join('');
+  function causeBar(n, revealed) {
+    var bar = $('causes'); bar.classList.toggle('on', n >= 0);
+    each(bar.querySelectorAll('.cz'), function (el, i) {
+      var open = n >= 0 && (i < n || (i === n && revealed));
+      el.classList.toggle('done', open); el.classList.toggle('cur', i === n);
+      el.querySelector('i').innerHTML = svg(open ? CAUSES[i].ic : 'heart');
+      el.querySelector('b').textContent = open ? CAUSES[i].n : (i + 1) + '. ؟';
+    });
+  }
+  /* الأشياء: ثياب، مال، ظهر */
+  var G3 = [['shirt', 'ثياب'], ['coins', 'مال'], ['camel', 'ظَهْر'], ['star', 'جاه']];
+  $('goods1').innerHTML = G3.map(function (g, i) { return '<div class="gd st" style="transition-delay:' + (i * .15) + 's">' + svg(g[0]) + '<b>' + g[1] + '</b></div>'; }).join('');
+  $('goods3').innerHTML = G3.map(function (g) { return '<div class="gd">' + svg(g[0]) + '<b>' + g[1] + '</b></div>'; }).join('');
+  $('fruits').innerHTML = DUNYA.map(function (f) { return '<div class="card fr st" style="--c:' + f[3] + '"><div class="ic">' + svg(f[2]) + '</div><div><b>' + f[0] + '</b><span>' + f[1] + '</span></div></div>'; }).join('');
+  $('ladder').innerHTML = AKH.map(function (f, i) { return '<div class="rung' + (i === AKH.length - 1 ? ' top' : '') + '" style="--c:' + f[3] + ';height:' + (330 + i * 70) + 'px"><div class="ic">' + svg(f[2]) + '</div><b>' + f[0] + '</b><span>' + f[1] + '</span></div>'; }).join('');
+  $('steps4').innerHTML = STEPS.map(function (s, i) { return '<div class="card s4 st" style="--c:' + s[3] + '"><div class="n">' + svg(s[2]) + '</div><b>' + (i + 1) + '. ' + s[0] + '</b><span>' + s[1] + '</span></div>'; }).join('');
+  var CASC = [['الله ﷻ', 'يحبّ عبده', 'sun', '#F5AC00'], ['جبريل عليه السلام', 'يحبّه', 'star', '#127AD8'], ['أهل السماء', 'يحبّونه', 'users', '#7A4FB5'], ['أهل الأرض', 'يُوضع له القبول', 'heart', '#00873B']];
+  $('casc').innerHTML = CASC.map(function (c, i) { return (i ? '<div class="drop"></div>' : '') + '<div class="lv" style="--c:' + c[3] + '"><span class="ic">' + svg(c[2]) + '</span>' + c[0] + ' <small>' + c[1] + '</small></div>'; }).join('');
+  each(document.querySelectorAll('[data-ic]'), function (el) { el.innerHTML = svg(el.getAttribute('data-ic')); });
+  /* أشعة القلب */
+  (function () { var hr = $('hrt'), h = ''; for (var i = 0; i < 16; i++) { h += '<i class="ray" style="rotate:' + (i * 22.5) + 'deg;animation-delay:-' + (i * .4) + 's"></i>'; } hr.insertAdjacentHTML('afterbegin', h); })();
+  /* النجوم */
+  (function () { var n = $('night'), h = ''; for (var i = 0; i < 140; i++) { h += '<i style="left:' + (Math.random() * 100) + '%;top:' + (Math.random() * 100) + '%;animation-delay:-' + (Math.random() * 3) + 's;opacity:' + (.3 + Math.random() * .7) + '"></i>'; } n.innerHTML = h; })();
+  /* مسار الرحلة */
+  var JS = [['مكة', 'moon'], ['المدينة', 'mosque'], ['تبوك', 'flag']];
+  (function () { var j = $('journey'), h = ''; JS.forEach(function (s, i) { h += '<div class="stp" style="right:' + (i * 50) + '%"><i>' + svg(s[1]) + '</i><b>' + s[0] + '</b></div>'; }); h += '<div class="walker" id="walker" style="right:0">' + svg('user') + '</div>'; j.insertAdjacentHTML('beforeend', h); })();
+  function journey(n) {
+    var j = $('journey'); j.classList.toggle('on', n >= 0); if (n < 0) { return; }
+    each(j.querySelectorAll('.stp'), function (el, i) { el.classList.toggle('on', i <= n); });
+    $('jpg').style.width = (n * 50) + '%'; $('walker').style.right = (n * 50) + '%';
+  }
+
+  var stage = $('stage');
+  function fit() { var k = Math.min(innerWidth / 1920, innerHeight / 1080); stage.style.transform = 'scale(' + k + ')'; }
+  addEventListener('resize', fit); fit();
+  var slides = [].slice.call(document.querySelectorAll('.slide')), cur = -1, timers = [];
+  function T(fn, ms) { timers.push(setTimeout(fn, ms)); }
+  var HOOK = {};
+  (function () {
+    var W = [['#36D4FF', 40, 14, 640, 0, .5], ['#127AD8', 70, 12, 640, 2, .5], ['#094496', 100, 10, 640, 4, .45]], h = '';
+    W.forEach(function (w) { var d = 'M0 ' + w[1]; for (var x = 0; x <= 3840; x += 20) { d += ' L' + x + ' ' + (w[1] + w[2] * Math.sin(x / w[3] * Math.PI * 2 + w[4])).toFixed(1); } h += '<path stroke="' + w[0] + '" opacity="' + w[5] + '" d="' + d + '"/>'; });
+    $('wv').innerHTML = h;
+  })();
+  var AC = null;
+  function tone(f, t0, d, type, vol) { try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); var o = AC.createOscillator(), g = AC.createGain(), t = AC.currentTime + t0; o.type = type || 'sine'; o.frequency.value = f; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol || .15, t + .01); g.gain.exponentialRampToValueAtTime(.0001, t + d); o.connect(g); g.connect(AC.destination); o.start(t); o.stop(t + d + .05); } catch (e) { /* */ } }
+  function ding() { [784, 988, 1319].forEach(function (f, i) { tone(f, i * .09, .35, 'triangle', .12); }); }
+  function soft() { tone(660, 0, .25, 'sine', .07); }
+  function tick(last) { tone(last ? 1200 : 900, 0, .05, 'square', last ? .08 : .04); }
+  function mkTimer(el, secs) {
+    var fg = el.querySelector('.fg'), num = el.querySelector('b'), len = parseFloat(fg.getAttribute('stroke-dasharray')), tk = null, t = secs;
+    function show() { num.textContent = t; fg.style.strokeDashoffset = len * (1 - t / secs); el.classList.toggle('end', t <= 5 && t > 0 && !!tk); }
+    return {
+      reset: function () { if (tk) { clearInterval(tk); tk = null; } t = secs; el.classList.remove('on', 'end'); fg.style.transition = 'none'; show(); void fg.offsetWidth; fg.style.transition = 'stroke-dashoffset 1s linear'; },
+      start: function () { if (tk) { return; } el.classList.add('on'); tk = setInterval(function () { t--; show(); if (t <= 5 && t > 0) { tick(true); } if (t <= 0) { clearInterval(tk); tk = null; el.classList.remove('end'); ding(); } }, 1000); },
+      stop: function () { if (tk) { clearInterval(tk); tk = null; } }
+    };
+  }
+  /* السحب (إجابات التلاميذ) */
+  var BC = ['#127AD8', '#EB6608', '#00873B', '#7A4FB5', '#D99800', '#C93636', '#119ED9'];
+  var SPOTS = [[8, 10], [62, 6], [30, 34], [78, 40], [4, 58], [48, 64], [20, 82], [70, 80], [40, 8], [88, 18], [14, 36], [58, 36]];
+  each(document.querySelectorAll('form.addq'), function (f) {
+    var inp = f.querySelector('input'), cloud = $(f.getAttribute('data-cloud')), n = 0;
+    ['click', 'mousedown', 'touchstart', 'touchend'].forEach(function (ev) { f.addEventListener(ev, function (e) { e.stopPropagation(); }); });
+    f.addEventListener('submit', function (e) {
+      e.preventDefault(); var v = inp.value.trim(); if (!v) { return; }
+      var p = SPOTS[n % SPOTS.length], b = document.createElement('div'); b.className = 'bub'; b.style.cssText = '--c:' + BC[n % BC.length] + ';right:' + p[0] + '%;top:' + p[1] + '%'; b.textContent = v;
+      cloud.appendChild(b); n++; inp.value = ''; tone(660, 0, .15, 'sine', .12); tone(990, .08, .2, 'sine', .1);
+    });
+  });
+  (function () {
+    var q = $('askq');
+    q.innerHTML = q.textContent.split(' ').map(function (w) { return '<span class="w">' + w + '</span>'; }).join(' ');
+    HOOK['s-ask'] = { reset: function () { each(q.querySelectorAll('.w'), function (w) { w.classList.remove('on'); }); }, play: function () { each(q.querySelectorAll('.w'), function (w, i) { T(function () { w.classList.add('on'); }, 300 + i * 150); }); } };
+  })();
+  function stepHook(id, extra) { var s = $(id), it = s.querySelectorAll('.st'), steps = []; each(it, function (x) { steps.push(function () { x.classList.add('on'); soft(); }); }); if (extra) { steps = steps.concat(extra.steps || []); } HOOK[id] = { reset: function () { each(it, function (x) { x.classList.remove('on'); }); if (extra && extra.reset) { extra.reset(); } }, steps: steps, play: extra && extra.play }; }
+  stepHook('s-st1');
+  /* تجريد الأشياء واحدًا واحدًا */
+  (function () {
+    var gs = $('goods3').querySelectorAll('.gd'), steps = [];
+    each(gs, function (g, i) { steps.push(function () { g.classList.add('gone'); tone(400 - i * 40, 0, .3, 'triangle', .08); }); });
+    steps.push(function () { var k = $('goods3'); k.innerHTML = '<div class="gd keep" style="grid-column:1 / span 2;width:510px;height:300px;font-size:150px">' + svg('cloth') + '<b>بِجاد</b></div>'; soft(); });
+    HOOK['s-st3'] = { reset: function () { $('goods3').innerHTML = G3.map(function (g) { return '<div class="gd">' + svg(g[0]) + '<b>' + g[1] + '</b></div>'; }).join(''); var n = $('goods3').querySelectorAll('.gd'); steps.length = 0; each(n, function (g, i) { steps.push(function () { g.classList.add('gone'); tone(400 - i * 40, 0, .3, 'triangle', .08); }); }); steps.push(function () { $('goods3').innerHTML = '<div class="gd keep" style="grid-column:1 / span 2;width:510px;height:300px;font-size:150px">' + svg('cloth') + '<b>بِجاد</b></div>'; soft(); }); }, steps: steps };
+  })();
+  HOOK['s-st4'] = { reset: function () { $('bj').classList.remove('split'); }, steps: [function () { $('bj').classList.add('split'); tone(300, 0, .5, 'sawtooth', .04); }] };
+  stepHook('s-st5'); stepHook('s-st7'); stepHook('s-st8'); stepHook('s-qs'); stepHook('s-def');
+  /* النقاط */
+  var SC = [0, 0];
+  $('score').innerHTML = TEAMS.map(function (t, i) { return '<div class="tm" data-t="' + i + '" style="--c:' + t.c + '"><i>' + svg(t.ic) + '</i><b>' + t.n + '</b><em class="num">0</em></div>'; }).join('');
+  each($('score').querySelectorAll('.tm'), function (el) {
+    var i = +el.getAttribute('data-t'), em = el.querySelector('em');
+    function add(d) { SC[i] = Math.max(0, SC[i] + d); em.textContent = SC[i]; em.classList.remove('bump'); void em.offsetWidth; em.classList.add('bump'); if (d > 0) { ding(); } }
+    el.addEventListener('click', function (e) { e.stopPropagation(); add(e.shiftKey ? -1 : 1); });
+    el.addEventListener('contextmenu', function (e) { e.preventDefault(); e.stopPropagation(); add(-1); });
+  });
+  /* الجولات */
+  CAUSES.forEach(function (c, i) {
+    var sl = $('s-r' + i), tm = mkTimer(sl.querySelector('.timer'), 20), ay = $('ay' + i), cz = sl.querySelector('.cause');
+    function reveal() { tm.stop(); ay.classList.add('rev'); cz.classList.add('on'); causeBar(i, true); ding(); }
+    each(sl.querySelectorAll('.mk'), function (m) { m.addEventListener('click', function (e) { e.stopPropagation(); if (!ay.classList.contains('rev')) { sl._k = 2; reveal(); } }); });
+    HOOK['s-r' + i] = { reset: function () { tm.reset(); ay.classList.remove('rev'); cz.classList.remove('on'); }, steps: [function () { tm.start(); }, reveal] };
+  });
+  HOOK['s-podium'] = {
+    reset: function () { $('podium').innerHTML = ''; },
+    play: function () {
+      var mx = Math.max(1, SC[0], SC[1]), best = Math.max(SC[0], SC[1]);
+      $('podium').innerHTML = TEAMS.map(function (t, i) { return '<div class="pd' + (SC[i] === best && best > 0 ? ' win' : '') + '" style="--c:' + t.c + '"><div class="cr">' + svg('crown') + '</div><div class="bar" data-h="' + Math.round(110 + SC[i] / mx * 320) + '"><span class="num">' + SC[i] + '</span></div><b>' + t.n + '</b></div>'; }).join('');
+      T(function () { each($('podium').querySelectorAll('.bar'), function (b) { b.style.height = b.getAttribute('data-h') + 'px'; }); }, 500);
+      T(burst, 2200);
+    }
+  };
+  stepHook('s-dunya');
+  (function () { var it = $('casc').children, steps = []; for (var i = 0; i < it.length; i++) { (function (el) { if (el.classList.contains('lv')) { steps.push(function () { var p = el.previousElementSibling; if (p) { p.classList.add('on'); } el.classList.add('on'); soft(); }); } })(it[i]); }
+    var hd = document.querySelector('#s-jibril .hadith'); steps.push(function () { hd.classList.add('on'); });
+    HOOK['s-jibril'] = { reset: function () { each($('casc').children, function (x) { x.classList.remove('on'); }); hd.classList.remove('on'); }, steps: steps }; })();
+  stepHook('s-qudsi');
+  (function () { var rs = $('ladder').querySelectorAll('.rung'), steps = []; each(rs, function (r, i) { steps.push(function () { r.classList.add('on'); tone(520 + i * 90, 0, .3, 'triangle', .08); if (i === rs.length - 1) { T(burst, 600); } }); }); HOOK['s-akhira'] = { reset: function () { each(rs, function (r) { r.classList.remove('on'); }); }, steps: steps }; })();
+  HOOK['s-imagine'] = { reset: function () { $('medal').classList.remove('on'); }, steps: [function () { $('medal').classList.add('on'); ding(); T(burst, 500); }] };
+  stepHook('s-steps');
+  HOOK['s-end'] = { play: function () { T(burst, 900); } };
+
+  var cv = $('conf'), cx = cv.getContext('2d'), parts = [], raf = null; cv.width = 1920; cv.height = 1080;
+  function burst() {
+    var C = ['#EB6608', '#F5AC00', '#00873B', '#127AD8', '#36D4FF', '#7A4FB5'];
+    for (var i = 0; i < 150; i++) { parts.push({ x: 960 + (Math.random() - .5) * 600, y: 380, vx: (Math.random() - .5) * 26, vy: -Math.random() * 24 - 6, s: 8 + Math.random() * 10, c: C[i % C.length], r: Math.random() * 6, vr: (Math.random() - .5) * .4, l: 150 }); }
+    if (!raf) { loop(); }
+  }
+  function loop() {
+    cx.clearRect(0, 0, 1920, 1080);
+    parts = parts.filter(function (p) { return p.l > 0 && p.y < 1150; });
+    parts.forEach(function (p) { p.vy += .6; p.vx *= .99; p.x += p.vx; p.y += p.vy; p.r += p.vr; p.l--; cx.save(); cx.translate(p.x, p.y); cx.rotate(p.r); cx.fillStyle = p.c; cx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); cx.restore(); });
+    raf = parts.length ? requestAnimationFrame(loop) : null;
+  }
+  function reset(s) { s.classList.remove('in'); s._k = 0; if (HOOK[s.id] && HOOK[s.id].reset) { HOOK[s.id].reset(s); } }
+  function play(s) { s.classList.add('in'); if (HOOK[s.id] && HOOK[s.id].play) { HOOK[s.id].play(s); } }
+  function go(n) {
+    n = Math.max(0, Math.min(slides.length - 1, n)); if (n === cur) { return; }
+    timers.forEach(clearTimeout); timers = [];
+    if (cur > -1) { slides[cur].classList.remove('on'); var old = slides[cur]; setTimeout(function () { if (!old.classList.contains('on')) { reset(old); } }, 700); }
+    cur = n; var s = slides[n]; reset(s); s.classList.add('on'); void s.offsetWidth; requestAnimationFrame(function () { play(s); });
+    $('prog').style.width = ((n + 1) / slides.length * 100) + '%';
+    var j = s.getAttribute('data-j'); journey(j == null ? -1 : +j);
+    var cz = s.getAttribute('data-cause'); causeBar(cz == null ? -1 : +cz, false);
+    $('score').classList.toggle('on', !!s.getAttribute('data-score') || s.id === 's-teams');
+    var night = !!s.getAttribute('data-night'); $('night').classList.toggle('on', night); $('bgl').style.opacity = night ? '0' : '1';
+    $('brand').style.opacity = (s.classList.contains('cover') || s.classList.contains('end') || s.classList.contains('sec') || night || j != null || $('score').classList.contains('on')) ? '0' : '1';
+    var b = document.querySelectorAll('.blob'); for (var i = 0; i < b.length; i++) { b[i].style.translate = (Math.sin(n * 1.7 + i) * 180) + 'px ' + (Math.cos(n * 1.3 + i) * 120) + 'px'; }
+    try { history.replaceState(null, '', '#' + (n + 1)); } catch (e) { /* */ }
+  }
+  function next() { var s = slides[cur], H = HOOK[s.id]; if (H && H.steps && (s._k || 0) < H.steps.length) { H.steps[s._k || 0](); s._k = (s._k || 0) + 1; return; } go(cur + 1); }
+  addEventListener('keydown', function (e) {
+    if (e.target && e.target.tagName === 'INPUT') { if (e.key === 'Escape') { e.target.blur(); } return; }
+    var k = e.key;
+    if (k === ' ' || k === 'ArrowRight' || k === 'ArrowDown' || k === 'PageDown' || k === 'Enter') { e.preventDefault(); next(); }
+    else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp' || k === 'Backspace') { e.preventDefault(); go(cur - 1); }
+    else if (k === 'Home') { go(0); } else if (k === 'End') { go(slides.length - 1); }
+    else if (k === 'f' || k === 'F' || k === 'ب') { if (!document.fullscreenElement) { document.documentElement.requestFullscreen().catch(function () {}); } else { document.exitFullscreen(); } }
+  });
+  addEventListener('click', function (e) { if (e.clientX < innerWidth * 0.2) { go(cur - 1); } else { next(); } });
+  addEventListener('contextmenu', function (e) { e.preventDefault(); go(cur - 1); });
+  var sx = null; addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
+  addEventListener('touchend', function (e) { if (sx == null) { return; } var dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 60) { e.preventDefault(); if (dx > 0) { next(); } else { go(cur - 1); } } });
+  var hp = $('help'); hp.classList.add('show'); setTimeout(function () { hp.classList.remove('show'); }, 4000);
+  var h = parseInt((location.hash || '').slice(1), 10); go(h > 0 ? h - 1 : 0);
+})();
+</script>
+</body>
+</html>
