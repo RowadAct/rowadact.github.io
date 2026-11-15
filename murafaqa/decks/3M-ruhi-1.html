@@ -62,7 +62,7 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
 /* بطاقة الآية (صورة من مصحف ورش) */
 .ayah{position:relative;align-self:center;background:#fff;border-radius:36px;padding:34px 56px;box-shadow:var(--shadow);border:1px solid var(--line);border-top:10px solid var(--green)}
 .ayah img{display:block;height:150px;width:auto}
-.ayah .src{position:absolute;bottom:-46px;left:50%;transform:translateX(-50%);font-size:24px;font-weight:700;color:var(--ink3);white-space:nowrap}
+.ayah .src{position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-size:22px;font-weight:700;color:var(--ink3);white-space:nowrap}
 .ayah .mk{position:absolute;top:34px;height:150px;border-radius:18px;background:linear-gradient(135deg,var(--orange),var(--yellow));display:flex;align-items:center;justify-content:center;color:#fff;font-size:76px;font-weight:900;transition:opacity .8s,transform .8s cubic-bezier(.34,1.56,.64,1);box-shadow:0 10px 24px rgba(235,102,8,.3)}
 .ayah.rev .mk{opacity:0;transform:scale(.6) rotate(-6deg)}
 .ayah.rev .hl{opacity:1}
@@ -79,7 +79,8 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
 .heart .core svg{width:100%;height:100%;filter:drop-shadow(0 24px 40px rgba(235,102,8,.35))}
 @keyframes beat{0%,100%{transform:scale(1)}12%{transform:scale(1.07)}24%{transform:scale(.98)}36%{transform:scale(1.04)}}
 /* السؤال */
-.ask{align-items:center;text-align:center;padding:110px 170px 140px}
+.ask{align-items:center;justify-content:center;text-align:center;padding:110px 170px 180px}
+.ayah:has(.src){padding-bottom:58px}
 .ask .q{font-size:68px;font-weight:900;line-height:1.5;color:var(--navy)}
 .ask .q .w{display:inline-block;opacity:0;transform:translateY(30px);filter:blur(8px);transition:all .6s cubic-bezier(.2,.7,.2,1)}
 .ask .q .w.on{opacity:1;transform:none;filter:none}
@@ -299,9 +300,7 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
   <!-- سؤال الافتتاح -->
   <section class="slide ask" id="s-ask">
     <div class="kicker rv" style="justify-content:center">سؤال للتفكير</div>
-    <div class="q" id="askq" style="margin-top:24px">لو خُيِّرتَ أن تترك كلَّ ما تملك… حتى ثيابك… مقابل شيء واحد، فما الذي يستحق ذلك؟</div>
-    <div class="cloud" id="cloud1"></div>
-    <form class="addq" data-cloud="cloud1" autocomplete="off"><input placeholder="اكتب إجابة تلميذ ثم Enter…" maxlength="40"><button type="submit"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></form>
+    <div class="q" id="askq" style="margin-top:34px;font-size:80px">لو خُيِّرتَ أن تترك كلَّ ما تملك… حتى ثيابك… مقابل شيء واحد، فما الذي يستحق ذلك؟</div>
   </section>
 
   <!-- فاصل القصة -->
@@ -360,8 +359,6 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
       <div class="card qq st"><i class="num">2</i>هل كان يملك ما تملكه أنت اليوم من متاع الدنيا لمّا أعلن إسلامه؟</div>
       <div class="card qq st"><i class="num">3</i>قارن جهادك وتضحياتك… بجهاده وتضحياته.</div>
     </div>
-    <div class="cloud" id="cloud2" style="min-height:160px"></div>
-    <form class="addq" data-cloud="cloud2" autocomplete="off" style="bottom:110px"><input placeholder="اكتب إجابة تلميذ ثم Enter…" maxlength="40"><button type="submit"><svg class="i" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></button></form>
   </section>
 
   <!-- إعلان العنوان -->
@@ -475,7 +472,7 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
   <div id="brand"><img src="../../assets/logo.png" alt=""><span>محبة الله لعبده</span></div>
   <div id="prog"></div>
 </div></div>
-<div id="help">التالي: مسافة / → / نقر · السابق: ← / نقر يسار الشاشة · F ملء الشاشة</div>
+<div id="help">التالي: مسافة / → / نقر · رجوع خطوة: ← / نقر يسار الشاشة · الشريحة السابقة: Shift+← · F ملء الشاشة</div>
 <script>
 (function () {
   var $ = function (id) { return document.getElementById(id); };
@@ -521,7 +518,7 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
   };
   function svg(k) { return '<svg class="i" viewBox="0 0 24 24">' + (IC[k] || '') + '</svg>'; }
   /* أبعاد صور الآيات (من مصحف ورش) ومواضع الكلمات المخفية */
-  var AY = {"ihsan": {"w": 765, "h": 132, "mask": [[13.73, 29.8]]}, "tawba": {"w": 999, "h": 132, "mask": [[56.06, 18.72], [9.51, 31.53]]}, "ittiba": {"w": 934, "h": 132, "mask": [[24.3, 24.63]]}, "sabr": {"w": 543, "h": 132, "mask": [[17.5, 41.07]]}, "tawakkul": {"w": 602, "h": 132, "mask": [[14.12, 38.7]]}, "maida": {"w": 710, "h": 132, "mask": []}, "saff1": {"w": 1284, "h": 132, "mask": [[43.22, 35.2]]}, "saff2": {"w": 465, "h": 132, "mask": []}, "nahl": {"w": 1113, "h": 132, "mask": []}};
+  var AY = {"ihsan": {"w": 765, "h": 132, "mask": [[13.73, 29.8]]}, "tawba": {"w": 999, "h": 132, "mask": [[56.06, 18.72], [9.51, 31.53]]}, "ittiba": {"w": 934, "h": 132, "mask": [[24.3, 24.63]]}, "sabr": {"w": 867, "h": 132, "mask": [[10.96, 25.72]]}, "tawakkul": {"w": 894, "h": 132, "mask": [[9.51, 26.06]]}, "maida": {"w": 710, "h": 132, "mask": []}, "saff1": {"w": 1284, "h": 132, "mask": [[43.22, 35.2]]}, "saff2": {"w": 465, "h": 132, "mask": []}, "nahl": {"w": 1113, "h": 132, "mask": []}};
   var CAUSES = [
     { a: 'ittiba', src: 'سورة آل عمران', n: 'اتّباع سنّة النبي ﷺ', d: 'الاقتداء به أخلاقًا وعملًا', ic: 'follow', c: '#127AD8' },
     { a: 'ihsan', src: 'سورة البقرة', n: 'الإحسان', d: 'إتقان العمل، برّ الوالدين، مساعدة المحتاجين', ic: 'star', c: '#00873B' },
@@ -570,7 +567,7 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
         : '<div class="ayah" id="ay' + i + '">' + ayahHTML(c.a, c.src, true) + '</div>';
       h += '<section class="slide sc" id="s-r' + i + '" data-score="1" data-cause="' + i + '" style="--c:' + c.c + '">' +
         '<div class="round"><div class="top"><div class="kicker rv">الآية ' + (i + 1) + ' من ' + CAUSES.length + ' · أكمل الكلمة المخفيّة</div>' +
-        '<div class="timer rv d1"><svg viewBox="0 0 150 150"><circle class="tb" cx="75" cy="75" r="62"/><circle class="fg" cx="75" cy="75" r="62" stroke-dasharray="390" stroke-dashoffset="0"/></svg><b class="num">20</b></div></div>' +
+        '<div class="timer rv d1"><svg viewBox="0 0 150 150"><circle class="tb" cx="75" cy="75" r="62"/><circle class="fg" cx="75" cy="75" r="62" stroke-dasharray="390" stroke-dashoffset="0"/></svg><b class="num">10</b></div></div>' +
         '<div class="rv d2">' + body + '</div>' +
         '<div class="cause"><div class="ic">' + svg(c.ic) + '</div><div><b>' + c.n + '</b><span>' + c.d + '</span></div></div></div></section>';
     });
@@ -621,17 +618,17 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
     W.forEach(function (w) { var d = 'M0 ' + w[1]; for (var x = 0; x <= 3840; x += 20) { d += ' L' + x + ' ' + (w[1] + w[2] * Math.sin(x / w[3] * Math.PI * 2 + w[4])).toFixed(1); } h += '<path stroke="' + w[0] + '" opacity="' + w[5] + '" d="' + d + '"/>'; });
     $('wv').innerHTML = h;
   })();
-  var AC = null;
-  function tone(f, t0, d, type, vol) { try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); var o = AC.createOscillator(), g = AC.createGain(), t = AC.currentTime + t0; o.type = type || 'sine'; o.frequency.value = f; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol || .15, t + .01); g.gain.exponentialRampToValueAtTime(.0001, t + d); o.connect(g); g.connect(AC.destination); o.start(t); o.stop(t + d + .05); } catch (e) { /* */ } }
+  var AC = null, REPLAY = false;
+  function tone(f, t0, d, type, vol) { if (REPLAY) { return; } try { AC = AC || new (window.AudioContext || window.webkitAudioContext)(); var o = AC.createOscillator(), g = AC.createGain(), t = AC.currentTime + t0; o.type = type || 'sine'; o.frequency.value = f; g.gain.setValueAtTime(0, t); g.gain.linearRampToValueAtTime(vol || .15, t + .01); g.gain.exponentialRampToValueAtTime(.0001, t + d); o.connect(g); g.connect(AC.destination); o.start(t); o.stop(t + d + .05); } catch (e) { /* */ } }
   function ding() { [784, 988, 1319].forEach(function (f, i) { tone(f, i * .09, .35, 'triangle', .12); }); }
   function soft() { tone(660, 0, .25, 'sine', .07); }
   function tick(last) { tone(last ? 1200 : 900, 0, .05, 'square', last ? .08 : .04); }
   function mkTimer(el, secs) {
     var fg = el.querySelector('.fg'), num = el.querySelector('b'), len = parseFloat(fg.getAttribute('stroke-dasharray')), tk = null, t = secs;
-    function show() { num.textContent = t; fg.style.strokeDashoffset = len * (1 - t / secs); el.classList.toggle('end', t <= 5 && t > 0 && !!tk); }
+    function show() { num.textContent = t; fg.style.strokeDashoffset = len * (1 - t / secs); el.classList.toggle('end', t <= 3 && t > 0 && !!tk); }
     return {
       reset: function () { if (tk) { clearInterval(tk); tk = null; } t = secs; el.classList.remove('on', 'end'); fg.style.transition = 'none'; show(); void fg.offsetWidth; fg.style.transition = 'stroke-dashoffset 1s linear'; },
-      start: function () { if (tk) { return; } el.classList.add('on'); tk = setInterval(function () { t--; show(); if (t <= 5 && t > 0) { tick(true); } if (t <= 0) { clearInterval(tk); tk = null; el.classList.remove('end'); ding(); } }, 1000); },
+      start: function () { if (tk) { return; } el.classList.add('on'); tk = setInterval(function () { t--; show(); if (t <= 3 && t > 0) { tick(true); } if (t <= 0) { clearInterval(tk); tk = null; el.classList.remove('end'); ding(); } }, 1000); },
       stop: function () { if (tk) { clearInterval(tk); tk = null; } }
     };
   }
@@ -674,10 +671,10 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
   });
   /* الجولات */
   CAUSES.forEach(function (c, i) {
-    var sl = $('s-r' + i), tm = mkTimer(sl.querySelector('.timer'), 20), ay = $('ay' + i), cz = sl.querySelector('.cause');
+    var sl = $('s-r' + i), tm = mkTimer(sl.querySelector('.timer'), 10), ay = $('ay' + i), cz = sl.querySelector('.cause');
     function reveal() { tm.stop(); ay.classList.add('rev'); cz.classList.add('on'); causeBar(i, true); ding(); }
     each(sl.querySelectorAll('.mk'), function (m) { m.addEventListener('click', function (e) { e.stopPropagation(); if (!ay.classList.contains('rev')) { sl._k = 2; reveal(); } }); });
-    HOOK['s-r' + i] = { reset: function () { tm.reset(); ay.classList.remove('rev'); cz.classList.remove('on'); }, steps: [function () { tm.start(); }, reveal] };
+    HOOK['s-r' + i] = { reset: function () { tm.reset(); ay.classList.remove('rev'); cz.classList.remove('on'); causeBar(i, false); }, steps: [function () { if (!REPLAY) { tm.start(); } }, reveal] };
   });
   HOOK['s-podium'] = {
     reset: function () { $('podium').innerHTML = ''; },
@@ -700,6 +697,7 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
 
   var cv = $('conf'), cx = cv.getContext('2d'), parts = [], raf = null; cv.width = 1920; cv.height = 1080;
   function burst() {
+    if (REPLAY) { return; }
     var C = ['#EB6608', '#F5AC00', '#00873B', '#127AD8', '#36D4FF', '#7A4FB5'];
     for (var i = 0; i < 150; i++) { parts.push({ x: 960 + (Math.random() - .5) * 600, y: 380, vx: (Math.random() - .5) * 26, vy: -Math.random() * 24 - 6, s: 8 + Math.random() * 10, c: C[i % C.length], r: Math.random() * 6, vr: (Math.random() - .5) * .4, l: 150 }); }
     if (!raf) { loop(); }
@@ -727,18 +725,27 @@ h1.t span,.grad{padding:.06em 0 .22em;-webkit-box-decoration-break:clone;backgro
     try { history.replaceState(null, '', '#' + (n + 1)); } catch (e) { /* */ }
   }
   function next() { var s = slides[cur], H = HOOK[s.id]; if (H && H.steps && (s._k || 0) < H.steps.length) { H.steps[s._k || 0](); s._k = (s._k || 0) + 1; return; } go(cur + 1); }
+  /* رجوع خطوة واحدة داخل الشريحة، وإن لم تبق خطوات فالشريحة السابقة */
+  function prev() {
+    var s = slides[cur], H = HOOK[s.id], k = s._k || 0;
+    if (!(H && H.steps && k > 0)) { go(cur - 1); return; }
+    timers.forEach(clearTimeout); timers = [];
+    reset(s); s.classList.add('in');
+    REPLAY = true; for (var i = 0; i < k - 1; i++) { H.steps[i](); } REPLAY = false;
+    s._k = k - 1;
+  }
   addEventListener('keydown', function (e) {
     if (e.target && e.target.tagName === 'INPUT') { if (e.key === 'Escape') { e.target.blur(); } return; }
     var k = e.key;
     if (k === ' ' || k === 'ArrowRight' || k === 'ArrowDown' || k === 'PageDown' || k === 'Enter') { e.preventDefault(); next(); }
-    else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp' || k === 'Backspace') { e.preventDefault(); go(cur - 1); }
+    else if (k === 'ArrowLeft' || k === 'ArrowUp' || k === 'PageUp' || k === 'Backspace') { e.preventDefault(); if (e.shiftKey || k === 'PageUp') { go(cur - 1); } else { prev(); } }
     else if (k === 'Home') { go(0); } else if (k === 'End') { go(slides.length - 1); }
     else if (k === 'f' || k === 'F' || k === 'ب') { if (!document.fullscreenElement) { document.documentElement.requestFullscreen().catch(function () {}); } else { document.exitFullscreen(); } }
   });
-  addEventListener('click', function (e) { if (e.clientX < innerWidth * 0.2) { go(cur - 1); } else { next(); } });
-  addEventListener('contextmenu', function (e) { e.preventDefault(); go(cur - 1); });
+  addEventListener('click', function (e) { if (e.clientX < innerWidth * 0.2) { prev(); } else { next(); } });
+  addEventListener('contextmenu', function (e) { e.preventDefault(); prev(); });
   var sx = null; addEventListener('touchstart', function (e) { sx = e.touches[0].clientX; }, { passive: true });
-  addEventListener('touchend', function (e) { if (sx == null) { return; } var dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 60) { e.preventDefault(); if (dx > 0) { next(); } else { go(cur - 1); } } });
+  addEventListener('touchend', function (e) { if (sx == null) { return; } var dx = e.changedTouches[0].clientX - sx; sx = null; if (Math.abs(dx) > 60) { e.preventDefault(); if (dx > 0) { next(); } else { prev(); } } });
   var hp = $('help'); hp.classList.add('show'); setTimeout(function () { hp.classList.remove('show'); }, 4000);
   var h = parseInt((location.hash || '').slice(1), 10); go(h > 0 ? h - 1 : 0);
 })();
