@@ -83,6 +83,26 @@
     if(d.rm==='env?'){try{e.source.postMessage({rm:'env',can:!!evt,standalone:!!standalone,ios:ios},'*');}catch(x){}}
     if(d.rm==='install'){if(evt){var src=e.source;evt.prompt();evt.userChoice.then(function(c){ins.classList.remove('on');evt=null;try{src.postMessage({rm:'installed',ok:c&&c.outcome==='accepted'},'*');}catch(x){}});}}
   });
+  // 17 نوفمبر: الإشعارات (Firebase). تُحمَّل مكتبتها عند الطلب فقط حتى لا يبطؤ الفتح.
+  var FB={apiKey:'AIzaSyCgTIC60J0y-Hmyw0tn-bDIokDO75QN5wI',authDomain:'rowad-murafaqa.firebaseapp.com',projectId:'rowad-murafaqa',messagingSenderId:'936010177958',appId:'1:936010177958:web:96074957d7d4c01b590367'},VAPID='BD0OO89kwKk8cdNWRUhPyjGvPkErOsY5x40VTmSdqcI_wmSgIckO2DWsat8iztyws-JWXffNfEGQN5QMFvAv0Nc';
+  var FBV='10.12.2',fbP=null;
+  function js(u){return new Promise(function(ok,no){var x=document.createElement('script');x.src=u;x.onload=ok;x.onerror=no;document.head.appendChild(x);});}
+  function fb(){if(!fbP){fbP=js('https://www.gstatic.com/firebasejs/'+FBV+'/firebase-app-compat.js').then(function(){return js('https://www.gstatic.com/firebasejs/'+FBV+'/firebase-messaging-compat.js');}).then(function(){if(!firebase.apps.length){firebase.initializeApp(FB);}return firebase.messaging();});}return fbP;}
+  function pushSt(){
+    if(!FB.apiKey||!VAPID){return 'nocfg';}
+    if(!('Notification' in window)||!('serviceWorker' in navigator)){return ios&&!standalone?'needinstall':'unsupported';}
+    return Notification.permission;
+  }
+  function pushTok(src){
+    fb().then(function(m){return navigator.serviceWorker.ready.then(function(reg){return m.getToken({vapidKey:VAPID,serviceWorkerRegistration:reg});});})
+      .then(function(t){try{src.postMessage({rm:'push',st:'granted',token:t||''},'*');}catch(x){}})
+      .catch(function(err){try{src.postMessage({rm:'push',st:'error',err:String(err&&err.message||err)},'*');}catch(x){}});
+  }
+  window.addEventListener('message',function(e){var d=e.data||{},src=e.source;
+    if(d.rm==='push?'){var st=pushSt();if(st==='granted'){pushTok(src);}else{try{src.postMessage({rm:'push',st:st,ios:ios,standalone:!!standalone},'*');}catch(x){}}}
+    if(d.rm==='pushOn'){var s0=pushSt();if(s0==='granted'){pushTok(src);return;}if(s0!=='default'){try{src.postMessage({rm:'push',st:s0,ios:ios,standalone:!!standalone},'*');}catch(x){}return;}
+      Notification.requestPermission().then(function(p){if(p==='granted'){pushTok(src);}else{try{src.postMessage({rm:'push',st:p},'*');}catch(x){}}});}
+  });
   if(ios&&!standalone&&!snoozed()){document.getElementById('insT').innerHTML='اضغط زر المشاركة <b style="display:inline">⎋</b> ثم «إضافة إلى الشاشة الرئيسية».';document.getElementById('insB').textContent='فهمت';setTimeout(function(){ins.classList.add('on');},4000);}
 })();
 </script>
