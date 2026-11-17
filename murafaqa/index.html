@@ -93,8 +93,12 @@
     if(!('Notification' in window)||!('serviceWorker' in navigator)){return ios&&!standalone?'needinstall':'unsupported';}
     return Notification.permission;
   }
+  // والتطبيق مفتوح أمامك لا يعرض Firebase الإشعار تلقائيًا، فنعرضه نحن.
+  var fgOn=false;
+  function fg(m){if(fgOn){return;}fgOn=true;m.onMessage(function(p){var n=p.notification||{},d=p.data||{};
+    navigator.serviceWorker.ready.then(function(reg){reg.showNotification(n.title||d.title||'رواد المرافقة',{body:n.body||d.body||'',icon:'/murafaqa/icon-192.png',badge:'/murafaqa/icon-192.png',dir:'rtl',lang:'ar',tag:d.kind||'rm',renotify:true,data:{link:d.link||'/murafaqa/'}});});});}
   function pushTok(src){
-    fb().then(function(m){return navigator.serviceWorker.ready.then(function(reg){return m.getToken({vapidKey:VAPID,serviceWorkerRegistration:reg});});})
+    fb().then(function(m){fg(m);return navigator.serviceWorker.ready.then(function(reg){return m.getToken({vapidKey:VAPID,serviceWorkerRegistration:reg});});})
       .then(function(t){try{src.postMessage({rm:'push',st:'granted',token:t||''},'*');}catch(x){}})
       .catch(function(err){try{src.postMessage({rm:'push',st:'error',err:String(err&&err.message||err)},'*');}catch(x){}});
   }
